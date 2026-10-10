@@ -1,0 +1,158 @@
+import { useEffect, useMemo, useState } from "react";
+import { api } from "../api/client";
+import type { Recipe, SeedPrompt } from "../api/types";
+import ErrorBanner from "../components/ErrorBanner";
+import { useApiError } from "../hooks/useApiError";
+
+type Tab = "prompts" | "recipes";
+
+// AudioMuse's chatPlaylist response shape isn't fully confirmed against its
+// live /apidocs/ - this reads a few likely id/title/artist field names
+// defensively rather than assuming one exact schema.
+interface Song {
+  [key: string]: unknown;
+}
+
+function songId(s: Song): string | undefined {
+  const v = s.item_id ?? s.id ?? s.song_id ?? s.ItemId;
+  return v === undefined ? undefined : String(v);
+}
+function songLabel(s: Song): string {
+  const title = s.title ?? s.Title ?? s.name ?? "Untitled";
+  const artist = s.artist ?? s.Artist ?? "";
+  return artist ? `${title} — ${artist}` : String(title);
+}
+
+export default function PromptsLibraryPage() {
+  const { error, run } = useApiError();
+  const [tab, setTab] = useState<Tab>("prompts");
+  const [prompts, setPrompts] = useState<SeedPrompt[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [query, setQuery] = useState("");
+  const [active, setActive] = useState<{ name: string; prompt: string } | null>(null);
+  const [songs, setSongs] = useState<Song[] | null>(null);
+  const [playlistName, setPlaylistName] = useState("");
+  const [running, setRunning] = useState(false);
+  const [created, setCreated] = useState<string | null>(null);
+
+  useEffect(() => {
+    run(() => api.get<SeedPrompt[]>("/api/prompts/seedprompts")).then((r) => r && setPrompts(r));
+    run(() => api.get<Recipe[]>("/api/prompts/recipes")).then((r) => r && setRecipes(r));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const items = tab === "prompts" ? prompts : recipes;
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return items;
+    return items.filter((i) => i.name.toLowerCase().includes(q) || i.prompt.toLowerCase().includes(q));
+  }, [items, query]);
+
+  const copy = (text: string) => navigator.clipboard.writeText(text);
+
+  const openRunner = (item: { name: string; prompt: string }) => {
+    setActive(item);
+    setSongs(null);
+    setCreated(null);
+    setPlaylistName(`Occasions/${item.name}`);
+  };
+
+  const runInAudioMuse = () => {
+    if (!active) return;
+    setRunning(true);
+    run(() => api.post<{ songs?: Song[] }>("/api/prompts/run", { prompt: active.prompt }))
+      .then((r) => r && setSongs(r.songs ?? []))
+      .finally(() => setRunning(false));
+  };
+
+  const createPlaylist = () => {
+    if (!songs || !playlistName) return;
+    const ids = songs.map(songId).filter((x): x is string => !!x);
+    run(() => api.post("/api/prompts/create-playlist", { playlist_name: playlistName, item_ids: ids })).then(
+      () => setCreated(playlistName),
+    );
+  };
+
+  return (
+    <div>
+      <h2>Prompts library</h2>
+      <ErrorBanner message={error} />
+
+      <div className="row">
+        <button className={tab === "prompts" ? "primary" : ""} onClick={() => setTab("prompts")}>
+          Apple playlist prompts
+        </button>
+        <button className={tab === "recipes" ? "primary" : ""} onClick={() => setTab("recipes")}>
+          Playlist recipes
+        </button>
+        <input
+          type="text"
+          placeholder="Search…"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          style={{ marginLeft: "auto", minWidth: 220 }}
+        />
+      </div>
+
+      <div className="panel">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Prompt</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.slice(0, 200).map((item) => (
+              <tr key={item.name}>
+                <td>{item.name}</td>
+                <td className="muted" style={{ maxWidth: 480 }}>
+                  {item.prompt}
+                </td>
+                <td style={{ whiteSpace: "nowrap" }}>
+                  <button onClick={() => copy(item.prompt)}>Copy</button>{" "}
+                  <button onClick={() => openRunner(item)}>Run in AudioMuse</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        {filtered.length > 200 && <p className="muted">Showing first 200 of {filtered.length} matches.</p>}
+      </div>
+
+      {active && (
+        <div className="panel">
+          <h3 style={{ marginTop: 0 }}>{active.name}</h3>
+          <p className="muted">{active.prompt}</p>
+          <div className="row">
+            <button disabled={running} onClick={runInAudioMuse}>
+              {running ? "Running…" : "Run in AudioMuse"}
+            </button>
+            <button onClick={() => setActive(null)}>Close</button>
+          </div>
+          {songs && (
+            <>
+              <p>{songs.length} songs returned.</p>
+              <ul>
+                {songs.slice(0, 50).map((s, i) => (
+                  <li key={songId(s) ?? i}>{songLabel(s)}</li>
+                ))}
+              </ul>
+              <div className="row">
+                <label style={{ flex: 1 }}>
+                  Playlist name
+                  <input type="text" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                </label>
+                <button className="primary" onClick={createPlaylist}>
+                  Create playlist
+                </button>
+              </div>
+              {created && <p className="chip good">Created "{created}"</p>}
+            </>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

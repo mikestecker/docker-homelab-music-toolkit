@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Node / frontend build output
+node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Local runtime state (quarantine manifest, tag cache, settings, run history)
+config/
+
+# Personal data - never commit a real library export
+source-data/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# OS / editor
+.DS_Store
+*.swp
+/audiomuse-toolkit-starter

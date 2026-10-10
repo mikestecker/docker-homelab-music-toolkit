@@ -1,0 +1,51 @@
+# playlist-folders.txt: where each playlist lives. Used by rename-playlists.py.
+#
+#   Old name => Folder/Subfolder/New name
+#   prefix: Old prefix => New/prefix/        (applies to every playlist starting with it)
+#
+# Names match exactly, ignoring case. A rule for a playlist you don't have is ignored.
+# Two levels deep at most: Feishin's folder view groups by the part before each "/".
+# Run "sudo python3 rename-playlists.py --list" to see every current name.
+
+# --- Smart playlists (.nsp files) --------------------------------------------
+Recently Added => Smart/Recently Added
+Recently Played => Smart/Recently Played
+Top 25 Most Played => Smart/Top 25 Most Played
+Favorites => Smart/Favorites
+Forgotten Favorites => Smart/Forgotten Favorites
+90s Music => Smart/90s Music
+Christmas Songs => Smart/Christmas Songs
+dc Talk => Smart/Artists/dc Talk
+Jars of Clay => Smart/Artists/Jars of Clay
+Jon Foreman => Smart/Artists/Jon Foreman
+Blindside => Smart/Artists/Blindside
+Muse => Smart/Artists/Muse
+Mute Math => Smart/Artists/Mute Math
+MxPx => Smart/Artists/MxPx
+NEEDTOBREATHE => Smart/Artists/NEEDTOBREATHE
+P.O.D. => Smart/Artists/P.O.D.
+Project 86 => Smart/Artists/Project 86
+Radiohead => Smart/Artists/Radiohead
+Skillet => Smart/Artists/Skillet
+Smashing Pumpkins => Smart/Artists/Smashing Pumpkins
+The Beatles => Smart/Artists/The Beatles
+Thrice => Smart/Artists/Thrice
+U2 => Smart/Artists/U2
+
+# --- AudioMuse's fixed playlists ---------------------------------------------
+# Also change these names in AudioMuse (Setup Wizard) so it keeps updating the same playlist.
+🤖 Sonic Fingerprint => AudioMuse/Sonic Fingerprint
+🤖 Album of the Week => AudioMuse/Album of the Week
+
+# --- Your saved runs and keepers (examples; edit to match your real names) --------
+# Pool Day => Occasions/Summer/Pool Day
+# Classic Rock BBQ => Occasions/Parties/Classic Rock BBQ
+# Christian Hip-Hop Workout => Occasions/Workouts/Christian Hip-Hop Workout
+# Pickleball => Occasions/Workouts/Pickleball
+# Sunday Morning Worship => Faith/Worship/Sunday Morning Worship
+# Modern Hymns => Faith/Hymns/Modern Hymns
+# Youth Group Throwback => Faith/Christian Rock/Youth Group Throwback
+# Country Bedroom Slow Jams => Moods/Date Night/Country Bedroom Slow Jams
+# 90s Alt Throwback => Eras/90s/90s Alt Throwback
+# Classic Christmas => Seasonal/Christmas/Classic Christmas
+# Office Party 2025 => Curated/Events/Office Party 2025

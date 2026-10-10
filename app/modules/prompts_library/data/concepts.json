@@ -1,0 +1,4232 @@
+{
+ "Country Pool Day": {
+  "playlists": [
+   "Pool Tunes",
+   "Summer Country ☀️🏝️",
+   "Poolside Country🏖",
+   "Country Summer Pool Party ‘24",
+   "ultimate summer country tanning playlist",
+   "summertime pool tunes ☀️",
+   "Lake House",
+   "The Sand Bar",
+   "Boat Day"
+  ],
+  "n_songs": 3892,
+  "top_artists": [
+   "Luke Combs",
+   "Kenny Chesney",
+   "Morgan Wallen",
+   "Zac Brown Band",
+   "Thomas Rhett",
+   "Luke Bryan",
+   "Florida Georgia Line",
+   "Jason Aldean",
+   "Old Dominion",
+   "Brad Paisley"
+  ],
+  "era": [
+   1994,
+   2015,
+   2023
+  ],
+  "seeds": [
+   [
+    "American Kids",
+    "Kenny Chesney",
+    9,
+    19
+   ],
+   [
+    "Chicken Fried",
+    "Zac Brown Band",
+    8,
+    28
+   ],
+   [
+    "One Margarita",
+    "Luke Bryan",
+    7,
+    15
+   ],
+   [
+    "Barefoot Blue Jean Night",
+    "Jake Owen",
+    7,
+    14
+   ],
+   [
+    "When It Rains It Pours",
+    "Luke Combs",
+    7,
+    14
+   ],
+   [
+    "You Proof",
+    "Morgan Wallen",
+    7,
+    13
+   ]
+  ]
+ },
+ "Trop Rock Happy Hour": {
+  "playlists": [
+   "5 O Clock Somewhere",
+   "It's 5 O'Clock Somewhere",
+   "Pool Party Classics (old toppies)",
+   "Backyard fun pool music",
+   "beach vacation🐚🌴⛵️🐠☀️",
+   "Honeymoon Beach ☀️🌴",
+   "Toes in the Sand",
+   "Boat Cruise Mix"
+  ],
+  "n_songs": 679,
+  "top_artists": [
+   "Zac Brown Band",
+   "Jimmy Buffett",
+   "Kenny Chesney",
+   "Bob Marley & The Wailers",
+   "Alan Jackson",
+   "Jack Johnson",
+   "Jesse Rice",
+   "The Beach Boys",
+   "Uncle Kracker",
+   "Luke Bryan"
+  ],
+  "era": [
+   1975,
+   2002,
+   2016
+  ],
+  "seeds": [
+   [
+    "Toes",
+    "Zac Brown Band",
+    6,
+    21
+   ],
+   [
+    "Margaritaville",
+    "Jimmy Buffett",
+    5,
+    20
+   ],
+   [
+    "Beer In Mexico",
+    "Kenny Chesney",
+    5,
+    14
+   ],
+   [
+    "Heaven",
+    "Los Lonely Boys",
+    5,
+    7
+   ],
+   [
+    "Island In the Sun",
+    "Weezer",
+    4,
+    19
+   ],
+   [
+    "Free Fallin'",
+    "Tom Petty",
+    4,
+    16
+   ]
+  ]
+ },
+ "90s-2000s Pool Throwback": {
+  "playlists": [
+   "1990's-2000's Pool Songs 🌴💧",
+   "90’s Summer Pool Jams",
+   "Past Summer Nights",
+   "Wake Board"
+  ],
+  "n_songs": 276,
+  "top_artists": [
+   "Third Eye Blind",
+   "Sublime",
+   "Matchbox Twenty",
+   "Sugar Ray",
+   "Red Hot Chili Peppers",
+   "Cage the Elephant",
+   "Green Day",
+   "Weezer",
+   "The Goo Goo Dolls",
+   "Barenaked Ladies"
+  ],
+  "era": [
+   1993,
+   1998,
+   2015
+  ],
+  "seeds": [
+   [
+    "What I Got",
+    "Sublime",
+    3,
+    17
+   ],
+   [
+    "Mr. Jones",
+    "Counting Crows",
+    2,
+    21
+   ],
+   [
+    "Semi-Charmed Life",
+    "Third Eye Blind",
+    2,
+    20
+   ],
+   [
+    "Bitter Sweet Symphony",
+    "The Verve",
+    2,
+    18
+   ],
+   [
+    "Buddy Holly",
+    "Weezer",
+    2,
+    16
+   ],
+   [
+    "Fly",
+    "Sugar Ray",
+    2,
+    14
+   ]
+  ]
+ },
+ "Pop Pool Party": {
+  "playlists": [
+   "summer pool party 25’🏄🏽‍♂️",
+   "Pool upbeat",
+   "Party Starters",
+   "Resort Pool Vibes",
+   "Carnival cruise"
+  ],
+  "n_songs": 1915,
+  "top_artists": [
+   "Black Eyed Peas",
+   "Rihanna",
+   "Calvin Harris",
+   "Katy Perry",
+   "The Weeknd",
+   "Justin Bieber",
+   "Flo Rida",
+   "Pitbull",
+   "Inna",
+   "David Guetta"
+  ],
+  "era": [
+   1991,
+   2012,
+   2021
+  ],
+  "seeds": [
+   [
+    "Uptown Funk (feat. Bruno Mars)",
+    "Mark Ronson",
+    4,
+    14
+   ],
+   [
+    "Feel It Still",
+    "Portugal. The Man",
+    4,
+    12
+   ],
+   [
+    "Shake It Off",
+    "Taylor Swift",
+    4,
+    10
+   ],
+   [
+    "Hey Ya!",
+    "Outkast",
+    4,
+    9
+   ],
+   [
+    "I Gotta Feeling",
+    "Black Eyed Peas",
+    4,
+    9
+   ],
+   [
+    "Low (feat. T-Pain)",
+    "Flo Rida",
+    4,
+    9
+   ]
+  ]
+ },
+ "Reggae Island Vibes": {
+  "playlists": [
+   "Island Vibes 2025🌴🌺",
+   "cruise ship vibes",
+   "Royal Caribbean"
+  ],
+  "n_songs": 482,
+  "top_artists": [
+   "Jimmy Buffett",
+   "Bob Marley & The Wailers",
+   "Likkle Jordee",
+   "Surfaces",
+   "KC and the Sunshine Band",
+   "alt-J",
+   "Pana",
+   "Mike Stack",
+   "Kenny Chesney",
+   "Bee Gees"
+  ],
+  "era": [
+   1977,
+   2014,
+   2022
+  ],
+  "seeds": [
+   [
+    "Margaritaville",
+    "Jimmy Buffett",
+    2,
+    20
+   ],
+   [
+    "Could You Be Loved",
+    "Bob Marley & The Wailers",
+    2,
+    17
+   ],
+   [
+    "Kokomo",
+    "The Beach Boys",
+    2,
+    11
+   ],
+   [
+    "September",
+    "Earth, Wind & Fire",
+    2,
+    9
+   ],
+   [
+    "Everybody Wants to Rule the World",
+    "Tears for Fears",
+    2,
+    8
+   ],
+   [
+    "Stayin' Alive",
+    "Bee Gees",
+    2,
+    4
+   ]
+  ]
+ },
+ "Christian Summer Vibes": {
+  "playlists": [
+   "Christian Summer Vibes",
+   "summer halleluYah grooves 🙌🏻",
+   "Christian Summer Hits 2026 | Trending Christian Songs"
+  ],
+  "n_songs": 267,
+  "top_artists": [
+   "Forrest Frank",
+   "GAWVI",
+   "Jervis Campbell",
+   "Citizens",
+   "Chris Howland",
+   "Jonathan Ogden",
+   "Phil J.",
+   "Social Club Misfits",
+   "ELI GABLE",
+   "Josiah Queen"
+  ],
+  "era": [
+   2017,
+   2022,
+   2026
+  ],
+  "seeds": [
+   [
+    "GOOD DAY",
+    "Forrest Frank",
+    2,
+    15
+   ],
+   [
+    "Honey From the Rock",
+    "Kelsey Breedlove",
+    2,
+    9
+   ],
+   [
+    "Before the Throne",
+    "The Modern Post",
+    1,
+    12
+   ],
+   [
+    "Can't Steal My Joy (feat. Brandon Lake)",
+    "Josiah Queen",
+    1,
+    12
+   ],
+   [
+    "Best Friends (Studio Version)",
+    "Hillsong Young & Free & Aodhán King",
+    1,
+    9
+   ],
+   [
+    "Garden",
+    "Jervis Campbell",
+    1,
+    8
+   ]
+  ]
+ },
+ "Classic Rock BBQ": {
+  "playlists": [
+   "Classic Rock BBQ",
+   "Glory Days! A BBQ playlist",
+   "Backyard BBQ",
+   "Rock 'n' Roll BBQ",
+   "Summertime Sounds",
+   "Summer"
+  ],
+  "n_songs": 171,
+  "top_artists": [
+   "Tom Petty & The Heartbreakers",
+   "The Rolling Stones",
+   "Led Zeppelin",
+   "Creedence Clearwater Revival",
+   "Jimmy Buffett",
+   "The Allman Brothers Band",
+   "Lynyrd Skynyrd",
+   "The Eagles",
+   "Fleetwood Mac",
+   "The Who"
+  ],
+  "era": [
+   1970,
+   1978,
+   2006
+  ],
+  "seeds": [
+   [
+    "American Girl",
+    "Tom Petty & The Heartbreakers",
+    4,
+    21
+   ],
+   [
+    "The Joker",
+    "Steve Miller Band",
+    2,
+    14
+   ],
+   [
+    "Summer of '69",
+    "Bryan Adams",
+    2,
+    11
+   ],
+   [
+    "Ramblin' Man",
+    "The Allman Brothers Band",
+    2,
+    10
+   ],
+   [
+    "Surrender",
+    "Cheap Trick",
+    2,
+    8
+   ],
+   [
+    "Ventura Highway",
+    "America",
+    2,
+    8
+   ]
+  ]
+ },
+ "Alt Rock BBQ": {
+  "playlists": [
+   "BBQ Bangers: Alt-Rock Gems",
+   "Bring the Big Rock",
+   "Welcome Back!"
+  ],
+  "n_songs": 59,
+  "top_artists": [
+   "Foo Fighters",
+   "Weezer",
+   "Jet",
+   "The Vines",
+   "Blur",
+   "Franz Ferdinand",
+   "The Verve",
+   "Queens of the Stone Age",
+   "Bluejuice",
+   "blink-182"
+  ],
+  "era": [
+   1997,
+   2014,
+   2015
+  ],
+  "seeds": [
+   [
+    "Mr. Brightside",
+    "The Killers",
+    1,
+    24
+   ],
+   [
+    "Bitter Sweet Symphony",
+    "The Verve",
+    1,
+    18
+   ],
+   [
+    "Monkey Wrench",
+    "Foo Fighters",
+    1,
+    18
+   ],
+   [
+    "Buddy Holly",
+    "Weezer",
+    1,
+    16
+   ],
+   [
+    "Float On",
+    "Modest Mouse",
+    1,
+    16
+   ],
+   [
+    "Song 2 (2012 Remaster)",
+    "Blur",
+    1,
+    15
+   ]
+  ]
+ },
+ "Country Front Yard Hang": {
+  "playlists": [
+   "Back Porch Country",
+   "Country USA",
+   "Game Night Mix",
+   "Country Bangers Only 🤘🏻"
+  ],
+  "n_songs": 1020,
+  "top_artists": [
+   "Morgan Wallen",
+   "Luke Combs",
+   "Jason Aldean",
+   "Luke Bryan",
+   "Eric Church",
+   "Chris Stapleton",
+   "Florida Georgia Line",
+   "Alan Jackson",
+   "George Strait",
+   "Gavin Adcock"
+  ],
+  "era": [
+   1992,
+   2018,
+   2025
+  ],
+  "seeds": [
+   [
+    "Buy Dirt (feat. Luke Bryan)",
+    "Jordan Davis",
+    4,
+    13
+   ],
+   [
+    "Fly Over States",
+    "Jason Aldean",
+    4,
+    11
+   ],
+   [
+    "Chicken Fried",
+    "Zac Brown Band",
+    3,
+    28
+   ],
+   [
+    "God's Country",
+    "Blake Shelton",
+    3,
+    15
+   ],
+   [
+    "One Big Country Song",
+    "LOCASH",
+    3,
+    13
+   ],
+   [
+    "Wagon Wheel",
+    "Darius Rucker",
+    2,
+    18
+   ]
+  ]
+ },
+ "Country Tailgate": {
+  "playlists": [
+   "Dirt Road presents: Midnight Tailgate",
+   "The Dirt Road",
+   "Country Bangers Only 🤘🏻"
+  ],
+  "n_songs": 324,
+  "top_artists": [
+   "Morgan Wallen",
+   "Luke Combs",
+   "Florida Georgia Line",
+   "Jason Aldean",
+   "JD & The Straight Chasers",
+   "Luke Bryan",
+   "Blake Shelton",
+   "Dustin Lynch",
+   "LOCASH",
+   "Jon Pardi"
+  ],
+  "era": [
+   2012,
+   2018,
+   2023
+  ],
+  "seeds": [
+   [
+    "Hurricane",
+    "Luke Combs",
+    2,
+    11
+   ],
+   [
+    "Peter Pan",
+    "Kelsea Ballerini",
+    2,
+    5
+   ],
+   [
+    "Outskirts of Heaven",
+    "Craig Campbell",
+    2,
+    4
+   ],
+   [
+    "Jesus and Jones",
+    "Trace Adkins",
+    2,
+    3
+   ],
+   [
+    "Wasn't That Drunk (feat. Carly Pearce)",
+    "Josh Abbott Band",
+    2,
+    3
+   ],
+   [
+    "That Look",
+    "Aaron Watson",
+    2,
+    3
+   ]
+  ]
+ },
+ "Dinner Party Mix": {
+  "playlists": [
+   "dinner party",
+   "Dinner Party",
+   "Millenial Dinner Party",
+   "Sweet and Stylish Dinner Music"
+  ],
+  "n_songs": 294,
+  "top_artists": [
+   "Queen",
+   "Taylor Swift",
+   "Daryl Hall & John Oates",
+   "Flo Rida",
+   "Sublime",
+   "Harry Styles",
+   "The Beatles",
+   "Sam Cooke",
+   "Stevie Wonder",
+   "KC and the Sunshine Band"
+  ],
+  "era": [
+   1968,
+   2006,
+   2020
+  ],
+  "seeds": [
+   [
+    "Santeria",
+    "Sublime",
+    2,
+    20
+   ],
+   [
+    "Could You Be Loved",
+    "Bob Marley & The Wailers",
+    2,
+    17
+   ],
+   [
+    "You Make My Dreams (Come True)",
+    "Daryl Hall & John Oates",
+    2,
+    10
+   ],
+   [
+    "CAN'T STOP THE FEELING!",
+    "Justin Timberlake",
+    2,
+    8
+   ],
+   [
+    "I Like It",
+    "Cardi B, Bad Bunny & J Balvin",
+    2,
+    5
+   ],
+   [
+    "Boogie Shoes",
+    "KC and the Sunshine Band",
+    2,
+    4
+   ]
+  ]
+ },
+ "Millennial Throwback Party": {
+  "playlists": [
+   "Millennial Mixtape",
+   "Backyard Pool Party 80'S, 90'S 2000'S Hip Hop",
+   "guilty pleasure fun",
+   "#MomLife",
+   "millennial mom cleaning jamz"
+  ],
+  "n_songs": 766,
+  "top_artists": [
+   "Nelly",
+   "Black Eyed Peas",
+   "Will Smith",
+   "Train",
+   "blink-182",
+   "50 Cent",
+   "Sean Paul",
+   "Justin Timberlake",
+   "Britney Spears",
+   "Rihanna"
+  ],
+  "era": [
+   1987,
+   2002,
+   2013
+  ],
+  "seeds": [
+   [
+    "Fly",
+    "Sugar Ray",
+    3,
+    14
+   ],
+   [
+    "Drops of Jupiter (Tell Me)",
+    "Train",
+    3,
+    13
+   ],
+   [
+    "One Week",
+    "Barenaked Ladies",
+    3,
+    13
+   ],
+   [
+    "Stacy's Mom",
+    "Fountains Of Wayne",
+    3,
+    9
+   ],
+   [
+    "Miami",
+    "Will Smith",
+    3,
+    8
+   ],
+   [
+    "Baby Got Back",
+    "Sir Mix-A-Lot",
+    3,
+    7
+   ]
+  ]
+ },
+ "Family Game Night": {
+  "playlists": [
+   "Board Game Night",
+   "Family Picnic",
+   "Party Music for the Whole Family"
+  ],
+  "n_songs": 222,
+  "top_artists": [
+   "WALK THE MOON",
+   "OneRepublic",
+   "Barenaked Ladies",
+   "Weezer",
+   "Coldplay",
+   "Elton John",
+   "Billy Joel",
+   "The Killers",
+   "Fitz and The Tantrums",
+   "Snow Patrol"
+  ],
+  "era": [
+   1979,
+   2009,
+   2018
+  ],
+  "seeds": [
+   [
+    "Mr. Brightside",
+    "The Killers",
+    2,
+    24
+   ],
+   [
+    "Kids",
+    "MGMT",
+    2,
+    15
+   ],
+   [
+    "Counting Stars",
+    "OneRepublic",
+    2,
+    9
+   ],
+   [
+    "Home (2019 Remaster)",
+    "Edward Sharpe & The Magnetic Zeros",
+    2,
+    5
+   ],
+   [
+    "Chicken Fried",
+    "Zac Brown Band",
+    1,
+    28
+   ],
+   [
+    "Island In the Sun",
+    "Weezer",
+    1,
+    19
+   ]
+  ]
+ },
+ "Dive Bar Rock": {
+  "playlists": [
+   "Dive Bar",
+   "One Bourbon, One Scotch, One Beer",
+   "Rock 'n' Roll Keg Stand",
+   "Friday Night Rocks!",
+   "Saturday Night Rocks"
+  ],
+  "n_songs": 169,
+  "top_artists": [
+   "The Doors",
+   "AC/DC",
+   "ZZ Top",
+   "Guns N' Roses",
+   "George Thorogood & The Destroyers",
+   "Van Halen",
+   "Judas Priest",
+   "Beastie Boys",
+   "Kiss",
+   "The Rolling Stones"
+  ],
+  "era": [
+   1970,
+   1982,
+   2005
+  ],
+  "seeds": [
+   [
+    "You Shook Me All Night Long",
+    "AC/DC",
+    2,
+    15
+   ],
+   [
+    "Sweet Child O' Mine",
+    "Guns N' Roses",
+    2,
+    12
+   ],
+   [
+    "Hard To Handle",
+    "The Black Crowes",
+    2,
+    7
+   ],
+   [
+    "Breaking the Law",
+    "Judas Priest",
+    2,
+    4
+   ],
+   [
+    "Roadhouse Blues",
+    "The Doors",
+    2,
+    4
+   ],
+   [
+    "Brass Monkey",
+    "Beastie Boys",
+    2,
+    4
+   ]
+  ]
+ },
+ "Fourth of July": {
+  "playlists": [
+   "4th",
+   "Independence Day 🇺🇸",
+   "‘Merica",
+   "ID4",
+   "American Anthems"
+  ],
+  "n_songs": 464,
+  "top_artists": [
+   "Toby Keith",
+   "Glee Cast",
+   "Zac Brown Band",
+   "Alan Jackson",
+   "Luke Bryan",
+   "Trace Adkins",
+   "Crowder",
+   "Eric Church",
+   "Kid Rock",
+   "Creedence Clearwater Revival"
+  ],
+  "era": [
+   1980,
+   2010,
+   2024
+  ],
+  "seeds": [
+   [
+    "Born In the U.S.A.",
+    "Bruce Springsteen",
+    4,
+    8
+   ],
+   [
+    "Chicken Fried",
+    "Zac Brown Band",
+    3,
+    28
+   ],
+   [
+    "Sweet Home Alabama",
+    "Lynyrd Skynyrd",
+    3,
+    26
+   ],
+   [
+    "God's Country",
+    "Blake Shelton",
+    3,
+    15
+   ],
+   [
+    "Courtesy of the Red, White and Blue (The Angry American)",
+    "Toby Keith",
+    3,
+    13
+   ],
+   [
+    "American Girl",
+    "Tom Petty & The Heartbreakers",
+    2,
+    21
+   ]
+  ]
+ },
+ "Christian Hip-Hop Workout": {
+  "playlists": [
+   "Christian rap workout 🔥🔥🔥",
+   "† Gym and Jesus †",
+   "Christian Workout",
+   "CHRISTIAN BEAST MODE WORKOUT",
+   "Christian Hip Hop BEASTMODE Gym Workout Mix",
+   "Christian Gymrat 🔱🔥",
+   "Christian Workout hype 💪🏼",
+   "WWD Christian Gym Songs"
+  ],
+  "n_songs": 2009,
+  "top_artists": [
+   "KB",
+   "Lecrae",
+   "Caleb Gordon",
+   "Hulvey",
+   "Red Tips",
+   "nobigdyl.",
+   "Andy Mineo",
+   "Alex Jean",
+   "Trip Lee",
+   "1K Phew"
+  ],
+  "era": [
+   2018,
+   2022,
+   2024
+  ],
+  "seeds": [
+   [
+    "King Jesus",
+    "KB & nobigdyl.",
+    6,
+    17
+   ],
+   [
+    "Spread the Opps",
+    "Lecrae",
+    5,
+    14
+   ],
+   [
+    "WALK",
+    "Hulvey & Lecrae",
+    5,
+    13
+   ],
+   [
+    "Still 40 Deep",
+    "116, Anike & Hulvey",
+    5,
+    11
+   ],
+   [
+    "ACT (feat. Jon Keith & Mogli the Iceburg)",
+    "indie tribe & nobigdyl.",
+    5,
+    10
+   ],
+   [
+    "Willy",
+    "nobigdyl. & Andy Mineo",
+    5,
+    10
+   ]
+  ]
+ },
+ "Christian Hip-Hop Game Day": {
+  "playlists": [
+   "Game Day",
+   "BUZZER BEATER",
+   "CHURCH CAMP HYPE",
+   "Momentum",
+   "Unashamed Forever",
+   "Sports/workout"
+  ],
+  "n_songs": 409,
+  "top_artists": [
+   "Andy Mineo",
+   "KB",
+   "Tedashii",
+   "Lecrae",
+   "1K Phew",
+   "Trip Lee",
+   "GAWVI",
+   "WHATUPRG",
+   "Family Force 5",
+   "Lecrae & Zaytoven"
+  ],
+  "era": [
+   2013,
+   2018,
+   2021
+  ],
+  "seeds": [
+   [
+    "You Can't Stop Me",
+    "Andy Mineo",
+    6,
+    14
+   ],
+   [
+    "No Chains",
+    "KB",
+    4,
+    16
+   ],
+   [
+    "Dum Dum (feat. Lecrae)",
+    "Tedashii",
+    4,
+    11
+   ],
+   [
+    "Glow",
+    "WHATUPRG",
+    4,
+    6
+   ],
+   [
+    "Manolo (feat. Lecrae)",
+    "Trip Lee",
+    3,
+    12
+   ],
+   [
+    "Coming in Hot",
+    "Lecrae & Andy Mineo",
+    3,
+    11
+   ]
+  ]
+ },
+ "Christian Hard Rock Workout": {
+  "playlists": [
+   "CHRISTIAN HARD ROCK BEAST MODE WORKOUT",
+   "Christian Hard Rock/Metal (Gym mix)",
+   "Christian Rock / Metal",
+   "Will not bow",
+   "PRAISE & PUMP 💥 POWERFUL & LOUD Christian Workout Mix",
+   "Gym Mix",
+   "CHRISTIAN HARD ROCK"
+  ],
+  "n_songs": 1429,
+  "top_artists": [
+   "Disciple",
+   "Skillet",
+   "Thousand Foot Krutch",
+   "Manafest",
+   "Pillar",
+   "Decyfer Down",
+   "Red",
+   "Seventh Day Slumber",
+   "We As Human",
+   "Nine Lashes"
+  ],
+  "era": [
+   2004,
+   2014,
+   2023
+  ],
+  "seeds": [
+   [
+    "The Resistance",
+    "Skillet",
+    6,
+    13
+   ],
+   [
+    "War of Change",
+    "Thousand Foot Krutch",
+    5,
+    13
+   ],
+   [
+    "Warrior (feat. John Cooper)",
+    "LEDGER",
+    5,
+    9
+   ],
+   [
+    "Not Without A Fight",
+    "Pillar",
+    5,
+    7
+   ],
+   [
+    "Breathe Into Me",
+    "Red",
+    4,
+    17
+   ],
+   [
+    "Zombie (feat. John Cooper)",
+    "We As Human",
+    4,
+    11
+   ]
+  ]
+ },
+ "Christian Metalcore": {
+  "playlists": [
+   "Christian Metalcore/Deathcore",
+   "actually good christian metal 🤘🏼",
+   "Kingdom Core",
+   "a God-Fearing warrior",
+   "The Best of Christian Metal",
+   "Heavy Christian"
+  ],
+  "n_songs": 1152,
+  "top_artists": [
+   "For Today",
+   "Wolves At the Gate",
+   "Fit for a King",
+   "August Burns Red",
+   "Convictions",
+   "Phinehas",
+   "For All Eternity",
+   "War of Ages",
+   "Impending Doom",
+   "Diamonds to Dust"
+  ],
+  "era": [
+   2009,
+   2017,
+   2025
+  ],
+  "seeds": [
+   [
+    "Stigmata (feat. Dakota Alvarez)",
+    "Convictions",
+    5,
+    6
+   ],
+   [
+    "Fearless",
+    "For Today",
+    5,
+    6
+   ],
+   [
+    "All Consuming Fire",
+    "War of Ages",
+    5,
+    5
+   ],
+   [
+    "Dead Man",
+    "Wolves At the Gate",
+    4,
+    12
+   ],
+   [
+    "Break of Dawn",
+    "For All Eternity",
+    4,
+    6
+   ],
+   [
+    "Dead Choir",
+    "Phinehas",
+    4,
+    5
+   ]
+  ]
+ },
+ "Reformed Rap Workout": {
+  "playlists": [
+   "Reformed Workout 💪",
+   "Reformed Workout",
+   "Reformed Christian Rap",
+   "Reformed Thug Life - Lyrical Calvinism Playlist"
+  ],
+  "n_songs": 999,
+  "top_artists": [
+   "Shai Linne",
+   "Timothy Brindle",
+   "Beautiful Eulogy",
+   "Willie Will",
+   "Hazakim",
+   "Christcentric",
+   "Stephen the Levite",
+   "Believin Stephen",
+   "116",
+   "AMP"
+  ],
+  "era": [
+   2005,
+   2012,
+   2018
+  ],
+  "seeds": [
+   [
+    "The Holy Spirit (feat. Timothy Brindle & Leah Smith)",
+    "Shai Linne",
+    4,
+    8
+   ],
+   [
+    "I'm the Problem (feat. Shai Linne)",
+    "Timothy Brindle",
+    4,
+    8
+   ],
+   [
+    "Anchor (feat. Josh Garrels)",
+    "Beautiful Eulogy",
+    4,
+    8
+   ],
+   [
+    "The Reformation",
+    "Christcentric",
+    4,
+    8
+   ],
+   [
+    "The Fear of the Lord (feat. Shai Linne)",
+    "Eshon Burgundy",
+    3,
+    7
+   ],
+   [
+    "On That Cross",
+    "Flame",
+    3,
+    7
+   ]
+  ]
+ },
+ "Worship Hype": {
+  "playlists": [
+   "hype worship music that makes me JUMP! 🤸🏻‍♀️",
+   "HYPE CHRISTIAN SONGS",
+   "HYPE CHRISTIAN WORKOUT",
+   "workout worship !!",
+   "Worship Mix (upbeat)",
+   "dance party worship",
+   "SPIRITUAL WARFARE",
+   "Youth Ministry Pre-Service: Hype",
+   "christian hyped up: youth pre-service"
+  ],
+  "n_songs": 1062,
+  "top_artists": [
+   "Elevation Worship",
+   "Forrest Frank",
+   "ELEVATION RHYTHM",
+   "Brandon Lake",
+   "Alex Jean",
+   "Josiah Queen",
+   "Hulvey",
+   "Local Sound",
+   "KB",
+   "Crowder"
+  ],
+  "era": [
+   2013,
+   2020,
+   2024
+  ],
+  "seeds": [
+   [
+    "NO LONGER BOUND",
+    "Forrest Frank & Hulvey",
+    4,
+    17
+   ],
+   [
+    "Church Clap (feat. Lecrae)",
+    "KB",
+    3,
+    10
+   ],
+   [
+    "GOODBYE YESTERDAY",
+    "ELEVATION RHYTHM & Gracie Binion",
+    3,
+    9
+   ],
+   [
+    "Love Like That",
+    "Hulvey, Torey D'Shaun & Alex Jean",
+    3,
+    7
+   ],
+   [
+    "Wild",
+    "Local Sound",
+    3,
+    6
+   ],
+   [
+    "Higher Than Mine",
+    "ICF Sunday Night",
+    3,
+    3
+   ]
+  ]
+ },
+ "Rock Workout": {
+  "playlists": [
+   "Rock Workout",
+   "Workout Rock | The Ultimate Gym Rock Hits",
+   "Workout to '90s Rock",
+   "Rock a Fast Run",
+   "Lace 'Em Up",
+   "Workout"
+  ],
+  "n_songs": 265,
+  "top_artists": [
+   "Pearl Jam",
+   "Foo Fighters",
+   "Guns N' Roses",
+   "The Offspring",
+   "AC/DC",
+   "Nirvana",
+   "Stone Temple Pilots",
+   "U2",
+   "LINKIN PARK",
+   "Soundgarden"
+  ],
+  "era": [
+   1975,
+   1994,
+   2025
+  ],
+  "seeds": [
+   [
+    "Welcome To The Jungle",
+    "Guns N' Roses",
+    3,
+    13
+   ],
+   [
+    "Sabotage",
+    "Beastie Boys",
+    3,
+    12
+   ],
+   [
+    "Sweet Home Alabama",
+    "Lynyrd Skynyrd",
+    2,
+    26
+   ],
+   [
+    "Song 2 (2012 Remaster)",
+    "Blur",
+    2,
+    15
+   ],
+   [
+    "Born to Be Wild",
+    "Steppenwolf",
+    2,
+    14
+   ],
+   [
+    "Last Resort",
+    "Papa Roach",
+    2,
+    9
+   ]
+  ]
+ },
+ "Alt Indie Run": {
+  "playlists": [
+   "Running",
+   "Alternative Workout",
+   "Alternative Hits Workout",
+   "One Foot in Front of the Other: Indie for Runners",
+   "Sculpt Your Dad Bod",
+   "Rock on the Bike"
+  ],
+  "n_songs": 759,
+  "top_artists": [
+   "Muse",
+   "U2",
+   "The Beastie Boys",
+   "The Black Keys",
+   "blink-182",
+   "Switchfoot",
+   "Red Hot Chili Peppers",
+   "Foo Fighters",
+   "Vampire Weekend",
+   "Kings of Leon"
+  ],
+  "era": [
+   1994,
+   2009,
+   2015
+  ],
+  "seeds": [
+   [
+    "Midnight City",
+    "M83",
+    3,
+    11
+   ],
+   [
+    "Take a Walk",
+    "Passion Pit",
+    3,
+    8
+   ],
+   [
+    "Mr. Brightside",
+    "The Killers",
+    2,
+    24
+   ],
+   [
+    "Smells Like Teen Spirit",
+    "Nirvana",
+    2,
+    18
+   ],
+   [
+    "Seven Nation Army",
+    "The White Stripes",
+    2,
+    17
+   ],
+   [
+    "What's My Age Again?",
+    "blink-182",
+    2,
+    15
+   ]
+  ]
+ },
+ "Electronic Run": {
+  "playlists": [
+   "Fitness & Running",
+   "Running to Electronic, Vol. 1",
+   "Run with Guitars and Beats"
+  ],
+  "n_songs": 93,
+  "top_artists": [
+   "David Guetta",
+   "Coldplay",
+   "Flo Rida",
+   "Calvin Harris",
+   "Major Lazer",
+   "Avicii",
+   "Rudimental",
+   "Chris Brown",
+   "Blonde",
+   "Swedish House Mafia"
+  ],
+  "era": [
+   1999,
+   2012,
+   2016
+  ],
+  "seeds": [
+   [
+    "Midnight City",
+    "M83",
+    1,
+    11
+   ],
+   [
+    "Take a Walk",
+    "Passion Pit",
+    1,
+    8
+   ],
+   [
+    "Party Rock Anthem (feat. Lauren Bennett & GoonRock)",
+    "LMFAO",
+    1,
+    6
+   ],
+   [
+    "We Found Love (feat. Calvin Harris)",
+    "Rihanna",
+    1,
+    5
+   ],
+   [
+    "Dynamite",
+    "Taio Cruz",
+    1,
+    5
+   ],
+   [
+    "Good Feeling",
+    "Flo Rida",
+    1,
+    5
+   ]
+  ]
+ },
+ "Pickleball": {
+  "playlists": [
+   "Pickleball"
+  ],
+  "n_songs": 304,
+  "top_artists": [
+   "NEEDTOBREATHE",
+   "Judah & The Lion",
+   "P.O.D.",
+   "Switchfoot",
+   "Kings Kaleidoscope",
+   "Skillet",
+   "AC/DC",
+   "KB",
+   "Colony House",
+   "Thousand Foot Krutch"
+  ],
+  "era": [
+   1980,
+   2014,
+   2022
+  ],
+  "seeds": [
+   [
+    "Sweet Home Alabama",
+    "Lynyrd Skynyrd",
+    1,
+    26
+   ],
+   [
+    "Knee Deep (feat. Jimmy Buffett)",
+    "Zac Brown Band",
+    1,
+    23
+   ],
+   [
+    "Mr. Jones",
+    "Counting Crows",
+    1,
+    21
+   ],
+   [
+    "Semi-Charmed Life",
+    "Third Eye Blind",
+    1,
+    20
+   ],
+   [
+    "American Kids",
+    "Kenny Chesney",
+    1,
+    19
+   ],
+   [
+    "Monkey Wrench",
+    "Foo Fighters",
+    1,
+    18
+   ]
+  ]
+ },
+ "Punk Rock Skate": {
+  "playlists": [
+   "Punk Rock Run",
+   "The Warehouse",
+   "I Miss the Mosh Pit",
+   "Wild and Free",
+   "Top Down Volume Up"
+  ],
+  "n_songs": 284,
+  "top_artists": [
+   "Ramones",
+   "Less Than Jake",
+   "The Bouncing Souls",
+   "Descendents",
+   "Thursday",
+   "Bad Religion",
+   "Dropkick Murphys",
+   "Pennywise",
+   "Rancid",
+   "The Suicide Machines"
+  ],
+  "era": [
+   1987,
+   2001,
+   2015
+  ],
+  "seeds": [
+   [
+    "Bro Hymn (2005 Remaster)",
+    "Pennywise",
+    2,
+    6
+   ],
+   [
+    "Blitzkrieg Bop",
+    "Ramones",
+    2,
+    5
+   ],
+   [
+    "Linoleum",
+    "NOFX",
+    2,
+    4
+   ],
+   [
+    "Disconnected",
+    "Face to Face",
+    2,
+    4
+   ],
+   [
+    "Rise Above",
+    "Black Flag",
+    2,
+    3
+   ],
+   [
+    "Roots Radical",
+    "Rancid",
+    2,
+    3
+   ]
+  ]
+ },
+ "Christian Youth Group Throwback": {
+  "playlists": [
+   "Youth Group Throwback",
+   "Youth Group Ultimate Throwback",
+   "'90s Youth Group Hits",
+   "Old School Christian Rock",
+   "90s/ 2000’s-ish Christian Rock / Alternative"
+  ],
+  "n_songs": 1070,
+  "top_artists": [
+   "Audio Adrenaline",
+   "Newsboys",
+   "Jars of Clay",
+   "DC Talk",
+   "Third Day",
+   "Switchfoot",
+   "PFR",
+   "TobyMac",
+   "All Star United",
+   "P.O.D."
+  ],
+  "era": [
+   1994,
+   1999,
+   2007
+  ],
+  "seeds": [
+   [
+    "Some Kind Of Zombie",
+    "Audio Adrenaline",
+    5,
+    8
+   ],
+   [
+    "Shine",
+    "Newsboys",
+    4,
+    11
+   ],
+   [
+    "Extreme Days",
+    "tobyMac",
+    4,
+    6
+   ],
+   [
+    "Everything I Hate",
+    "Smalltown Poets",
+    4,
+    6
+   ],
+   [
+    "Nothing At All",
+    "Third Day",
+    4,
+    5
+   ],
+   [
+    "Boom",
+    "P.O.D.",
+    3,
+    15
+   ]
+  ]
+ },
+ "90s Christian Grunge": {
+  "playlists": [
+   "90's GRUNGE Rock Alternative Christian Mix",
+   "Top 100 Christian Rock Albums (1980-2019)",
+   "Threshold"
+  ],
+  "n_songs": 283,
+  "top_artists": [
+   "Mortal",
+   "Common Children",
+   "The Prayer Chain",
+   "Starflyer 59",
+   "Grammatrain",
+   "Skillet",
+   "Johnny Q. Public",
+   "White Heart",
+   "Plankeye",
+   "Bleach"
+  ],
+  "era": [
+   1991,
+   1996,
+   2006
+  ],
+  "seeds": [
+   [
+    "B.C.",
+    "Plankeye",
+    2,
+    11
+   ],
+   [
+    "Fifty-Eight",
+    "The Prayer Chain",
+    2,
+    6
+   ],
+   [
+    "Low",
+    "The Violet Burning",
+    2,
+    2
+   ],
+   [
+    "Deep",
+    "Adam Again",
+    2,
+    2
+   ],
+   [
+    "Pain",
+    "Grammatrain",
+    2,
+    2
+   ],
+   [
+    "The Outsiders",
+    "NEEDTOBREATHE",
+    1,
+    12
+   ]
+  ]
+ },
+ "Christian Ska & Skate Punk": {
+  "playlists": [
+   "Christian Ska music",
+   "Christian Ska ❤️",
+   "Christian Skater Punk 🛹",
+   "Ultimate Christian PUNK & SKA",
+   "Back In The Penalty Box: The Best of 1994-2000",
+   "Punk Rawk Show"
+  ],
+  "n_songs": 1394,
+  "top_artists": [
+   "The O.C. Supertones",
+   "The Insyderz",
+   "Five Iron Frenzy",
+   "MxPx",
+   "Dogwood",
+   "Relient K",
+   "O.C. Supertones",
+   "Supertones",
+   "Ghoti Hook",
+   "Altar Boys"
+  ],
+  "era": [
+   1995,
+   2002,
+   2017
+  ],
+  "seeds": [
+   [
+    "Hallelujah",
+    "The O.C. Supertones",
+    4,
+    3
+   ],
+   [
+    "Building A Better Me",
+    "Dogwood",
+    3,
+    8
+   ],
+   [
+    "My Evil Plan to Save the World",
+    "Five Iron Frenzy",
+    3,
+    6
+   ],
+   [
+    "Bombs over Broadway",
+    "Squad Five-O",
+    3,
+    4
+   ],
+   [
+    "Peace Of God",
+    "The Insyderz",
+    3,
+    3
+   ],
+   [
+    "Ooklah The Punk",
+    "Ghoti Hook",
+    3,
+    3
+   ]
+  ]
+ },
+ "2000s Christian Emo & Alt": {
+  "playlists": [
+   "2000s Christian Rock/Punk/Emo/Metal🤘",
+   "Tooth & Nail: The Collection",
+   "Tooth & Nail Records",
+   "Further Seems Forever-esque",
+   "Thrice-esque",
+   "Massive Metal"
+  ],
+  "n_songs": 980,
+  "top_artists": [
+   "Anberlin",
+   "Relient K",
+   "The Classic Crime",
+   "Emery",
+   "Further Seems Forever",
+   "Switchfoot",
+   "Thousand Foot Krutch",
+   "The Almost",
+   "Underoath",
+   "Skillet"
+  ],
+  "era": [
+   2001,
+   2007,
+   2012
+  ],
+  "seeds": [
+   [
+    "The Moon Is Down",
+    "Further Seems Forever",
+    4,
+    6
+   ],
+   [
+    "Reinventing Your Exit",
+    "Underoath",
+    3,
+    7
+   ],
+   [
+    "Feel Good Drag",
+    "Anberlin",
+    3,
+    7
+   ],
+   [
+    "Walls",
+    "Emery",
+    3,
+    7
+   ],
+   [
+    "My Sweet Escape",
+    "Run Kid Run",
+    3,
+    5
+   ],
+   [
+    "The Fight",
+    "The Classic Crime",
+    3,
+    5
+   ]
+  ]
+ },
+ "Tooth & Nail Hard Rock": {
+  "playlists": [
+   "T&N Hard",
+   "Project 86/POD/Blindside",
+   "2000s Hard Rock Christian",
+   "Christian Dad Rock +",
+   "˖˚⊹ ꣑ৎ‎ alternative christian †"
+  ],
+  "n_songs": 1271,
+  "top_artists": [
+   "Project 86",
+   "P.O.D.",
+   "Stavesacre",
+   "Blindside",
+   "Skillet",
+   "Thousand Foot Krutch",
+   "Red",
+   "Living Sacrifice",
+   "Demon Hunter",
+   "Pillar"
+  ],
+  "era": [
+   2000,
+   2006,
+   2022
+  ],
+  "seeds": [
+   [
+    "Run",
+    "Project 86",
+    4,
+    3
+   ],
+   [
+    "Whispers In the Dark",
+    "Skillet",
+    3,
+    17
+   ],
+   [
+    "Breathe Into Me",
+    "Red",
+    3,
+    17
+   ],
+   [
+    "Colt .45",
+    "Stavesacre",
+    3,
+    11
+   ],
+   [
+    "Unbreakable",
+    "Fireflight",
+    3,
+    11
+   ],
+   [
+    "Move",
+    "Thousand Foot Krutch",
+    3,
+    8
+   ]
+  ]
+ },
+ "Christian Indie Rock": {
+  "playlists": [
+   "CHRISTIAN INDIE ROCK",
+   "Holy Alt: Fresh Christian Alternative",
+   "Kings K",
+   "Kings K + Friends",
+   "Christian alternative rock",
+   "Upbeat Anthems from Judah & The Lion, Kings Kaleidoscope and More",
+   "christian music that doesn't make me feel like i turned on KSBJ",
+   "Kings / NTB / Chris Renzema / Etc"
+  ],
+  "n_songs": 1328,
+  "top_artists": [
+   "Chris Renzema",
+   "Kings Kaleidoscope",
+   "Citizens",
+   "Colony House",
+   "Judah & The Lion",
+   "NEEDTOBREATHE",
+   "Gable Price and Friends",
+   "RIDERS",
+   "Switchfoot",
+   "MUCH MORE"
+  ],
+  "era": [
+   2014,
+   2020,
+   2024
+  ],
+  "seeds": [
+   [
+    "Made Alive",
+    "Citizens",
+    6,
+    23
+   ],
+   [
+    "Brother Jack",
+    "Gable Price and Friends",
+    6,
+    12
+   ],
+   [
+    "Backwards",
+    "Kings Kaleidoscope",
+    5,
+    18
+   ],
+   [
+    "PRIORITIES",
+    "RIDERS",
+    5,
+    10
+   ],
+   [
+    "You Know It",
+    "Colony House",
+    4,
+    12
+   ],
+   [
+    "Holy Ghost",
+    "Chris Renzema",
+    4,
+    9
+   ]
+  ]
+ },
+ "Christian Indie Folk": {
+  "playlists": [
+   "Christian Indie Folk",
+   "Indie Folk Christian",
+   "all the good christian folky/indie/acoustic  stuff",
+   "folky christian",
+   "christian folk songs!!",
+   "folksy christian music",
+   "Inspired Chill",
+   "Rise Up"
+  ],
+  "n_songs": 1427,
+  "top_artists": [
+   "Chris Renzema",
+   "Strahan",
+   "Josh Garrels",
+   "Jervis Campbell",
+   "John Mark Pantana",
+   "Josiah Queen",
+   "Sarah Sparks",
+   "Rend Collective",
+   "The Gray Havens",
+   "NEEDTOBREATHE"
+  ],
+  "era": [
+   2014,
+   2020,
+   2024
+  ],
+  "seeds": [
+   [
+    "The Prodigal",
+    "Josiah Queen",
+    4,
+    15
+   ],
+   [
+    "I Don't Wanna Go",
+    "Chris Renzema",
+    4,
+    14
+   ],
+   [
+    "Deliverance",
+    "Strahan",
+    4,
+    8
+   ],
+   [
+    "Not My Home",
+    "Luke Bower",
+    4,
+    4
+   ],
+   [
+    "Farther Along",
+    "Josh Garrels",
+    3,
+    10
+   ],
+   [
+    "Garden",
+    "Jervis Campbell",
+    3,
+    8
+   ]
+  ]
+ },
+ "Christian Pop Car Jams": {
+  "playlists": [
+   "Christian Car Bops for da nons",
+   "Christian Rewind",
+   "Today’s Christian",
+   "Top Christian Hits 2026",
+   "Christian Music For A New Generation",
+   "Make Some Noise",
+   "Workship - Focus at Work/out & Study (Christian)"
+  ],
+  "n_songs": 488,
+  "top_artists": [
+   "Josiah Queen",
+   "Jeremy Camp",
+   "TobyMac",
+   "Tauren Wells",
+   "Matthew West",
+   "Joseph O'Brien",
+   "for KING & COUNTRY",
+   "Jamie MacDonald",
+   "Anne Wilson",
+   "Chris Tomlin"
+  ],
+  "era": [
+   2014,
+   2024,
+   2026
+  ],
+  "seeds": [
+   [
+    "NO LONGER BOUND",
+    "Forrest Frank & Hulvey",
+    2,
+    17
+   ],
+   [
+    "The Prodigal",
+    "Josiah Queen",
+    2,
+    15
+   ],
+   [
+    "The River",
+    "Jordan Feliz",
+    2,
+    8
+   ],
+   [
+    "Take It All Back",
+    "Tauren Wells, We The Kingdom & Davies.",
+    2,
+    8
+   ],
+   [
+    "Holy Forever",
+    "Chris Tomlin",
+    2,
+    5
+   ],
+   [
+    "Left It In The River",
+    "Jamie MacDonald",
+    2,
+    5
+   ]
+  ]
+ },
+ "Christian Country": {
+  "playlists": [
+   "Christian Country 2023",
+   "Christian Country Pop",
+   "Christian Country Rock",
+   "Christian Country Upbeat",
+   "Christian Country ~ Rock",
+   "Christian Country/Rock",
+   "Christian country",
+   "Country Faith"
+  ],
+  "n_songs": 552,
+  "top_artists": [
+   "Zach Williams",
+   "NEEDTOBREATHE",
+   "Anne Wilson",
+   "Crowder",
+   "We The Kingdom",
+   "Rhett Walker",
+   "Third Day",
+   "Cochren & Co.",
+   "Chris Tomlin",
+   "Tara Strickland"
+  ],
+  "era": [
+   2013,
+   2021,
+   2025
+  ],
+  "seeds": [
+   [
+    "Holy Water",
+    "We The Kingdom",
+    4,
+    13
+   ],
+   [
+    "Thank You Lord (feat. Thomas Rhett & Florida Georgia Line)",
+    "Chris Tomlin",
+    4,
+    8
+   ],
+   [
+    "Carry Me (feat. Switchfoot)",
+    "NEEDTOBREATHE",
+    3,
+    8
+   ],
+   [
+    "There Was Jesus",
+    "Zach Williams & Dolly Parton",
+    3,
+    8
+   ],
+   [
+    "I Need a Ghost",
+    "Brandon Lake",
+    3,
+    7
+   ],
+   [
+    "Devil",
+    "Anne Wilson",
+    3,
+    5
+   ]
+  ]
+ },
+ "Christian R&B & Soul": {
+  "playlists": [
+   "christian r&b",
+   "christian soul",
+   "godly romance",
+   "the love of jesus"
+  ],
+  "n_songs": 69,
+  "top_artists": [
+   "Steffany Gretzinger",
+   "Madison Ryann Ward",
+   "Cleo Sol",
+   "Dante Bowe",
+   "Natalie Lauren",
+   "Sondae & Moflo",
+   "Matthew Mole",
+   "Uninvtd & S A I N T",
+   "Taylor Armstrong",
+   "Cecily"
+  ],
+  "era": [
+   2019,
+   2022,
+   2023
+  ],
+  "seeds": [
+   [
+    "Heal Our Land",
+    "Sarah Nathalié",
+    1,
+    3
+   ],
+   [
+    "From the Start",
+    "Bre Reed",
+    1,
+    3
+   ],
+   [
+    "Every Step",
+    "Sondae & Moflo",
+    1,
+    2
+   ],
+   [
+    "Cheerios",
+    "Imrsqd & Moflo Music",
+    1,
+    2
+   ],
+   [
+    "One Thing",
+    "Victory",
+    1,
+    2
+   ],
+   [
+    "Well in a Desert",
+    "THEM PARENTS",
+    1,
+    2
+   ]
+  ]
+ },
+ "Christian Hip-Hop Work Focus": {
+  "playlists": [
+   "Work From Home",
+   "Work Beats"
+  ],
+  "n_songs": 83,
+  "top_artists": [
+   "Andy Mineo",
+   "GAWVI",
+   "WHATUPRG",
+   "Tedashii",
+   "Hulvey",
+   "Lecrae & Zaytoven",
+   "1K Phew",
+   "WHATUPRG & 1K Phew",
+   "Lecrae",
+   "Anike"
+  ],
+  "era": [
+   2017,
+   2019,
+   2020
+  ],
+  "seeds": [
+   [
+    "Fight for Me (feat. Lecrae)",
+    "GAWVI",
+    1,
+    8
+   ],
+   [
+    "Holy Water",
+    "Lecrae & Zaytoven",
+    1,
+    7
+   ],
+   [
+    "How We Coming",
+    "1K Phew, Ty Brasel & WHATUPRG",
+    1,
+    7
+   ],
+   [
+    "Drip Lee",
+    "WHATUPRG & 1K Phew",
+    1,
+    7
+   ],
+   [
+    "Blessed Up",
+    "Anike",
+    1,
+    7
+   ],
+   [
+    "Rollercoastin",
+    "Hulvey",
+    1,
+    5
+   ]
+  ]
+ },
+ "Worship Sunday Morning": {
+  "playlists": [
+   "Worship Today",
+   "worship",
+   "At Home",
+   "Best of Modern Praise & Worship, Vol. 1",
+   "Today's Best Christian Songs"
+  ],
+  "n_songs": 367,
+  "top_artists": [
+   "Elevation Worship",
+   "Chris Tomlin",
+   "Phil Wickham",
+   "Crowder",
+   "Lauren Daigle",
+   "NEEDTOBREATHE",
+   "Tauren Wells",
+   "Cody Carnes",
+   "Jon Foreman",
+   "Hillsong Worship & Brooke Ligertwood"
+  ],
+  "era": [
+   2012,
+   2019,
+   2025
+  ],
+  "seeds": [
+   [
+    "Our God",
+    "Chris Tomlin",
+    3,
+    7
+   ],
+   [
+    "Holy Water",
+    "We The Kingdom",
+    2,
+    13
+   ],
+   [
+    "Praise (feat. Brandon Lake, Chris Brown & Chandler Moore)",
+    "Elevation Worship",
+    2,
+    7
+   ],
+   [
+    "You Say",
+    "Lauren Daigle",
+    2,
+    7
+   ],
+   [
+    "Red Letters",
+    "Crowder",
+    2,
+    6
+   ],
+   [
+    "I just need U.",
+    "TobyMac",
+    2,
+    6
+   ]
+  ]
+ },
+ "Indie Worship": {
+  "playlists": [
+   "Indie Worship",
+   "vibey christian indie",
+   "Indie & Folk Christian Worship",
+   "Isla Vista Worship",
+   "NOT YOUR TYPICAL WORSHIP PLAYLIST",
+   "songs that stirred my affection for the Lord in 2019",
+   "indie christian songs we love <3"
+  ],
+  "n_songs": 1168,
+  "top_artists": [
+   "Isla Vista Worship",
+   "LOVKN",
+   "John Mark Pantana",
+   "Chris Renzema",
+   "Rivers & Robots",
+   "Taylor Armstrong",
+   "The Corner Room",
+   "Zambroa",
+   "Wilder Adkins",
+   "Rend Collective"
+  ],
+  "era": [
+   2013,
+   2019,
+   2023
+  ],
+  "seeds": [
+   [
+    "I Don't Wanna Go",
+    "Chris Renzema",
+    4,
+    14
+   ],
+   [
+    "Spark My Heart",
+    "Aaron Strumpel",
+    3,
+    9
+   ],
+   [
+    "Friend",
+    "John Jin Han",
+    3,
+    7
+   ],
+   [
+    "Right Here",
+    "Allie Paige",
+    3,
+    7
+   ],
+   [
+    "Abba",
+    "John Mark Pantana",
+    3,
+    6
+   ],
+   [
+    "Only You",
+    "Of the Land",
+    3,
+    6
+   ]
+  ]
+ },
+ "Modern Hymns": {
+  "playlists": [
+   "modern hymns",
+   "modern hymns",
+   "Reformed Hymns",
+   "Reformed Modern Hymns",
+   "Hymns for Today's Puritans",
+   "Reformed Worship",
+   "Psalms, Hymns & More Worship Songs",
+   "Ephesians 5:19",
+   "Old Hymns for New Worship"
+  ],
+  "n_songs": 2018,
+  "top_artists": [
+   "Shane & Shane",
+   "Sovereign Grace Music",
+   "Page CXVI",
+   "Norton Hall Band",
+   "Matt Boswell & Matt Papa",
+   "Hope Hymns",
+   "High Street Hymns",
+   "Matt Boswell",
+   "Cardiphonia Music",
+   "Citizens"
+  ],
+  "era": [
+   2008,
+   2014,
+   2020
+  ],
+  "seeds": [
+   [
+    "Jesus Paid It All",
+    "Kings Kaleidoscope & Kings Kaleidoscope Hymns",
+    6,
+    12
+   ],
+   [
+    "Before the Throne of God Above",
+    "Sojourn Music",
+    6,
+    7
+   ],
+   [
+    "Come Behold the Wondrous Mystery",
+    "Matt Boswell",
+    6,
+    6
+   ],
+   [
+    "There Is a Fountain Filled With Blood",
+    "Norton Hall Band",
+    6,
+    6
+   ],
+   [
+    "Crown Him with Many Crowns",
+    "Shane & Shane",
+    5,
+    6
+   ],
+   [
+    "Great Is Thy Faithfulness",
+    "Page CXVI",
+    5,
+    5
+   ]
+  ]
+ },
+ "Coffeehouse Acoustic Hymns": {
+  "playlists": [
+   "Coffeehouse Acoustic Hymns",
+   "Acoustic Hymns and Psalms",
+   "Hymns for Hipsters",
+   "Hymns Old and New"
+  ],
+  "n_songs": 356,
+  "top_artists": [
+   "Paul Zach",
+   "Nathan Drake",
+   "Wilder Adkins",
+   "The Lower Lights",
+   "Fernando Ortega",
+   "Jadon Lavik",
+   "Josh Garrels",
+   "Audrey Assad",
+   "Daniel Martin Moore",
+   "Ascend The Hill"
+  ],
+  "era": [
+   2007,
+   2014,
+   2021
+  ],
+  "seeds": [
+   [
+    "Turn your Eyes Upon Jesus",
+    "Josh Garrels",
+    3,
+    10
+   ],
+   [
+    "Just a Closer Walk with Thee (feat. Page CXVI)",
+    "Paul Zach",
+    3,
+    4
+   ],
+   [
+    "God Be With You Till We Meet Again",
+    "The Lower Lights",
+    3,
+    3
+   ],
+   [
+    "Be Thou My Vision",
+    "Aaron Strumpel",
+    2,
+    8
+   ],
+   [
+    "Rock of Ages",
+    "Ascend The Hill",
+    2,
+    6
+   ],
+   [
+    "Nothing But the Blood",
+    "Wilder Adkins",
+    2,
+    6
+   ]
+  ]
+ },
+ "Worship Study & Prayer": {
+  "playlists": [
+   "Bible Study Music✝️",
+   "Christian Study Music",
+   "studying with Jesus",
+   "Study & Worship",
+   "Lofi Hymns",
+   "Soft Worship Music | Calming Christian",
+   "Instrumental Hymns"
+  ],
+  "n_songs": 876,
+  "top_artists": [
+   "Kings Kaleidoscope",
+   "Alabaster Co.",
+   "Shane & Shane",
+   "Rivers & Robots",
+   "Chris Renzema",
+   "John Mark Pantana",
+   "Phil Wickham",
+   "Jervis Campbell",
+   "Hillside Recording & Diana Trout",
+   "Ben Potter"
+  ],
+  "era": [
+   2015,
+   2019,
+   2022
+  ],
+  "seeds": [
+   [
+    "Springtime",
+    "Chris Renzema",
+    2,
+    15
+   ],
+   [
+    "Turn your Eyes Upon Jesus",
+    "Josh Garrels",
+    2,
+    10
+   ],
+   [
+    "Garden",
+    "Jervis Campbell",
+    2,
+    8
+   ],
+   [
+    "Taste and See",
+    "John Mark Pantana",
+    2,
+    8
+   ],
+   [
+    "Nothing I Hold On To (Live)",
+    "Will Reagan & United Pursuit",
+    2,
+    7
+   ],
+   [
+    "Holy, Holy, Holy (We Bow Before Thee) [Live]",
+    "Shane & Shane",
+    2,
+    6
+   ]
+  ]
+ },
+ "Country Bedroom Slow Jams": {
+  "playlists": [
+   "Country Bedroom Mix",
+   "Country Baby Makin'",
+   "🥵🌶️ Sexy Country - Low, Slow, Soft, Sensual, Love Songs",
+   "Sexy Country Songs",
+   "Sex country",
+   "Steamy country 🤤",
+   "spicy country 🫢👀",
+   "Making Love Country Style",
+   "sexy summer country"
+  ],
+  "n_songs": 552,
+  "top_artists": [
+   "Morgan Wallen",
+   "Chris Stapleton",
+   "Tyler Childers",
+   "Riley Green",
+   "Billy Currington",
+   "Jon Pardi",
+   "Dierks Bentley",
+   "Muscadine Bloodline",
+   "Darius Rucker",
+   "Jason Aldean"
+  ],
+  "era": [
+   1998,
+   2016,
+   2022
+  ],
+  "seeds": [
+   [
+    "When She Comes Home Tonight",
+    "Riley Green",
+    7,
+    9
+   ],
+   [
+    "Must Be Doin' Somethin' Right",
+    "Billy Currington",
+    6,
+    11
+   ],
+   [
+    "Strip It Down",
+    "Luke Bryan",
+    4,
+    10
+   ],
+   [
+    "You Should Probably Leave",
+    "Chris Stapleton",
+    4,
+    10
+   ],
+   [
+    "Like a Wrecking Ball",
+    "Eric Church",
+    4,
+    9
+   ],
+   [
+    "Cover Me Up",
+    "Morgan Wallen",
+    3,
+    10
+   ]
+  ]
+ },
+ "Classic Country Cowboy": {
+  "playlists": [
+   "🤤SEXY COWBOY MOOD 🐎",
+   "slutty country🤠",
+   "Save a horse, ride a cowboy🤠"
+  ],
+  "n_songs": 241,
+  "top_artists": [
+   "Miranda Lambert",
+   "Luke Bryan",
+   "Carrie Underwood",
+   "Gretchen Wilson",
+   "Alan Jackson",
+   "Big & Rich",
+   "Taylor Swift",
+   "George Strait",
+   "Brooks & Dunn",
+   "Jon Pardi"
+  ],
+  "era": [
+   1975,
+   2005,
+   2020
+  ],
+  "seeds": [
+   [
+    "Country Girl (Shake It For Me)",
+    "Luke Bryan",
+    3,
+    12
+   ],
+   [
+    "Save a Horse (Ride a Cowboy)",
+    "Big & Rich",
+    3,
+    8
+   ],
+   [
+    "Before He Cheats",
+    "Carrie Underwood",
+    3,
+    8
+   ],
+   [
+    "Good Time",
+    "Alan Jackson",
+    3,
+    8
+   ],
+   [
+    "Here for the Party",
+    "Gretchen Wilson",
+    3,
+    5
+   ],
+   [
+    "Mama's Broken Heart",
+    "Miranda Lambert",
+    3,
+    4
+   ]
+  ]
+ },
+ "Red Dirt Road Trip": {
+  "playlists": [
+   "Country Roads",
+   "Southern Craft",
+   "Americana Rewind",
+   "Booze Cruise"
+  ],
+  "n_songs": 805,
+  "top_artists": [
+   "Zach Bryan",
+   "Tyler Childers",
+   "Jason Aldean",
+   "Morgan Wallen",
+   "Charles Wesley Godwin",
+   "Chris Stapleton",
+   "The Red Clay Strays",
+   "Wyatt Flores",
+   "Whiskey Myers",
+   "Luke Combs"
+  ],
+  "era": [
+   2011,
+   2023,
+   2026
+  ],
+  "seeds": [
+   [
+    "Wondering Why",
+    "The Red Clay Strays",
+    3,
+    10
+   ],
+   [
+    "Feathered Indians",
+    "Tyler Childers",
+    3,
+    9
+   ],
+   [
+    "Heading South",
+    "Zach Bryan",
+    3,
+    7
+   ],
+   [
+    "Broken Window Serenade",
+    "Whiskey Myers",
+    3,
+    5
+   ],
+   [
+    "Loud and Heavy",
+    "Cody Jinks",
+    2,
+    9
+   ],
+   [
+    "Solid Country Gold",
+    "Parker McCollum",
+    2,
+    8
+   ]
+  ]
+ },
+ "Country Morning Coffee": {
+  "playlists": [
+   "Country Caffeine",
+   "Country Lovin'"
+  ],
+  "n_songs": 380,
+  "top_artists": [
+   "Luke Combs",
+   "Megan Moroney",
+   "Kane Brown",
+   "Jordan Davis",
+   "Morgan Wallen",
+   "Tyler Hubbard",
+   "Tucker Wetmore",
+   "Cody Johnson",
+   "Taylor Swift",
+   "Kenny Chesney"
+  ],
+  "era": [
+   2015,
+   2024,
+   2026
+  ],
+  "seeds": [
+   [
+    "One of Them Girls",
+    "Lee Brice",
+    2,
+    12
+   ],
+   [
+    "Runnin' Outta Moonlight",
+    "Randy Houser",
+    2,
+    11
+   ],
+   [
+    "Head Over Boots",
+    "Jon Pardi",
+    2,
+    10
+   ],
+   [
+    "What My World Spins Around",
+    "Jordan Davis",
+    2,
+    10
+   ],
+   [
+    "Bottle Rockets (feat. Hootie & The Blowfish)",
+    "Scotty McCreery",
+    2,
+    9
+   ],
+   [
+    "Dancin’ In The Country",
+    "Tyler Hubbard",
+    2,
+    8
+   ]
+  ]
+ },
+ "Americana Back Porch": {
+  "playlists": [
+   "Turn the Table",
+   "Waking Up to Americana Mix",
+   "Magnolia Record Club",
+   "Alt Bluegrass",
+   "Mumford and Sons, The Lumineers, Of Monsters and Men, Bon Iver, Caamp, Lord Huron, Hozier"
+  ],
+  "n_songs": 261,
+  "top_artists": [
+   "The Lumineers",
+   "Punch Brothers",
+   "Mumford & Sons",
+   "Dawes",
+   "Alabama Shakes",
+   "Lord Huron",
+   "Gregory Alan Isakov",
+   "John Vincent III",
+   "Of Monsters and Men",
+   "Caamp"
+  ],
+  "era": [
+   2005,
+   2012,
+   2018
+  ],
+  "seeds": [
+   [
+    "Dead Sea",
+    "The Lumineers",
+    2,
+    8
+   ],
+   [
+    "24 Frames",
+    "Jason Isbell",
+    2,
+    3
+   ],
+   [
+    "Time Spent in Los Angeles",
+    "Dawes",
+    2,
+    2
+   ],
+   [
+    "Little Talks",
+    "Of Monsters and Men",
+    1,
+    11
+   ],
+   [
+    "Wake Up",
+    "Arcade Fire",
+    1,
+    8
+   ],
+   [
+    "Home",
+    "Phillip Phillips",
+    1,
+    6
+   ]
+  ]
+ },
+ "90s Alt Throwback": {
+  "playlists": [
+   "Jukebox Hits: '90s Alt, Vol. 1",
+   "Jukebox Hits: '90s Alt, Vol. 2",
+   "Best of '90s Alternative, Vol. 1",
+   "Best of '90s Alternative, Vol. 2",
+   "Alternative Hits: 1997",
+   "It’s Xennial, NOT Elder Millenial",
+   "Rock Hits: 1994",
+   "Alternative for Non-Alternative Fans",
+   "Jukebox Hits: '90s Modern Rock"
+  ],
+  "n_songs": 535,
+  "top_artists": [
+   "Green Day",
+   "The Offspring",
+   "Foo Fighters",
+   "Red Hot Chili Peppers",
+   "Nirvana",
+   "Oasis",
+   "Third Eye Blind",
+   "Stone Temple Pilots",
+   "Beastie Boys",
+   "No Doubt"
+  ],
+  "era": [
+   1992,
+   1996,
+   1999
+  ],
+  "seeds": [
+   [
+    "Semi-Charmed Life",
+    "Third Eye Blind",
+    6,
+    20
+   ],
+   [
+    "The Impression That I Get",
+    "The Mighty Mighty Bosstones",
+    5,
+    10
+   ],
+   [
+    "Mr. Jones",
+    "Counting Crows",
+    4,
+    21
+   ],
+   [
+    "Song 2 (2012 Remaster)",
+    "Blur",
+    4,
+    15
+   ],
+   [
+    "Santeria",
+    "Sublime",
+    3,
+    20
+   ],
+   [
+    "No Rain",
+    "Blind Melon",
+    3,
+    19
+   ]
+  ]
+ },
+ "Millennial Dad Rock": {
+  "playlists": [
+   "Millenial Dad Rock",
+   "Jukebox Hits: '00s Rock",
+   "Rock Hits: 2005",
+   "Good Tunes",
+   "Alternative Hits: 2000",
+   "Rock Hits: 1999"
+  ],
+  "n_songs": 1055,
+  "top_artists": [
+   "Red Hot Chili Peppers",
+   "Switchfoot",
+   "blink-182",
+   "Foo Fighters",
+   "U2",
+   "Muse",
+   "Coldplay",
+   "Smashing Pumpkins",
+   "Incubus",
+   "Weezer"
+  ],
+  "era": [
+   1995,
+   2004,
+   2013
+  ],
+  "seeds": [
+   [
+    "Best Of You",
+    "Foo Fighters",
+    4,
+    10
+   ],
+   [
+    "Are You Gonna Be My Girl",
+    "Jet",
+    3,
+    13
+   ],
+   [
+    "All The Small Things",
+    "blink-182",
+    3,
+    11
+   ],
+   [
+    "Kryptonite",
+    "3 Doors Down",
+    3,
+    10
+   ],
+   [
+    "Like a Stone",
+    "Audioslave",
+    3,
+    7
+   ],
+   [
+    "Send the Pain Below",
+    "Chevelle",
+    3,
+    6
+   ]
+  ]
+ },
+ "Classic Rock Road Trip": {
+  "playlists": [
+   "Classic Rock Road Trip",
+   "Classic Rock Afternoon Drive",
+   "Road Trip Songs - The Ultimate Throwback Playlist",
+   "Driving Rock Anthems",
+   "Throwback Road Trip",
+   "Take a Chill Drive",
+   "Legendary Icons",
+   "Rock Icons"
+  ],
+  "n_songs": 530,
+  "top_artists": [
+   "The Rolling Stones",
+   "The Beatles",
+   "Queen",
+   "U2",
+   "Tom Petty",
+   "Elton John",
+   "The Police",
+   "Bon Jovi",
+   "R.E.M.",
+   "The Who"
+  ],
+  "era": [
+   1968,
+   1981,
+   2000
+  ],
+  "seeds": [
+   [
+    "I Won't Back Down",
+    "Tom Petty",
+    4,
+    12
+   ],
+   [
+    "Sweet Home Alabama",
+    "Lynyrd Skynyrd",
+    3,
+    26
+   ],
+   [
+    "No Rain",
+    "Blind Melon",
+    3,
+    19
+   ],
+   [
+    "Born to Be Wild",
+    "Steppenwolf",
+    3,
+    14
+   ],
+   [
+    "The Joker",
+    "Steve Miller Band",
+    3,
+    14
+   ],
+   [
+    "Born to Run",
+    "Bruce Springsteen",
+    3,
+    11
+   ]
+  ]
+ },
+ "Indie Night Drive": {
+  "playlists": [
+   "Wayfarers, Sunsets and Cigarettes",
+   "Long Drives with Saddle Creek",
+   "Keep Calm and Drive on",
+   "Behind The Wheel",
+   "Spring Road Trip",
+   "Indie Anthems"
+  ],
+  "n_songs": 459,
+  "top_artists": [
+   "Bright Eyes",
+   "The Strokes",
+   "Beach House",
+   "Tame Impala",
+   "Rilo Kiley",
+   "Yeah Yeah Yeahs",
+   "The Neighbourhood",
+   "Vampire Weekend",
+   "Sam Evian",
+   "Arctic Monkeys"
+  ],
+  "era": [
+   1997,
+   2015,
+   2021
+  ],
+  "seeds": [
+   [
+    "The Less I Know the Better",
+    "Tame Impala",
+    2,
+    7
+   ],
+   [
+    "Common People (Full Length Version)",
+    "Pulp",
+    2,
+    5
+   ],
+   [
+    "Space Song",
+    "Beach House",
+    2,
+    4
+   ],
+   [
+    "Dark Red",
+    "Steve Lacy",
+    2,
+    3
+   ],
+   [
+    "Disco",
+    "Surf Curse",
+    2,
+    3
+   ],
+   [
+    "Island In the Sun",
+    "Weezer",
+    1,
+    19
+   ]
+  ]
+ },
+ "Alt Pop Singalong": {
+  "playlists": [
+   "Cntrl + ALT + Repeat",
+   "Road Trip",
+   "The New New Wave",
+   "My Cool Uncle's Mixtape",
+   "Feel Good Alt/Indie",
+   "Alternative Rewind"
+  ],
+  "n_songs": 367,
+  "top_artists": [
+   "Weezer",
+   "twenty one pilots",
+   "Fall Out Boy",
+   "Barns Courtney",
+   "The Revivalists",
+   "The Wombats",
+   "GIVERS",
+   "Green Day",
+   "Beck",
+   "Bass Drum of Death"
+  ],
+  "era": [
+   2012,
+   2018,
+   2024
+  ],
+  "seeds": [
+   [
+    "Africa",
+    "Weezer",
+    2,
+    6
+   ],
+   [
+    "Up All Night",
+    "Beck",
+    2,
+    4
+   ],
+   [
+    "Some Nights",
+    "Fun.",
+    2,
+    3
+   ],
+   [
+    "Seventeen",
+    "Welles",
+    2,
+    2
+   ],
+   [
+    "Handyman",
+    "AWOLNATION",
+    2,
+    2
+   ],
+   [
+    "Collide",
+    "GIVERS",
+    2,
+    2
+   ]
+  ]
+ },
+ "Indie Rainy Day": {
+  "playlists": [
+   "Dark Sky",
+   "Strolling Through the Graveyard",
+   "Lazy Morning",
+   "Everything in Its Right Place",
+   "Beautiful Tomorrow"
+  ],
+  "n_songs": 173,
+  "top_artists": [
+   "Beck",
+   "Marissa Nadler",
+   "Bon Iver",
+   "Radiohead",
+   "Feist",
+   "Steve Gunn",
+   "Mazzy Star",
+   "Kevin Morby",
+   "Daniele Luppi & Greg Gonzalez",
+   "Khruangbin"
+  ],
+  "era": [
+   1994,
+   2015,
+   2024
+  ],
+  "seeds": [
+   [
+    "Teardrop",
+    "Massive Attack",
+    1,
+    8
+   ],
+   [
+    "Ho Hey",
+    "The Lumineers",
+    1,
+    8
+   ],
+   [
+    "Fade into You",
+    "Mazzy Star",
+    1,
+    5
+   ],
+   [
+    "The Funeral",
+    "Band of Horses",
+    1,
+    5
+   ],
+   [
+    "Royals",
+    "Lorde",
+    1,
+    5
+   ],
+   [
+    "Where It's At",
+    "Beck",
+    1,
+    5
+   ]
+  ]
+ },
+ "Yacht Rock Sunday Drive": {
+  "playlists": [
+   "Yacht Rock",
+   "California Vibe",
+   "Diesel"
+  ],
+  "n_songs": 2294,
+  "top_artists": [
+   "John Mayer",
+   "Dave Matthews Band",
+   "Incubus",
+   "James Taylor",
+   "Two Door Cinema Club",
+   "Jimmy Eat World",
+   "George Strait",
+   "Pink Floyd",
+   "Catching Flies",
+   "Death Cab for Cutie"
+  ],
+  "era": [
+   1981,
+   2006,
+   2022
+  ],
+  "seeds": [
+   [
+    "Love Will Find a Way",
+    "Pablo Cruise",
+    3,
+    3
+   ],
+   [
+    "Peg",
+    "Steely Dan",
+    2,
+    4
+   ],
+   [
+    "Reminiscing (Remastered 2010)",
+    "Little River Band",
+    2,
+    3
+   ],
+   [
+    "The Pretender",
+    "Jackson Browne",
+    2,
+    3
+   ],
+   [
+    "Your Smiling Face",
+    "James Taylor",
+    2,
+    2
+   ],
+   [
+    "Arthur's Theme (Best That You Can Do)",
+    "Christopher Cross",
+    2,
+    2
+   ]
+  ]
+ },
+ "Synthwave Night Drive": {
+  "playlists": [
+   "Blurry Creatures"
+  ],
+  "n_songs": 121,
+  "top_artists": [
+   "Timecop1983",
+   "Kyle Dixon & Michael Stein",
+   "Marvel83'",
+   "The Midnight",
+   "Juno Dreams",
+   "Duett",
+   "New Arcades",
+   "Wojciech Golczewski",
+   "Thomas Barrandon",
+   "FM-84"
+  ],
+  "era": [
+   2015,
+   2019,
+   2023
+  ],
+  "seeds": [
+   [
+    "Silent Running (On Dangerous Ground)",
+    "Mike + The Mechanics",
+    1,
+    3
+   ],
+   [
+    "Revival",
+    "Zach Bryan",
+    1,
+    3
+   ],
+   [
+    "Maverick",
+    "FM-84",
+    1,
+    1
+   ],
+   [
+    "Dystopian Sunset",
+    "Marvel83'",
+    1,
+    1
+   ],
+   [
+    "Dark Skies",
+    "CJ Burnett",
+    1,
+    1
+   ],
+   [
+    "Metropolis",
+    "Massive Z, Kid Macdonald & NOVARAY",
+    1,
+    1
+   ]
+  ]
+ },
+ "Hard Rock Garage Day": {
+  "playlists": [
+   "Surviving the Zombie Apocalypse",
+   "Pump You Up",
+   "The Hard South",
+   "Rock Gods",
+   "Room to Breathe"
+  ],
+  "n_songs": 120,
+  "top_artists": [
+   "Motörhead",
+   "Korn",
+   "Nine Inch Nails",
+   "Marilyn Manson",
+   "Metallica",
+   "System Of A Down",
+   "Rage Against The Machine",
+   "Muse",
+   "Bullet for My Valentine",
+   "The Clash"
+  ],
+  "era": [
+   1975,
+   2002,
+   2014
+  ],
+  "seeds": [
+   [
+    "Chop Suey!",
+    "System Of A Down",
+    2,
+    9
+   ],
+   [
+    "Killing in the Name",
+    "Rage Against The Machine",
+    2,
+    9
+   ],
+   [
+    "Do I Wanna Know?",
+    "Arctic Monkeys",
+    2,
+    8
+   ],
+   [
+    "Ace of Spades",
+    "Motörhead",
+    2,
+    4
+   ],
+   [
+    "Smells Like Teen Spirit",
+    "Nirvana",
+    1,
+    18
+   ],
+   [
+    "Seven Nation Army",
+    "The White Stripes",
+    1,
+    17
+   ]
+  ]
+ },
+ "Pop Work From Home": {
+  "playlists": [
+   "Office DJ",
+   "Party Starters"
+  ],
+  "n_songs": 198,
+  "top_artists": [
+   "Dua Lipa",
+   "Bruno Mars",
+   "Ed Sheeran",
+   "Sabrina Carpenter",
+   "Tate McRae",
+   "Justin Bieber",
+   "Katy Perry",
+   "Flo Rida",
+   "Charli xcx",
+   "Taylor Swift"
+  ],
+  "era": [
+   2009,
+   2021,
+   2026
+  ],
+  "seeds": [
+   [
+    "A Bar Song (Tipsy)",
+    "Shaboozey",
+    2,
+    13
+   ],
+   [
+    "Miles On It",
+    "Marshmello & Kane Brown",
+    2,
+    10
+   ],
+   [
+    "Blinding Lights",
+    "The Weeknd",
+    2,
+    10
+   ],
+   [
+    "Don't Start Now",
+    "Dua Lipa",
+    2,
+    8
+   ],
+   [
+    "Shivers",
+    "Ed Sheeran",
+    2,
+    6
+   ],
+   [
+    "Closer",
+    "The Chainsmokers feat. Halsey",
+    2,
+    6
+   ]
+  ]
+ },
+ "Indie & Rock Seduction": {
+  "playlists": [
+   "(Sexy Indie) Taking my clothes off for an indie boy (dark pop, alt.metal,r&b...)",
+   "Rock Seduction",
+   "😈Bedroom metal 😈",
+   "Indie Romancers",
+   "An Uptempo Romance",
+   "I Wanna Be Yours"
+  ],
+  "n_songs": 159,
+  "top_artists": [
+   "Sleep Token",
+   "Deftones",
+   "Arctic Monkeys",
+   "Lana Del Rey",
+   "He Is Legend",
+   "A Perfect Circle",
+   "Nine Inch Nails",
+   "Spiritbox",
+   "Leprous",
+   "The Weeknd"
+  ],
+  "era": [
+   1995,
+   2009,
+   2022
+  ],
+  "seeds": [
+   [
+    "Closer",
+    "Nine Inch Nails",
+    2,
+    11
+   ],
+   [
+    "Change (In the House of Flies)",
+    "Deftones",
+    2,
+    6
+   ],
+   [
+    "505",
+    "Arctic Monkeys",
+    2,
+    4
+   ],
+   [
+    "I Turn My Camera On",
+    "Spoon",
+    2,
+    4
+   ],
+   [
+    "Another One Bites the Dust",
+    "Queen",
+    1,
+    9
+   ],
+   [
+    "Maps",
+    "Yeah Yeah Yeahs",
+    1,
+    8
+   ]
+  ]
+ },
+ "Soul Slow Jams": {
+  "playlists": [
+   "Let's Get It On",
+   "Christmas Mood Without Christmas Songs",
+   "Dance Club Vibes"
+  ],
+  "n_songs": 103,
+  "top_artists": [
+   "Future",
+   "Marvin Gaye",
+   "Bruno Mars",
+   "The Weeknd",
+   "Trey Songz",
+   "Jeremih",
+   "R. Kelly",
+   "LMFAO",
+   "Chris Brown",
+   "Tony Castellano"
+  ],
+  "era": [
+   1968,
+   2014,
+   2018
+  ],
+  "seeds": [
+   [
+    "Sweet Child O' Mine",
+    "Guns N' Roses",
+    1,
+    12
+   ],
+   [
+    "Closer",
+    "Nine Inch Nails",
+    1,
+    11
+   ],
+   [
+    "Yeah! (feat. Lil Jon & Ludacris)",
+    "USHER",
+    1,
+    10
+   ],
+   [
+    "Low (feat. T-Pain)",
+    "Flo Rida",
+    1,
+    9
+   ],
+   [
+    "I Gotta Feeling",
+    "Black Eyed Peas",
+    1,
+    9
+   ],
+   [
+    "CAN'T STOP THE FEELING!",
+    "Justin Timberlake",
+    1,
+    8
+   ]
+  ]
+ },
+ "Classic Christmas": {
+  "playlists": [
+   "Christmas Tunes",
+   "Marry Christmas",
+   "EVERY CHRISTMAS",
+   "Swingin’ Christmas Classics",
+   "Christmas",
+   "Christmas"
+  ],
+  "n_songs": 692,
+  "top_artists": [
+   "Vince Guaraldi Trio",
+   "Frank Sinatra",
+   "Andy Williams",
+   "Jeremy Camp",
+   "Pentatonix",
+   "Bing Crosby",
+   "Ella Fitzgerald",
+   "Elvis Presley",
+   "Nat \"King\" Cole",
+   "The Beach Boys"
+  ],
+  "era": [
+   1958,
+   1997,
+   2017
+  ],
+  "seeds": [
+   [
+    "Sleigh Ride",
+    "Ella Fitzgerald",
+    4,
+    4
+   ],
+   [
+    "Christmas Time Is Here (Vocal Version)",
+    "Vince Guaraldi Trio",
+    4,
+    4
+   ],
+   [
+    "It's the Most Wonderful Time of the Year",
+    "Andy Williams",
+    4,
+    4
+   ],
+   [
+    "Please Come Home for Christmas",
+    "Eagles",
+    3,
+    4
+   ],
+   [
+    "You're a Mean One Mr. Grinch",
+    "Thurl Ravenscroft",
+    3,
+    3
+   ],
+   [
+    "Mele Kalikimaka (Merry Christmas)",
+    "Bing Crosby & The Andrews Sisters",
+    3,
+    3
+   ]
+  ]
+ },
+ "Rock & Indie Christmas": {
+  "playlists": [
+   "Jingle Bell Rock",
+   "The Edge of Christmas",
+   "Alternative Holiday",
+   "A Very Indie Xmas",
+   "A Very Tooth & Nail Christmas"
+  ],
+  "n_songs": 200,
+  "top_artists": [
+   "The Pogues",
+   "The Smashing Pumpkins",
+   "The Killers",
+   "Pearl Jam",
+   "Weezer",
+   "U2",
+   "Julian Casablancas",
+   "Sufjan Stevens",
+   "The Shins",
+   "Eels"
+  ],
+  "era": [
+   1983,
+   2006,
+   2021
+  ],
+  "seeds": [
+   [
+    "Fairytale of New York (feat. Kirsty MacColl)",
+    "The Pogues",
+    4,
+    5
+   ],
+   [
+    "Christmastime",
+    "The Smashing Pumpkins",
+    4,
+    5
+   ],
+   [
+    "Christmas (Baby Please Come Home)",
+    "U2",
+    3,
+    6
+   ],
+   [
+    "Let Me Sleep (It's Christmas Time)",
+    "Pearl Jam",
+    3,
+    4
+   ],
+   [
+    "We Wish You a Merry Christmas",
+    "Weezer",
+    3,
+    4
+   ],
+   [
+    "Christmas Treat",
+    "Julian Casablancas",
+    3,
+    4
+   ]
+  ]
+ },
+ "Worship Christmas": {
+  "playlists": [
+   "Born the King: Songs of Christmas",
+   "Hope Was Born This Night",
+   "Reformed Christmas 🎄",
+   "Modern Advent/Christmas Hymns",
+   "Christmas Kings Kaleidoscope N Citizens & Saints",
+   "Christmas CD Mix",
+   "Advent Hymns",
+   "Christmas New"
+  ],
+  "n_songs": 455,
+  "top_artists": [
+   "Phil Wickham",
+   "Sovereign Grace Music",
+   "Josh Garrels",
+   "Kings Kaleidoscope & Kings Kaleidoscope Hymns",
+   "Citizens",
+   "Chris Tomlin",
+   "Shane & Shane",
+   "Third Day",
+   "John Van Deusen",
+   "for KING & COUNTRY"
+  ],
+  "era": [
+   2007,
+   2016,
+   2023
+  ],
+  "seeds": [
+   [
+    "All Glory Be to Christ",
+    "Kings Kaleidoscope & Kings Kaleidoscope Hymns",
+    3,
+    13
+   ],
+   [
+    "Hark! The Herald Angels Sing",
+    "Citizens",
+    3,
+    4
+   ],
+   [
+    "Jesus, Light of the World",
+    "Third Day",
+    3,
+    3
+   ],
+   [
+    "O Little Town of Bethlehem",
+    "Shane & Shane",
+    3,
+    3
+   ],
+   [
+    "Come and Stand Amazed",
+    "The Modern Post",
+    3,
+    3
+   ],
+   [
+    "Messiah",
+    "Phil Wickham",
+    2,
+    3
+   ]
+  ]
+ },
+ "Christmas Instrumental Hymns": {
+  "playlists": [
+   "Christmas Hymns Instrumental"
+  ],
+  "n_songs": 72,
+  "top_artists": [
+   "Stian Jarrell",
+   "Adam Zampino",
+   "Michele McLaughlin",
+   "Manuel Elastic",
+   "Jill Pitz & Marjorie Hanna",
+   "John Bladh",
+   "Laura Sullivan",
+   "Rossini Hayward",
+   "Joshua David Harris",
+   "Jules Amaro"
+  ],
+  "era": [
+   2001,
+   2018,
+   2022
+  ],
+  "seeds": [
+   [
+    "O Come, O Come, Emmanuel (Solo Piano)",
+    "Aron van Selm",
+    1,
+    1
+   ],
+   [
+    "Gesu Bambino",
+    "Stan Whitmire",
+    1,
+    1
+   ],
+   [
+    "What Child Is This (Greensleeves)",
+    "Denis Turbide",
+    1,
+    1
+   ],
+   [
+    "Cavalleria Rusticana (1987 Remastered Version): Intermezzo (Orchestra)",
+    "Riccardo Muti & Philharmonia Orchestra",
+    1,
+    1
+   ],
+   [
+    "The Coventry Carol (Cosy Fireplace)",
+    "Stian Jarrell",
+    1,
+    1
+   ],
+   [
+    "Silent Night",
+    "Manuel Elastic",
+    1,
+    1
+   ]
+  ]
+ },
+ "Halloween Party": {
+  "playlists": [
+   "Halloween Hits"
+  ],
+  "n_songs": 25,
+  "top_artists": [
+   "David Bowie",
+   "The Ramones",
+   "Sheb Wooley",
+   "DJ Jazzy Jeff & The Fresh Prince",
+   "The Marketts",
+   "Ray Parker Jr.",
+   "Michael Jackson",
+   "The Specials",
+   "Dead Man's Bones",
+   "Jumpin' Gene Simmons"
+  ],
+  "era": [
+   1962,
+   1978,
+   2004
+  ],
+  "seeds": [
+   [
+    "Sympathy For The Devil",
+    "The Rolling Stones",
+    1,
+    6
+   ],
+   [
+    "(Don't Fear) The Reaper",
+    "Blue Öyster Cult",
+    1,
+    4
+   ],
+   [
+    "Rock Lobster",
+    "The B-52's",
+    1,
+    3
+   ],
+   [
+    "Werewolves of London",
+    "Warren Zevon",
+    1,
+    3
+   ],
+   [
+    "Scary Monsters (And Super Creeps)",
+    "David Bowie",
+    1,
+    2
+   ],
+   [
+    "Thriller",
+    "Michael Jackson",
+    1,
+    2
+   ]
+  ]
+ },
+ "St. Patrick's Celtic Punk": {
+  "playlists": [
+   "ShamROCK"
+  ],
+  "n_songs": 104,
+  "top_artists": [
+   "Flogging Molly",
+   "Dropkick Murphys",
+   "The Young Dubliners",
+   "Flatfoot 56",
+   "The Saw Doctors",
+   "The Tossers",
+   "The Mahones",
+   "The Porters",
+   "The Skels",
+   "The Pogues"
+  ],
+  "era": [
+   1994,
+   2007,
+   2018
+  ],
+  "seeds": [
+   [
+    "Whiskey In The Jar",
+    "Thin Lizzy",
+    1,
+    3
+   ],
+   [
+    "If I Should Fall from Grace with God",
+    "The Pogues",
+    1,
+    2
+   ],
+   [
+    "Drunken Lullabies",
+    "Flogging Molly",
+    1,
+    2
+   ],
+   [
+    "Amazing Grace",
+    "Flatfoot 56",
+    1,
+    2
+   ],
+   [
+    "I'm Shipping up to Boston",
+    "Dropkick Murphys",
+    1,
+    2
+   ],
+   [
+    "Every Day St. Patrick's Day",
+    "Neck",
+    1,
+    1
+   ]
+  ]
+ }
+}

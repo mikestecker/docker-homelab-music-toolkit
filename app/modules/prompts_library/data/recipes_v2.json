@@ -1,0 +1,1432 @@
+[
+ {
+  "name": "Country Pool Day",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Kenny Chesney",
+   "Zac Brown Band",
+   "Morgan Wallen",
+   "Luke Combs",
+   "Thomas Rhett",
+   "Luke Bryan",
+   "Blake Shelton",
+   "Dierks Bentley",
+   "Riley Green",
+   "Tim McGraw"
+  ],
+  "staples": [
+   "American Kids by Kenny Chesney",
+   "Chicken Fried by Zac Brown Band"
+  ],
+  "prompt": "Upbeat summer country for a pool day, sunny and carefree, 2010s and 2020s, like Kenny Chesney, Zac Brown Band, Morgan Wallen, Luke Combs, Thomas Rhett, Luke Bryan, Blake Shelton, Dierks Bentley, Riley Green and Tim McGraw, plus songs like American Kids by Kenny Chesney and Chicken Fried by Zac Brown Band, 200 songs, max 6 songs per artist, no live versions"
+ },
+ {
+  "name": "Trop Rock Happy Hour",
+  "size": 150,
+  "cap": 6,
+  "artists": [
+   "Zac Brown Band",
+   "Jimmy Buffett",
+   "Kenny Chesney",
+   "Bob Marley",
+   "Alan Jackson",
+   "Uncle Kracker",
+   "Los Lonely Boys",
+   "Jack Johnson",
+   "The Beach Boys",
+   "Tom Petty"
+  ],
+  "staples": [
+   "Toes by Zac Brown Band",
+   "Margaritaville by Jimmy Buffett"
+  ],
+  "prompt": "Laid-back beach and island songs for happy hour, trop rock, island country and breezy classic rock, like Zac Brown Band, Jimmy Buffett, Kenny Chesney, Bob Marley, Alan Jackson, Uncle Kracker, Los Lonely Boys, Jack Johnson, The Beach Boys and Tom Petty, plus songs like Toes by Zac Brown Band and Margaritaville by Jimmy Buffett, 150 songs, max 6 songs per artist"
+ },
+ {
+  "name": "90s-2000s Pool Throwback",
+  "size": 140,
+  "cap": 6,
+  "artists": [
+   "Sublime",
+   "Red Hot Chili Peppers",
+   "Weezer",
+   "Third Eye Blind",
+   "Sugar Ray",
+   "Matchbox Twenty",
+   "The Goo Goo Dolls",
+   "Green Day",
+   "Barenaked Ladies",
+   "Spin Doctors"
+  ],
+  "staples": [
+   "What I Got by Sublime",
+   "Semi-Charmed Life by Third Eye Blind"
+  ],
+  "prompt": "Late 90s and early 2000s alternative and pop rock summer throwbacks for the pool, sunny and singalong, like Sublime, Red Hot Chili Peppers, Weezer, Third Eye Blind, Sugar Ray, Matchbox Twenty, The Goo Goo Dolls, Green Day, Barenaked Ladies and Spin Doctors, plus songs like What I Got by Sublime and Semi-Charmed Life by Third Eye Blind, 140 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Pop Pool Party",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "David Guetta",
+   "Black Eyed Peas",
+   "Justin Bieber",
+   "Flo Rida",
+   "Bruno Mars",
+   "Dua Lipa",
+   "USHER",
+   "Taylor Swift",
+   "Shakira",
+   "Harry Styles"
+  ],
+  "staples": [
+   "Uptown Funk by Mark Ronson",
+   "I Gotta Feeling by Black Eyed Peas"
+  ],
+  "prompt": "High energy pop and dance pool party anthems over 115 BPM, 2000s to today, like David Guetta, Black Eyed Peas, Justin Bieber, Flo Rida, Bruno Mars, Dua Lipa, USHER, Taylor Swift, Shakira and Harry Styles, plus songs like Uptown Funk by Mark Ronson and I Gotta Feeling by Black Eyed Peas, 200 songs, max 6 songs per artist, no ballads"
+ },
+ {
+  "name": "Reggae Island Vibes",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Bob Marley & The Wailers",
+   "Jimmy Buffett",
+   "Iration",
+   "Likkle Jordee",
+   "House of Shem",
+   "Katchafire",
+   "Michael Franti & Spearhead",
+   "Israel Kamakawiwo'ole",
+   "MAGIC!",
+   "KC and the Sunshine Band"
+  ],
+  "staples": [
+   "Could You Be Loved by Bob Marley & The Wailers",
+   "Margaritaville by Jimmy Buffett"
+  ],
+  "prompt": "Relaxed reggae and island grooves for a cruise or a lazy afternoon, mixed with sunny yacht pop and feel-good classics, like Bob Marley & The Wailers, Jimmy Buffett, Iration, Likkle Jordee, House of Shem, Katchafire, Michael Franti & Spearhead, Israel Kamakawiwo'ole, MAGIC! and KC and the Sunshine Band, plus songs like Could You Be Loved by Bob Marley & The Wailers and Margaritaville by Jimmy Buffett, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Summer Vibes",
+  "size": 170,
+  "cap": 6,
+  "artists": [
+   "Forrest Frank",
+   "TobyMac",
+   "Citizens",
+   "gio.",
+   "Jeremy Camp",
+   "Imrsqd",
+   "ZOE Music",
+   "Kelsey Breedlove",
+   "Social Club Misfits",
+   "GAWVI"
+  ],
+  "staples": [
+   "GOOD DAY by Forrest Frank",
+   "Can't Steal My Joy by Josiah Queen"
+  ],
+  "prompt": "Sunny, feel-good Christian pop and hip-hop for summer, recent, Christian artists only, like Forrest Frank, TobyMac, Citizens, gio., Jeremy Camp, Imrsqd, ZOE Music, Kelsey Breedlove, Social Club Misfits and GAWVI, plus songs like GOOD DAY by Forrest Frank and Can't Steal My Joy by Josiah Queen, 170 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Classic Rock BBQ",
+  "size": 80,
+  "cap": 5,
+  "artists": [
+   "Tom Petty",
+   "The Rolling Stones",
+   "Led Zeppelin",
+   "Creedence Clearwater Revival",
+   "The Allman Brothers Band",
+   "Alice Cooper",
+   "Lynyrd Skynyrd",
+   "The Who",
+   "America",
+   "Steve Miller Band"
+  ],
+  "staples": [
+   "American Girl by Tom Petty & The Heartbreakers",
+   "The Joker by Steve Miller Band"
+  ],
+  "prompt": "Backyard BBQ classic rock singalongs from the 70s and 80s, sunny and easygoing, like Tom Petty, The Rolling Stones, Led Zeppelin, Creedence Clearwater Revival, The Allman Brothers Band, Alice Cooper, Lynyrd Skynyrd, The Who, America and Steve Miller Band, plus songs like American Girl by Tom Petty & The Heartbreakers and The Joker by Steve Miller Band, 80 songs, max 5 songs per artist, no live versions"
+ },
+ {
+  "name": "Alt Rock BBQ",
+  "size": 80,
+  "cap": 4,
+  "artists": [
+   "Foo Fighters",
+   "Weezer",
+   "The Vines",
+   "Queens of the Stone Age",
+   "Modest Mouse",
+   "The Strokes",
+   "Arctic Monkeys",
+   "The Killers",
+   "Franz Ferdinand",
+   "Bluejuice"
+  ],
+  "staples": [
+   "Mr. Brightside by The Killers",
+   "Monkey Wrench by Foo Fighters"
+  ],
+  "prompt": "Upbeat alternative rock for a BBQ, mid 90s to 2010s, guitar-driven and fun, like Foo Fighters, Weezer, The Vines, Queens of the Stone Age, Modest Mouse, The Strokes, Arctic Monkeys, The Killers, Franz Ferdinand and Bluejuice, plus songs like Mr. Brightside by The Killers and Monkey Wrench by Foo Fighters, 80 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Country Front Yard Hang",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Luke Combs",
+   "Jason Aldean",
+   "Luke Bryan",
+   "Eric Church",
+   "Florida Georgia Line",
+   "Alan Jackson",
+   "George Strait",
+   "Zac Brown Band",
+   "Blake Shelton",
+   "Kenny Chesney"
+  ],
+  "staples": [
+   "Buy Dirt by Jordan Davis",
+   "Fly Over States by Jason Aldean"
+  ],
+  "prompt": "Easygoing modern country for hanging out in the front yard with friends, upbeat but relaxed, like Luke Combs, Jason Aldean, Luke Bryan, Eric Church, Florida Georgia Line, Alan Jackson, George Strait, Zac Brown Band, Blake Shelton and Kenny Chesney, plus songs like Buy Dirt by Jordan Davis and Fly Over States by Jason Aldean, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Country Tailgate",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Jason Aldean",
+   "Luke Bryan",
+   "Blake Shelton",
+   "Dustin Lynch",
+   "Craig Morgan",
+   "Trace Adkins",
+   "Luke Combs",
+   "Florida Georgia Line",
+   "LOCASH",
+   "Tim McGraw"
+  ],
+  "staples": [
+   "Hurricane by Luke Combs",
+   "Peter Pan by Kelsea Ballerini"
+  ],
+  "prompt": "Rowdy tailgate country from the last 10 years, loud and upbeat, like Jason Aldean, Luke Bryan, Blake Shelton, Dustin Lynch, Craig Morgan, Trace Adkins, Luke Combs, Florida Georgia Line, LOCASH and Tim McGraw, plus songs like Hurricane by Luke Combs and Peter Pan by Kelsea Ballerini, 200 songs, max 6 songs per artist, no ballads"
+ },
+ {
+  "name": "Dinner Party Mix",
+  "size": 120,
+  "cap": 6,
+  "artists": [
+   "Daryl Hall & John Oates",
+   "Queen",
+   "Sublime",
+   "Flo Rida",
+   "Sam Cooke",
+   "The Beatles",
+   "KC and the Sunshine Band",
+   "Stevie Wonder",
+   "Mariah Carey",
+   "King Harvest"
+  ],
+  "staples": [
+   "You Make My Dreams by Daryl Hall & John Oates",
+   "Could You Be Loved by Bob Marley & The Wailers"
+  ],
+  "prompt": "Warm, groovy dinner party music, soul, yacht pop and feel-good classics with a few recent hits, conversation-friendly, like Daryl Hall & John Oates, Queen, Sublime, Flo Rida, Sam Cooke, The Beatles, KC and the Sunshine Band, Stevie Wonder, Mariah Carey and King Harvest, plus songs like You Make My Dreams by Daryl Hall & John Oates and Could You Be Loved by Bob Marley & The Wailers, 120 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Millennial Throwback Party",
+  "size": 140,
+  "cap": 5,
+  "artists": [
+   "TLC",
+   "Train",
+   "Beyoncé",
+   "*NSYNC",
+   "Nelly",
+   "Britney Spears",
+   "Will Smith",
+   "Justin Timberlake",
+   "Pitbull",
+   "Rihanna"
+  ],
+  "staples": [
+   "One Week by Barenaked Ladies",
+   "Stacy's Mom by Fountains Of Wayne"
+  ],
+  "prompt": "Late 90s and 2000s pop, hip-hop and pop rock guilty pleasures everyone knows the words to, like TLC, Train, Beyoncé, *NSYNC, Nelly, Britney Spears, Will Smith, Justin Timberlake, Pitbull and Rihanna, plus songs like One Week by Barenaked Ladies and Stacy's Mom by Fountains Of Wayne, 140 songs, max 5 songs per artist"
+ },
+ {
+  "name": "Family Game Night",
+  "size": 180,
+  "cap": 6,
+  "artists": [
+   "OneRepublic",
+   "Coldplay",
+   "Weezer",
+   "Kenny Loggins",
+   "Ed Sheeran",
+   "Shawn Mendes",
+   "The Cars",
+   "Peter Bjorn and John",
+   "Edward Sharpe & The Magnetic Zeros",
+   "The Killers"
+  ],
+  "staples": [
+   "Mr. Brightside by The Killers",
+   "Counting Stars by OneRepublic"
+  ],
+  "prompt": "Clean, feel-good pop and indie rock for a family game night, upbeat but not loud, like OneRepublic, Coldplay, Weezer, Kenny Loggins, Ed Sheeran, Shawn Mendes, The Cars, Peter Bjorn and John, Edward Sharpe & The Magnetic Zeros and The Killers, plus songs like Mr. Brightside by The Killers and Counting Stars by OneRepublic, 180 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Dive Bar Rock",
+  "size": 80,
+  "cap": 5,
+  "artists": [
+   "Guns N' Roses",
+   "ZZ Top",
+   "Beastie Boys",
+   "AC/DC",
+   "The Doors",
+   "George Thorogood & The Destroyers",
+   "Van Halen",
+   "Judas Priest",
+   "Thin Lizzy",
+   "Buckcherry"
+  ],
+  "staples": [
+   "You Shook Me All Night Long by AC/DC",
+   "Roadhouse Blues by The Doors"
+  ],
+  "prompt": "Gritty dive bar jukebox rock, 70s and 80s hard rock and blues rock, like Guns N' Roses, ZZ Top, Beastie Boys, AC/DC, The Doors, George Thorogood & The Destroyers, Van Halen, Judas Priest, Thin Lizzy and Buckcherry, plus songs like You Shook Me All Night Long by AC/DC and Roadhouse Blues by The Doors, 80 songs, max 5 songs per artist"
+ },
+ {
+  "name": "Fourth of July",
+  "size": 80,
+  "cap": 4,
+  "artists": [
+   "Bruce Springsteen",
+   "Lynyrd Skynyrd",
+   "Toby Keith",
+   "Zac Brown Band",
+   "Creedence Clearwater Revival",
+   "Carrie Underwood",
+   "Blake Shelton",
+   "Alabama",
+   "Lee Greenwood",
+   "Don Mclean"
+  ],
+  "staples": [
+   "Born In the U.S.A. by Bruce Springsteen",
+   "Courtesy of the Red, White and Blue by Toby Keith"
+  ],
+  "prompt": "Fourth of July cookout: patriotic country and American classic rock anthems, like Bruce Springsteen, Lynyrd Skynyrd, Toby Keith, Zac Brown Band, Creedence Clearwater Revival, Carrie Underwood, Blake Shelton, Alabama, Lee Greenwood and Don Mclean, plus songs like Born In the U.S.A. by Bruce Springsteen and Courtesy of the Red, White and Blue by Toby Keith, 80 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Christian Hip-Hop Workout",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Lecrae",
+   "KB",
+   "Hulvey",
+   "nobigdyl.",
+   "Andy Mineo",
+   "Miles Minnick",
+   "Caleb Gordon",
+   "Red Tips",
+   "indie tribe",
+   "Trip Lee"
+  ],
+  "staples": [
+   "King Jesus by KB & nobigdyl.",
+   "Spread the Opps by Lecrae"
+  ],
+  "prompt": "Hard-hitting Christian hip-hop and trap for lifting, over 130 BPM, recent, Christian artists only, like Lecrae, KB, Hulvey, nobigdyl., Andy Mineo, Miles Minnick, Caleb Gordon, Red Tips, indie tribe and Trip Lee, plus songs like King Jesus by KB & nobigdyl. and Spread the Opps by Lecrae, 200 songs, max 6 songs per artist, no slow songs"
+ },
+ {
+  "name": "Christian Hip-Hop Game Day",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "Andy Mineo",
+   "Lecrae",
+   "KB",
+   "Tedashii",
+   "Trip Lee",
+   "WHATUPRG",
+   "116",
+   "1K Phew",
+   "GAWVI",
+   "Hulvey"
+  ],
+  "staples": [
+   "You Can't Stop Me by Andy Mineo",
+   "No Chains by KB"
+  ],
+  "prompt": "Hype Christian hip-hop for game day and sports, 2010s Reach Records era to now, Christian artists only, like Andy Mineo, Lecrae, KB, Tedashii, Trip Lee, WHATUPRG, 116, 1K Phew, GAWVI and Hulvey, plus songs like You Can't Stop Me by Andy Mineo and No Chains by KB, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Hard Rock Workout",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Skillet",
+   "Disciple",
+   "Thousand Foot Krutch",
+   "Manafest",
+   "Pillar",
+   "Red",
+   "Seventh Day Slumber",
+   "We As Human",
+   "LEDGER",
+   "Decyfer Down"
+  ],
+  "staples": [
+   "The Resistance by Skillet",
+   "War of Change by Thousand Foot Krutch"
+  ],
+  "prompt": "Heavy, driving Christian hard rock for the gym, 2000s to now, Christian artists only, like Skillet, Disciple, Thousand Foot Krutch, Manafest, Pillar, Red, Seventh Day Slumber, We As Human, LEDGER and Decyfer Down, plus songs like The Resistance by Skillet and War of Change by Thousand Foot Krutch, 200 songs, max 6 songs per artist, no ballads"
+ },
+ {
+  "name": "Christian Metalcore",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "War of Ages",
+   "For Today",
+   "Wolves At the Gate",
+   "Convictions",
+   "Phinehas",
+   "For All Eternity",
+   "Bloodlines",
+   "Fit for a King",
+   "August Burns Red",
+   "Impending Doom"
+  ],
+  "staples": [
+   "Fearless by For Today",
+   "Dead Man by Wolves At the Gate"
+  ],
+  "prompt": "Intense Christian metalcore and deathcore, breakdowns and screams, Christian artists only, like War of Ages, For Today, Wolves At the Gate, Convictions, Phinehas, For All Eternity, Bloodlines, Fit for a King, August Burns Red and Impending Doom, plus songs like Fearless by For Today and Dead Man by Wolves At the Gate, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Reformed Rap Workout",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Shai Linne",
+   "Timothy Brindle",
+   "Beautiful Eulogy",
+   "Christcentric",
+   "Willie Will",
+   "Hazakim",
+   "Believin Stephen",
+   "116",
+   "Wrath, Grace & Result",
+   "Flame"
+  ],
+  "staples": [
+   "The Holy Spirit by Shai Linne",
+   "I'm the Problem by Timothy Brindle"
+  ],
+  "prompt": "Theology-heavy Reformed Christian rap for a workout, 2000s and 2010s, Christian artists only, like Shai Linne, Timothy Brindle, Beautiful Eulogy, Christcentric, Willie Will, Hazakim, Believin Stephen, 116, Wrath, Grace & Result and Flame, plus songs like The Holy Spirit by Shai Linne and I'm the Problem by Timothy Brindle, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Worship Hype",
+  "size": 120,
+  "cap": 6,
+  "artists": [
+   "ELEVATION RHYTHM",
+   "Forrest Frank",
+   "Elevation Worship",
+   "Hulvey",
+   "KB",
+   "Crowder",
+   "Brandon Lake",
+   "Maverick City Music",
+   "TobyMac",
+   "Local Sound"
+  ],
+  "staples": [
+   "NO LONGER BOUND by Forrest Frank & Hulvey",
+   "GOODBYE YESTERDAY by ELEVATION RHYTHM"
+  ],
+  "prompt": "Upbeat, high energy worship you can jump to, dance and hip-hop flavored, Christian artists only, like ELEVATION RHYTHM, Forrest Frank, Elevation Worship, Hulvey, KB, Crowder, Brandon Lake, Maverick City Music, TobyMac and Local Sound, plus songs like NO LONGER BOUND by Forrest Frank & Hulvey and GOODBYE YESTERDAY by ELEVATION RHYTHM, 120 songs, max 6 songs per artist, no slow songs"
+ },
+ {
+  "name": "Rock Workout",
+  "size": 80,
+  "cap": 5,
+  "artists": [
+   "Foo Fighters",
+   "Pearl Jam",
+   "The Offspring",
+   "Stone Temple Pilots",
+   "Guns N' Roses",
+   "Queen",
+   "Beastie Boys",
+   "White Zombie",
+   "Soundgarden",
+   "AC/DC"
+  ],
+  "staples": [
+   "Welcome To The Jungle by Guns N' Roses",
+   "Sabotage by Beastie Boys"
+  ],
+  "prompt": "High energy rock for a workout over 125 BPM, classic rock to 2000s, like Foo Fighters, Pearl Jam, The Offspring, Stone Temple Pilots, Guns N' Roses, Queen, Beastie Boys, White Zombie, Soundgarden and AC/DC, plus songs like Welcome To The Jungle by Guns N' Roses and Sabotage by Beastie Boys, 80 songs, max 5 songs per artist"
+ },
+ {
+  "name": "Alt Indie Run",
+  "size": 100,
+  "cap": 5,
+  "artists": [
+   "The Black Keys",
+   "Phoenix",
+   "Franz Ferdinand",
+   "Blur",
+   "Vampire Weekend",
+   "The Killers",
+   "Passion Pit",
+   "M83",
+   "Arcade Fire",
+   "Muse"
+  ],
+  "staples": [
+   "Midnight City by M83",
+   "Take a Walk by Passion Pit"
+  ],
+  "prompt": "Steady, driving alternative and indie rock for a run, 140 to 170 BPM, 2000s and 2010s, like The Black Keys, Phoenix, Franz Ferdinand, Blur, Vampire Weekend, The Killers, Passion Pit, M83, Arcade Fire and Muse, plus songs like Midnight City by M83 and Take a Walk by Passion Pit, 100 songs, max 5 songs per artist"
+ },
+ {
+  "name": "Electronic Run",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "David Guetta",
+   "Coldplay",
+   "Flo Rida",
+   "Major Lazer",
+   "Rudimental",
+   "Blonde",
+   "Calvin Harris",
+   "Avicii",
+   "Swedish House Mafia",
+   "Chris Brown"
+  ],
+  "staples": [
+   "Titanium by David Guetta",
+   "Lean On by Major Lazer"
+  ],
+  "prompt": "Upbeat EDM and dance pop for running, over 125 BPM, 2010s, like David Guetta, Coldplay, Flo Rida, Major Lazer, Rudimental, Blonde, Calvin Harris, Avicii, Swedish House Mafia and Chris Brown, plus songs like Titanium by David Guetta and Lean On by Major Lazer, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Pickleball",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "NEEDTOBREATHE",
+   "P.O.D.",
+   "Judah & The Lion",
+   "Switchfoot",
+   "KB",
+   "Skillet",
+   "Kings Kaleidoscope",
+   "AC/DC",
+   "Colony House",
+   "The Rolling Stones"
+  ],
+  "staples": [
+   "Semi-Charmed Life by Third Eye Blind",
+   "Start Me Up by The Rolling Stones"
+  ],
+  "prompt": "Feel-good, upbeat pickleball mix of 80s and 90s singalongs, pop rock, country and Christian rock, like NEEDTOBREATHE, P.O.D., Judah & The Lion, Switchfoot, KB, Skillet, Kings Kaleidoscope, AC/DC, Colony House and The Rolling Stones, plus songs like Semi-Charmed Life by Third Eye Blind and Start Me Up by The Rolling Stones, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Punk Rock Skate",
+  "size": 90,
+  "cap": 5,
+  "artists": [
+   "Ramones",
+   "Less Than Jake",
+   "The Bouncing Souls",
+   "Rancid",
+   "The Suicide Machines",
+   "Bad Religion",
+   "Dropkick Murphys",
+   "Pennywise",
+   "My Chemical Romance",
+   "Black Flag"
+  ],
+  "staples": [
+   "Bro Hymn by Pennywise",
+   "Blitzkrieg Bop by Ramones"
+  ],
+  "prompt": "Fast punk and skate punk, 80s to 2000s, like Ramones, Less Than Jake, The Bouncing Souls, Rancid, The Suicide Machines, Bad Religion, Dropkick Murphys, Pennywise, My Chemical Romance and Black Flag, plus songs like Bro Hymn by Pennywise and Blitzkrieg Bop by Ramones, 90 songs, max 5 songs per artist"
+ },
+ {
+  "name": "Youth Group Throwback",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Audio Adrenaline",
+   "Newsboys",
+   "DC Talk",
+   "Bleach",
+   "Seven Day Jesus",
+   "Skillet",
+   "Jars of Clay",
+   "Third Day",
+   "Switchfoot",
+   "Smalltown Poets"
+  ],
+  "staples": [
+   "Some Kind Of Zombie by Audio Adrenaline",
+   "Shine by Newsboys"
+  ],
+  "prompt": "Mid 90s to mid 2000s Christian rock, pop and rap-rock youth group throwbacks, Christian artists only, like Audio Adrenaline, Newsboys, DC Talk, Bleach, Seven Day Jesus, Skillet, Jars of Clay, Third Day, Switchfoot and Smalltown Poets, plus songs like Some Kind Of Zombie by Audio Adrenaline and Shine by Newsboys, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "90s Christian Grunge",
+  "size": 160,
+  "cap": 6,
+  "artists": [
+   "Plankeye",
+   "Common Children",
+   "Grammatrain",
+   "The Prayer Chain",
+   "White Heart",
+   "Whitecross",
+   "Poor Old Lu",
+   "The Violet Burning",
+   "Newsboys",
+   "Petra"
+  ],
+  "staples": [
+   "B.C. by Plankeye",
+   "Fifty-Eight by The Prayer Chain"
+  ],
+  "prompt": "90s Christian grunge, alternative and shoegaze, fuzzy guitars and moody, Christian artists only, like Plankeye, Common Children, Grammatrain, The Prayer Chain, White Heart, Whitecross, Poor Old Lu, The Violet Burning, Newsboys and Petra, plus songs like B.C. by Plankeye and Fifty-Eight by The Prayer Chain, 160 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Ska & Skate Punk",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "The O.C. Supertones",
+   "Ghoti Hook",
+   "The Insyderz",
+   "Five Iron Frenzy",
+   "MxPx",
+   "Dogwood",
+   "Slick Shoes",
+   "Hangnail",
+   "Ace Troubleshooter",
+   "Squad Five-O"
+  ],
+  "staples": [
+   "Hallelujah by The O.C. Supertones",
+   "My Evil Plan to Save the World by Five Iron Frenzy"
+  ],
+  "prompt": "Late 90s and early 2000s Christian ska and skate punk, horns and fast guitars, Christian artists only, like The O.C. Supertones, Ghoti Hook, The Insyderz, Five Iron Frenzy, MxPx, Dogwood, Slick Shoes, Hangnail, Ace Troubleshooter and Squad Five-O, plus songs like Hallelujah by The O.C. Supertones and My Evil Plan to Save the World by Five Iron Frenzy, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "2000s Christian Emo & Alt",
+  "size": 150,
+  "cap": 6,
+  "artists": [
+   "Emery",
+   "Anberlin",
+   "Further Seems Forever",
+   "Underoath",
+   "As Cities Burn",
+   "The Almost",
+   "Mae",
+   "Number One Gun",
+   "Copeland",
+   "The Juliana Theory"
+  ],
+  "staples": [
+   "The Moon Is Down by Further Seems Forever",
+   "Feel Good Drag by Anberlin"
+  ],
+  "prompt": "2000s Tooth & Nail era emo, post-hardcore and alternative rock, Christian artists only, like Emery, Anberlin, Further Seems Forever, Underoath, As Cities Burn, The Almost, Mae, Number One Gun, Copeland and The Juliana Theory, plus songs like The Moon Is Down by Further Seems Forever and Feel Good Drag by Anberlin, 150 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Tooth & Nail Hard Rock",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "P.O.D.",
+   "Skillet",
+   "Project 86",
+   "Blindside",
+   "Thousand Foot Krutch",
+   "Red",
+   "Disciple",
+   "Falling Up",
+   "Fireflight",
+   "Seventh Day Slumber"
+  ],
+  "staples": [
+   "Run by Project 86",
+   "Colt .45 by Stavesacre"
+  ],
+  "prompt": "Heavy 2000s Christian hard rock and nu metal, Christian artists only, like P.O.D., Skillet, Project 86, Blindside, Thousand Foot Krutch, Red, Disciple, Falling Up, Fireflight and Seventh Day Slumber, plus songs like Run by Project 86 and Colt .45 by Stavesacre, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Indie Rock",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Kings Kaleidoscope",
+   "NEEDTOBREATHE",
+   "Chris Renzema",
+   "Citizens",
+   "Gable Price and Friends",
+   "Colony House",
+   "RIDERS",
+   "Judah & The Lion",
+   "MUCH MORE",
+   "Beach Chapel"
+  ],
+  "staples": [
+   "Made Alive by Citizens",
+   "Backwards by Kings Kaleidoscope"
+  ],
+  "prompt": "Christian indie and alternative rock that doesn't sound like Christian radio, last 10 years, Christian artists only, like Kings Kaleidoscope, NEEDTOBREATHE, Chris Renzema, Citizens, Gable Price and Friends, Colony House, RIDERS, Judah & The Lion, MUCH MORE and Beach Chapel, plus songs like Made Alive by Citizens and Backwards by Kings Kaleidoscope, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Indie Folk",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Chris Renzema",
+   "Jervis Campbell",
+   "Josh Garrels",
+   "Josiah Queen",
+   "Jess Ray",
+   "Strahan",
+   "John Mark Pantana",
+   "Rend Collective",
+   "Jon Guerra",
+   "Benjamin William Hastings"
+  ],
+  "staples": [
+   "The Prodigal by Josiah Queen",
+   "I Don't Wanna Go by Chris Renzema"
+  ],
+  "prompt": "Warm acoustic Christian indie folk, banjo and harmonies, Christian artists only, like Chris Renzema, Jervis Campbell, Josh Garrels, Josiah Queen, Jess Ray, Strahan, John Mark Pantana, Rend Collective, Jon Guerra and Benjamin William Hastings, plus songs like The Prodigal by Josiah Queen and I Don't Wanna Go by Chris Renzema, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Pop Car Jams",
+  "size": 90,
+  "cap": 6,
+  "artists": [
+   "Matthew West",
+   "NEEDTOBREATHE",
+   "TobyMac",
+   "Tauren Wells",
+   "Rend Collective",
+   "for KING & COUNTRY",
+   "Jeremy Camp",
+   "Elevation Worship",
+   "Josiah Queen",
+   "Forrest Frank"
+  ],
+  "staples": [
+   "The River by Jordan Feliz",
+   "Take It All Back by Tauren Wells"
+  ],
+  "prompt": "Upbeat Christian pop to sing along to in the car, mostly recent, Christian artists only, like Matthew West, NEEDTOBREATHE, TobyMac, Tauren Wells, Rend Collective, for KING & COUNTRY, Jeremy Camp, Elevation Worship, Josiah Queen and Forrest Frank, plus songs like The River by Jordan Feliz and Take It All Back by Tauren Wells, 90 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Country",
+  "size": 120,
+  "cap": 6,
+  "artists": [
+   "Zach Williams",
+   "NEEDTOBREATHE",
+   "Anne Wilson",
+   "Crowder",
+   "We The Kingdom",
+   "Rhett Walker",
+   "Chris Tomlin",
+   "Brandon Lake",
+   "CAIN",
+   "Cochren & Co."
+  ],
+  "staples": [
+   "Holy Water by We The Kingdom",
+   "There Was Jesus by Zach Williams & Dolly Parton"
+  ],
+  "prompt": "Christian country and southern rock with a faith message, last 10 years, Christian artists only, like Zach Williams, NEEDTOBREATHE, Anne Wilson, Crowder, We The Kingdom, Rhett Walker, Chris Tomlin, Brandon Lake, CAIN and Cochren & Co., plus songs like Holy Water by We The Kingdom and There Was Jesus by Zach Williams & Dolly Parton, 120 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian R&B & Soul",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "Madison Ryann Ward",
+   "Cleo Sol",
+   "Dante Bowe",
+   "Taylor Armstrong",
+   "Steffany Gretzinger",
+   "Natalie Lauren",
+   "Sondae",
+   "Uninvtd & S A I N T",
+   "Matthew Mole",
+   "Cecily"
+  ],
+  "staples": [
+   "Green by Madison Ryann Ward",
+   "Easy On Me by Dante Bowe"
+  ],
+  "prompt": "Smooth Christian R&B and neo-soul, slow and warm, Christian artists only, like Madison Ryann Ward, Cleo Sol, Dante Bowe, Taylor Armstrong, Steffany Gretzinger, Natalie Lauren, Sondae, Uninvtd & S A I N T, Matthew Mole and Cecily, plus songs like Green by Madison Ryann Ward and Easy On Me by Dante Bowe, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christian Hip-Hop Work Focus",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "GAWVI",
+   "Andy Mineo",
+   "WHATUPRG",
+   "Hulvey",
+   "Tedashii",
+   "1K Phew",
+   "Anike",
+   "Lecrae",
+   "Trip Lee",
+   "KB"
+  ],
+  "staples": [
+   "Fight for Me by GAWVI",
+   "How We Coming by 1K Phew"
+  ],
+  "prompt": "Laid-back, steady Christian hip-hop for working, not too hype, Christian artists only, like GAWVI, Andy Mineo, WHATUPRG, Hulvey, Tedashii, 1K Phew, Anike, Lecrae, Trip Lee and KB, plus songs like Fight for Me by GAWVI and How We Coming by 1K Phew, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Sunday Morning Worship",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "Chris Tomlin",
+   "Phil Wickham",
+   "Cody Carnes",
+   "Jesus Culture",
+   "Elevation Worship",
+   "Hillsong Worship",
+   "Bethel Music",
+   "Crowder",
+   "Hillsong UNITED",
+   "Passion"
+  ],
+  "staples": [
+   "Our God by Chris Tomlin",
+   "Praise by Elevation Worship"
+  ],
+  "prompt": "Modern worship for Sunday morning, congregational and uplifting, last 10 years, Christian artists only, like Chris Tomlin, Phil Wickham, Cody Carnes, Jesus Culture, Elevation Worship, Hillsong Worship, Bethel Music, Crowder, Hillsong UNITED and Passion, plus songs like Our God by Chris Tomlin and Praise by Elevation Worship, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Indie Worship",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Isla Vista Worship",
+   "Chris Renzema",
+   "John Mark Pantana",
+   "Taylor Armstrong",
+   "Rend Collective",
+   "NEEDTOBREATHE",
+   "Will Reagan",
+   "Antoine Bradford",
+   "LOVKN",
+   "Rivers & Robots"
+  ],
+  "staples": [
+   "I Don't Wanna Go by Chris Renzema",
+   "Abba by John Mark Pantana"
+  ],
+  "prompt": "Intimate, atmospheric indie worship, soft vocals and ambient guitars, Christian artists only, like Isla Vista Worship, Chris Renzema, John Mark Pantana, Taylor Armstrong, Rend Collective, NEEDTOBREATHE, Will Reagan, Antoine Bradford, LOVKN and Rivers & Robots, plus songs like I Don't Wanna Go by Chris Renzema and Abba by John Mark Pantana, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Modern Hymns",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Shane & Shane",
+   "Kings Kaleidoscope",
+   "Norton Hall Band",
+   "Keith & Kristyn Getty",
+   "Matt Boswell",
+   "Sojourn Music",
+   "CityAlight",
+   "Ascend The Hill",
+   "Sovereign Grace Music",
+   "Page CXVI"
+  ],
+  "staples": [
+   "Jesus Paid It All by Kings Kaleidoscope",
+   "Before the Throne of God Above by Sojourn Music"
+  ],
+  "prompt": "Modern hymns and Reformed worship, rich lyrics, Christian artists only, like Shane & Shane, Kings Kaleidoscope, Norton Hall Band, Keith & Kristyn Getty, Matt Boswell, Sojourn Music, CityAlight, Ascend The Hill, Sovereign Grace Music and Page CXVI, plus songs like Jesus Paid It All by Kings Kaleidoscope and Before the Throne of God Above by Sojourn Music, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Coffeehouse Acoustic Hymns",
+  "size": 160,
+  "cap": 6,
+  "artists": [
+   "Josh Garrels",
+   "Wilder Adkins",
+   "Paul Zach",
+   "The Lower Lights",
+   "Jadon Lavik",
+   "Ascend The Hill",
+   "Shane & Shane",
+   "Fernando Ortega",
+   "Audrey Assad",
+   "LOVKN"
+  ],
+  "staples": [
+   "Turn your Eyes Upon Jesus by Josh Garrels",
+   "Just a Closer Walk with Thee by Paul Zach"
+  ],
+  "prompt": "Stripped-down acoustic hymns, folk and Americana style, quiet and warm, Christian artists only, like Josh Garrels, Wilder Adkins, Paul Zach, The Lower Lights, Jadon Lavik, Ascend The Hill, Shane & Shane, Fernando Ortega, Audrey Assad and LOVKN, plus songs like Turn your Eyes Upon Jesus by Josh Garrels and Just a Closer Walk with Thee by Paul Zach, 160 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Worship Study & Prayer",
+  "size": 170,
+  "cap": 6,
+  "artists": [
+   "Rivers & Robots",
+   "Josh Garrels",
+   "Jonathan Ogden",
+   "Shane & Shane",
+   "Chris Renzema",
+   "Phil Wickham",
+   "Ben Potter",
+   "The Worship Initiative",
+   "United Pursuit",
+   "Pat Barrett"
+  ],
+  "staples": [
+   "Springtime by Chris Renzema",
+   "Taste and See by John Mark Pantana"
+  ],
+  "prompt": "Calm worship for Bible study and prayer, instrumental piano, lofi hymns and soft acoustic worship, steady and quiet, like Rivers & Robots, Josh Garrels, Jonathan Ogden, Shane & Shane, Chris Renzema, Phil Wickham, Ben Potter, The Worship Initiative, United Pursuit and Pat Barrett, plus songs like Springtime by Chris Renzema and Taste and See by John Mark Pantana, 170 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Country Bedroom Slow Jams",
+  "size": 90,
+  "cap": 6,
+  "artists": [
+   "Riley Green",
+   "Billy Currington",
+   "Jason Aldean",
+   "Chris Stapleton",
+   "Chris Young",
+   "Eric Church",
+   "Morgan Wallen",
+   "Dierks Bentley",
+   "Kenny Chesney",
+   "Luke Bryan"
+  ],
+  "staples": [
+   "When She Comes Home Tonight by Riley Green",
+   "You Should Probably Leave by Chris Stapleton"
+  ],
+  "prompt": "Slow, sultry, romantic country for a night in, low and sensual, like Riley Green, Billy Currington, Jason Aldean, Chris Stapleton, Chris Young, Eric Church, Morgan Wallen, Dierks Bentley, Kenny Chesney and Luke Bryan, plus songs like When She Comes Home Tonight by Riley Green and You Should Probably Leave by Chris Stapleton, 90 songs, max 6 songs per artist, no upbeat songs"
+ },
+ {
+  "name": "Save a Horse Country Party",
+  "size": 120,
+  "cap": 6,
+  "artists": [
+   "Miranda Lambert",
+   "Luke Bryan",
+   "Carrie Underwood",
+   "Gretchen Wilson",
+   "Alan Jackson",
+   "Big & Rich",
+   "Taylor Swift",
+   "Kenny Chesney",
+   "Sara Evans",
+   "Brooks & Dunn"
+  ],
+  "staples": [
+   "Save a Horse (Ride a Cowboy) by Big & Rich",
+   "Here for the Party by Gretchen Wilson"
+  ],
+  "prompt": "Flirty, rowdy 2000s country party anthems, like Miranda Lambert, Luke Bryan, Carrie Underwood, Gretchen Wilson, Alan Jackson, Big & Rich, Taylor Swift, Kenny Chesney, Sara Evans and Brooks & Dunn, plus songs like Save a Horse (Ride a Cowboy) by Big & Rich and Here for the Party by Gretchen Wilson, 120 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Red Dirt Road Trip",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Zach Bryan",
+   "Tyler Childers",
+   "Chris Stapleton",
+   "The Red Clay Strays",
+   "Noah Kahan",
+   "Charles Wesley Godwin",
+   "Whiskey Myers",
+   "Cody Jinks",
+   "Wyatt Flores",
+   "Turnpike Troubadours"
+  ],
+  "staples": [
+   "Wondering Why by The Red Clay Strays",
+   "Feathered Indians by Tyler Childers"
+  ],
+  "prompt": "Red dirt, outlaw and southern rock country for a long drive, raw and real, last 10 years, like Zach Bryan, Tyler Childers, Chris Stapleton, The Red Clay Strays, Noah Kahan, Charles Wesley Godwin, Whiskey Myers, Cody Jinks, Wyatt Flores and Turnpike Troubadours, plus songs like Wondering Why by The Red Clay Strays and Feathered Indians by Tyler Childers, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Country Morning Coffee",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Luke Combs",
+   "Kane Brown",
+   "Morgan Wallen",
+   "Jordan Davis",
+   "Megan Moroney",
+   "Cody Johnson",
+   "Tucker Wetmore",
+   "Tyler Hubbard",
+   "Shaboozey",
+   "Russell Dickerson"
+  ],
+  "staples": [
+   "What My World Spins Around by Jordan Davis",
+   "Head Over Boots by Jon Pardi"
+  ],
+  "prompt": "Bright, easy modern country to start the morning, sweet and upbeat, last 5 years, like Luke Combs, Kane Brown, Morgan Wallen, Jordan Davis, Megan Moroney, Cody Johnson, Tucker Wetmore, Tyler Hubbard, Shaboozey and Russell Dickerson, plus songs like What My World Spins Around by Jordan Davis and Head Over Boots by Jon Pardi, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Americana Back Porch",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "The Lumineers",
+   "The Jayhawks",
+   "Dawes",
+   "Alabama Shakes",
+   "Lord Huron",
+   "Judah & The Lion",
+   "Bon Iver",
+   "Jason Isbell",
+   "St. Paul & The Broken Bones",
+   "Josh Ritter"
+  ],
+  "staples": [
+   "Dead Sea by The Lumineers",
+   "24 Frames by Jason Isbell"
+  ],
+  "prompt": "Back porch Americana, indie folk and alt bluegrass, stomps and harmonies, like The Lumineers, The Jayhawks, Dawes, Alabama Shakes, Lord Huron, Judah & The Lion, Bon Iver, Jason Isbell, St. Paul & The Broken Bones and Josh Ritter, plus songs like Dead Sea by The Lumineers and 24 Frames by Jason Isbell, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "90s Alt Throwback",
+  "size": 80,
+  "cap": 3,
+  "artists": [
+   "Third Eye Blind",
+   "Green Day",
+   "Oasis",
+   "Nirvana",
+   "Sublime",
+   "The Mighty Mighty Bosstones",
+   "The Offspring",
+   "Foo Fighters",
+   "blink-182",
+   "Radiohead"
+  ],
+  "staples": [
+   "Semi-Charmed Life by Third Eye Blind",
+   "The Impression That I Get by The Mighty Mighty Bosstones"
+  ],
+  "prompt": "90s alternative rock radio hits, 1992 to 1999, like Third Eye Blind, Green Day, Oasis, Nirvana, Sublime, The Mighty Mighty Bosstones, The Offspring, Foo Fighters, blink-182 and Radiohead, plus songs like Semi-Charmed Life by Third Eye Blind and The Impression That I Get by The Mighty Mighty Bosstones, 80 songs, max 3 songs per artist, no live versions"
+ },
+ {
+  "name": "Millennial Dad Rock",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "Red Hot Chili Peppers",
+   "Foo Fighters",
+   "Staind",
+   "Audioslave",
+   "Chevelle",
+   "Green Day",
+   "Jet",
+   "blink-182",
+   "Coldplay",
+   "Muse"
+  ],
+  "staples": [
+   "Best Of You by Foo Fighters",
+   "Are You Gonna Be My Girl by Jet"
+  ],
+  "prompt": "Late 90s and 2000s rock radio, big guitars and choruses, like Red Hot Chili Peppers, Foo Fighters, Staind, Audioslave, Chevelle, Green Day, Jet, blink-182, Coldplay and Muse, plus songs like Best Of You by Foo Fighters and Are You Gonna Be My Girl by Jet, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Classic Rock Road Trip",
+  "size": 120,
+  "cap": 6,
+  "artists": [
+   "Tom Petty",
+   "The Rolling Stones",
+   "Queen",
+   "The Beatles",
+   "Bruce Springsteen",
+   "R.E.M.",
+   "The Who",
+   "Lynyrd Skynyrd",
+   "Thin Lizzy",
+   "Creedence Clearwater Revival"
+  ],
+  "staples": [
+   "I Won't Back Down by Tom Petty",
+   "Born to Run by Bruce Springsteen"
+  ],
+  "prompt": "Classic rock for a road trip, 60s to 80s driving anthems, like Tom Petty, The Rolling Stones, Queen, The Beatles, Bruce Springsteen, R.E.M., The Who, Lynyrd Skynyrd, Thin Lizzy and Creedence Clearwater Revival, plus songs like I Won't Back Down by Tom Petty and Born to Run by Bruce Springsteen, 120 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Indie Night Drive",
+  "size": 150,
+  "cap": 6,
+  "artists": [
+   "The Strokes",
+   "Oasis",
+   "LCD Soundsystem",
+   "Spoon",
+   "Bright Eyes",
+   "Tame Impala",
+   "Beach House",
+   "Rilo Kiley",
+   "Yeah Yeah Yeahs",
+   "The National"
+  ],
+  "staples": [
+   "The Less I Know the Better by Tame Impala",
+   "Space Song by Beach House"
+  ],
+  "prompt": "Moody indie rock and dream pop for a night drive, last 10 years with some 2000s, like The Strokes, Oasis, LCD Soundsystem, Spoon, Bright Eyes, Tame Impala, Beach House, Rilo Kiley, Yeah Yeah Yeahs and The National, plus songs like The Less I Know the Better by Tame Impala and Space Song by Beach House, 150 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Alt Pop Singalong",
+  "size": 100,
+  "cap": 4,
+  "artists": [
+   "Weezer",
+   "twenty one pilots",
+   "Barns Courtney",
+   "Imagine Dragons",
+   "Fall Out Boy",
+   "The Revivalists",
+   "GIVERS",
+   "Bass Drum of Death",
+   "Mike Shinoda",
+   "Beck"
+  ],
+  "staples": [
+   "Some Nights by Fun.",
+   "Africa by Weezer"
+  ],
+  "prompt": "Catchy, upbeat alt pop and indie rock singalongs, 2010s and 2020s, like Weezer, twenty one pilots, Barns Courtney, Imagine Dragons, Fall Out Boy, The Revivalists, GIVERS, Bass Drum of Death, Mike Shinoda and Beck, plus songs like Some Nights by Fun. and Africa by Weezer, 100 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Indie Rainy Day",
+  "size": 80,
+  "cap": 4,
+  "artists": [
+   "Radiohead",
+   "Bon Iver",
+   "Beck",
+   "Feist",
+   "Marissa Nadler",
+   "Phoebe Bridgers",
+   "Beach House",
+   "William Fitzsimmons",
+   "The New Basement Tapes",
+   "Smerz"
+  ],
+  "staples": [
+   "Teardrop by Massive Attack",
+   "Fade into You by Mazzy Star"
+  ],
+  "prompt": "Slow, moody indie and trip-hop for a rainy day, quiet and reflective, like Radiohead, Bon Iver, Beck, Feist, Marissa Nadler, Phoebe Bridgers, Beach House, William Fitzsimmons, The New Basement Tapes and Smerz, plus songs like Teardrop by Massive Attack and Fade into You by Mazzy Star, 80 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Yacht Rock Sunday Drive",
+  "size": 200,
+  "cap": 6,
+  "artists": [
+   "James Taylor",
+   "Daryl Hall & John Oates",
+   "Kenny Loggins",
+   "Eagles",
+   "Christopher Cross",
+   "Steely Dan",
+   "Seals & Crofts",
+   "Jackson Browne",
+   "The Doobie Brothers",
+   "Boz Scaggs"
+  ],
+  "staples": [
+   "Peg by Steely Dan",
+   "Reminiscing by Little River Band"
+  ],
+  "prompt": "Smooth late 70s and early 80s yacht rock and soft rock for a Sunday drive, plus mellow modern soft rock, like James Taylor, Daryl Hall & John Oates, Kenny Loggins, Eagles, Christopher Cross, Steely Dan, Seals & Crofts, Jackson Browne, The Doobie Brothers and Boz Scaggs, plus songs like Peg by Steely Dan and Reminiscing by Little River Band, 200 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Synthwave Night Drive",
+  "size": 120,
+  "cap": 6,
+  "artists": [
+   "Kyle Dixon & Michael Stein",
+   "Timecop1983",
+   "Marvel83'",
+   "The Midnight",
+   "Juno Dreams",
+   "FM-84",
+   "Thomas Barrandon",
+   "New Arcades",
+   "Wojciech Golczewski",
+   "Duett"
+  ],
+  "staples": [
+   "Maverick by FM-84",
+   "On the Run by Timecop1983"
+  ],
+  "prompt": "Retro 80s-style synthwave and outrun for a night drive, neon and nostalgic, like Kyle Dixon & Michael Stein, Timecop1983, Marvel83', The Midnight, Juno Dreams, FM-84, Thomas Barrandon, New Arcades, Wojciech Golczewski and Duett, plus songs like Maverick by FM-84 and On the Run by Timecop1983, 120 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Hard Rock Garage Day",
+  "size": 80,
+  "cap": 4,
+  "artists": [
+   "Rage Against The Machine",
+   "Marilyn Manson",
+   "Metallica",
+   "Nine Inch Nails",
+   "System Of A Down",
+   "Motörhead",
+   "Bullet for My Valentine",
+   "Muse",
+   "Korn",
+   "Black Sabbath"
+  ],
+  "staples": [
+   "Chop Suey! by System Of A Down",
+   "Killing in the Name by Rage Against The Machine"
+  ],
+  "prompt": "Loud hard rock, metal and nu metal for cleaning out the garage, 80s to 2000s, like Rage Against The Machine, Marilyn Manson, Metallica, Nine Inch Nails, System Of A Down, Motörhead, Bullet for My Valentine, Muse, Korn and Black Sabbath, plus songs like Chop Suey! by System Of A Down and Killing in the Name by Rage Against The Machine, 80 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Pop Work From Home",
+  "size": 100,
+  "cap": 4,
+  "artists": [
+   "Dua Lipa",
+   "Bruno Mars",
+   "Justin Bieber",
+   "Ed Sheeran",
+   "Tate McRae",
+   "Sabrina Carpenter",
+   "The Weeknd",
+   "Lady Gaga",
+   "David Guetta",
+   "Miley Cyrus"
+  ],
+  "staples": [
+   "Don't Start Now by Dua Lipa",
+   "Blinding Lights by The Weeknd"
+  ],
+  "prompt": "Current upbeat pop for working from home, polished and positive, last 5 years, like Dua Lipa, Bruno Mars, Justin Bieber, Ed Sheeran, Tate McRae, Sabrina Carpenter, The Weeknd, Lady Gaga, David Guetta and Miley Cyrus, plus songs like Don't Start Now by Dua Lipa and Blinding Lights by The Weeknd, 100 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Indie & Rock Seduction",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "Arctic Monkeys",
+   "Deftones",
+   "Spoon",
+   "Nine Inch Nails",
+   "The White Stripes",
+   "Radiohead",
+   "CSS",
+   "Sleep Token",
+   "Lana Del Rey",
+   "A Perfect Circle"
+  ],
+  "staples": [
+   "Closer by Nine Inch Nails",
+   "Change (In the House of Flies) by Deftones"
+  ],
+  "prompt": "Dark, sultry, slow-burning indie, alt-metal and dark pop for the bedroom, heavy and seductive, like Arctic Monkeys, Deftones, Spoon, Nine Inch Nails, The White Stripes, Radiohead, CSS, Sleep Token, Lana Del Rey and A Perfect Circle, plus songs like Closer by Nine Inch Nails and Change (In the House of Flies) by Deftones, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Soul Slow Jams",
+  "size": 80,
+  "cap": 3,
+  "artists": [
+   "Marvin Gaye",
+   "Otis Redding",
+   "Al Green",
+   "Etta James",
+   "Sam Cooke",
+   "Aretha Franklin",
+   "Stevie Wonder",
+   "Curtis Mayfield",
+   "Percy Sledge",
+   "Donny Hathaway"
+  ],
+  "staples": [
+   "Let's Get It On by Marvin Gaye",
+   "These Arms of Mine by Otis Redding"
+  ],
+  "prompt": "Classic 60s and 70s soul slow jams for a romantic night in, warm and intimate, like Marvin Gaye, Otis Redding, Al Green, Etta James, Sam Cooke, Aretha Franklin, Stevie Wonder, Curtis Mayfield, Percy Sledge and Donny Hathaway, plus songs like Let's Get It On by Marvin Gaye and These Arms of Mine by Otis Redding, 80 songs, max 3 songs per artist"
+ },
+ {
+  "name": "Classic Christmas",
+  "size": 100,
+  "cap": 6,
+  "artists": [
+   "Frank Sinatra",
+   "Bing Crosby",
+   "Nat \"King\" Cole",
+   "Vince Guaraldi Trio",
+   "Andy Williams",
+   "Elvis Presley",
+   "Ella Fitzgerald",
+   "John Williams",
+   "The Beach Boys",
+   "Burl Ives"
+  ],
+  "staples": [
+   "Sleigh Ride by Ella Fitzgerald",
+   "It's the Most Wonderful Time of the Year by Andy Williams"
+  ],
+  "prompt": "Classic Christmas songs only, 50s and 60s crooners and swing plus modern favorites, like Frank Sinatra, Bing Crosby, Nat \"King\" Cole, Vince Guaraldi Trio, Andy Williams, Elvis Presley, Ella Fitzgerald, John Williams, The Beach Boys and Burl Ives, plus songs like Sleigh Ride by Ella Fitzgerald and It's the Most Wonderful Time of the Year by Andy Williams, 100 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Rock & Indie Christmas",
+  "size": 80,
+  "cap": 4,
+  "artists": [
+   "The Smashing Pumpkins",
+   "The Pogues",
+   "U2",
+   "Pearl Jam",
+   "Weezer",
+   "Julian Casablancas",
+   "The Shins",
+   "Eels",
+   "The Killers",
+   "Sufjan Stevens"
+  ],
+  "staples": [
+   "Fairytale of New York by The Pogues",
+   "Christmastime by The Smashing Pumpkins"
+  ],
+  "prompt": "Christmas songs only, rock, alternative and indie Christmas songs and covers, like The Smashing Pumpkins, The Pogues, U2, Pearl Jam, Weezer, Julian Casablancas, The Shins, Eels, The Killers and Sufjan Stevens, plus songs like Fairytale of New York by The Pogues and Christmastime by The Smashing Pumpkins, 80 songs, max 4 songs per artist"
+ },
+ {
+  "name": "Worship Christmas",
+  "size": 80,
+  "cap": 6,
+  "artists": [
+   "Phil Wickham",
+   "Shane & Shane",
+   "Citizens",
+   "Kings Kaleidoscope",
+   "Chris Tomlin",
+   "for KING & COUNTRY",
+   "Third Day",
+   "Sara Groves",
+   "Sovereign Grace Music",
+   "Josh Garrels"
+  ],
+  "staples": [
+   "All Glory Be to Christ by Kings Kaleidoscope",
+   "Hark! The Herald Angels Sing by Citizens"
+  ],
+  "prompt": "Christmas and Advent worship and modern carols only, Christian artists only, like Phil Wickham, Shane & Shane, Citizens, Kings Kaleidoscope, Chris Tomlin, for KING & COUNTRY, Third Day, Sara Groves, Sovereign Grace Music and Josh Garrels, plus songs like All Glory Be to Christ by Kings Kaleidoscope and Hark! The Herald Angels Sing by Citizens, 80 songs, max 6 songs per artist"
+ },
+ {
+  "name": "Christmas Instrumental Hymns",
+  "size": 80,
+  "cap": 3,
+  "artists": [
+   "Stian Jarrell",
+   "Adam Zampino",
+   "Michele McLaughlin",
+   "Manuel Elastic",
+   "Jill Pitz & Marjorie Hanna",
+   "Rossini Hayward",
+   "Sarah Brooks",
+   "Joshua David Harris",
+   "John Bladh",
+   "Jules Amaro"
+  ],
+  "staples": [
+   "O Come, O Come, Emmanuel by Aron van Selm",
+   "What Child Is This by Denis Turbide"
+  ],
+  "prompt": "Instrumental Christmas carols and hymns only, solo piano, strings and acoustic guitar, quiet and cozy by the fire, like Stian Jarrell, Adam Zampino, Michele McLaughlin, Manuel Elastic, Jill Pitz & Marjorie Hanna, Rossini Hayward, Sarah Brooks, Joshua David Harris, John Bladh and Jules Amaro, plus songs like O Come, O Come, Emmanuel by Aron van Selm and What Child Is This by Denis Turbide, 80 songs, max 3 songs per artist"
+ },
+ {
+  "name": "Halloween Party",
+  "size": 80,
+  "cap": 3,
+  "artists": [
+   "Ray Parker Jr.",
+   "Michael Jackson",
+   "Bobby \"Boris\" Pickett & The Crypt-Kickers",
+   "Dead Man's Party",
+   "DJ Jazzy Jeff & The Fresh Prince",
+   "Richard O'Brien, Patricia Quinn, Nell Campbell & The Rocky Horror Picture Show",
+   "The Doors",
+   "Warren Zevon",
+   "Mötley Crüe",
+   "Alice Cooper"
+  ],
+  "staples": [
+   "Thriller by Michael Jackson",
+   "(Don't Fear) The Reaper by Blue Öyster Cult"
+  ],
+  "prompt": "Halloween party songs only, spooky classic rock, new wave and novelty hits, like Ray Parker Jr., Michael Jackson, Bobby \"Boris\" Pickett & The Crypt-Kickers, Dead Man's Party, DJ Jazzy Jeff & The Fresh Prince, Richard O'Brien, Patricia Quinn, Nell Campbell & The Rocky Horror Picture Show, The Doors, Warren Zevon, Mötley Crüe and Alice Cooper, plus songs like Thriller by Michael Jackson and (Don't Fear) The Reaper by Blue Öyster Cult, 80 songs, max 3 songs per artist"
+ },
+ {
+  "name": "St. Patrick's Celtic Punk",
+  "size": 100,
+  "cap": 6,
+  "artists": [
+   "Flogging Molly",
+   "Dropkick Murphys",
+   "The Tossers",
+   "Flatfoot 56",
+   "The Saw Doctors",
+   "The Young Dubliners",
+   "The Pogues",
+   "The Dreadnoughts",
+   "The Mahones",
+   "Black 47"
+  ],
+  "staples": [
+   "I'm Shipping up to Boston by Dropkick Murphys",
+   "Drunken Lullabies by Flogging Molly"
+  ],
+  "prompt": "Celtic punk and Irish rock for St. Patrick's Day, rowdy pub singalongs, like Flogging Molly, Dropkick Murphys, The Tossers, Flatfoot 56, The Saw Doctors, The Young Dubliners, The Pogues, The Dreadnoughts, The Mahones and Black 47, plus songs like I'm Shipping up to Boston by Dropkick Murphys and Drunken Lullabies by Flogging Molly, 100 songs, max 6 songs per artist"
+ }
+]

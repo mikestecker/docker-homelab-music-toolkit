@@ -1,0 +1,48 @@
+# homelab-music-toolkit: generic Docker Compose setup.
+#
+#   cp .env.example .env    # then edit paths, auth and Navidrome/AudioMuse settings
+#   docker compose up -d --build   # build from this checkout
+#   docker compose up -d           # or pull the published image (set IMAGE in .env)
+#
+# TrueNAS Custom Apps don't read .env files; use deploy/truenas.yaml there.
+services:
+  homelab-music-toolkit:
+    image: ${IMAGE:-ghcr.io/mikestecker/docker-homelab-music-toolkit:latest}
+    build: .
+    container_name: homelab-music-toolkit
+    restart: unless-stopped
+    # Run as the user that owns your music, so quarantined/restored files and
+    # rewritten playlists keep their ownership. `id -u` / `id -g` on the host
+    # tells you the numbers (on TrueNAS SCALE, check whichever service
+    # account owns the pool - don't assume 3000:3000).
+    user: "${PUID:-1000}:${PGID:-1000}"
+    environment:
+      - TZ=${TZ:-UTC}
+      - AUTH_USER=${AUTH_USER:?Set AUTH_USER in .env}
+      - AUTH_PASS=${AUTH_PASS:?Set AUTH_PASS in .env}
+      - AUTH_DISABLED=${AUTH_DISABLED:-}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-}
+      - ND_URL=${ND_URL:?Set ND_URL in .env}
+      - ND_USER=${ND_USER:?Set ND_USER in .env}
+      - ND_PASS=${ND_PASS:?Set ND_PASS in .env}
+      - AUDIOMUSE_URL=${AUDIOMUSE_URL:-}
+      - AUDIOMUSE_API_TOKEN=${AUDIOMUSE_API_TOKEN:-}
+      - PREFER_SOURCES=${PREFER_SOURCES:-Tidarr}
+      - PREFER_REMASTERS=${PREFER_REMASTERS:-true}
+      - FINGERPRINT=${FINGERPRINT:-report}
+      - FINGERPRINT_WORKERS=${FINGERPRINT_WORKERS:-}
+      - LIDARR_URL=${LIDARR_URL:-}
+      - LIDARR_API_KEY=${LIDARR_API_KEY:-}
+      - LIDARR_MUSIC_ROOT=${LIDARR_MUSIC_ROOT:-/data/media/music}
+    volumes:
+      - ${CONFIG_PATH:-./config}:/config
+      # Read-write, single mount: quarantine and the m3u fixer's backups are
+      # renames/writes inside this mount. Two separate mounts would turn a
+      # quarantine move into a slow cross-device copy.
+      - ${MUSIC_PATH:?Set MUSIC_PATH in .env to your music library}:/music
+    ports:
+      - "${PORT:-8095}:8095"
+    # Optional caps on what the container may use. Fingerprinting runs one
+    # fpcalc per CPU it's allowed, so `cpus` is the main knob.
+    # cpus: "4"
+    # mem_limit: 1g

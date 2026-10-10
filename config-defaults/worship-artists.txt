@@ -1,0 +1,279 @@
+# Worship artists for clean-clusters.py
+#
+# Songs by these artists are removed from AudioMuse's _automatic clustering
+# playlists, but only when they are a minority of that playlist (MAX_SHARE in
+# cleanup.env, default 0.34). A cluster that is mostly worship keeps them.
+#
+# One artist per line. Case, "&" vs "and", and punctuation don't matter.
+# A song matches if its full artist credit, or any one name in it
+# ("Elevation Worship & Maverick City Music"), is on this list.
+# Lines starting with # are ignored. Delete a # to turn a line on.
+#
+# Built from your Apple Music worship and hymn playlists (artists that never
+# appeared in your rock, punk or alt playlists), the six artists you named,
+# and current worship charts and collectives lists.
+
+# --- The six you named -------------------------------------------------------
+Passion
+Charlie Hall
+Hillsong UNITED
+Big Tent Revival
+The Kry
+Ascend the Hill
+
+# --- Worship bands, collectives and church labels ---------------------------
+Hillsong Worship
+Hillsong Young & Free
+Hillsong
+Elevation Worship
+Elevation Rhythm
+Maverick City Music
+Bethel Music
+Jesus Culture
+Planetshakers
+Gateway Worship
+Vertical Worship
+Housefires
+UPPERROOM
+Red Rocks Worship
+River Valley Worship
+River Valley AGES
+LO Worship
+SEU Worship
+Sons of Sunday
+CityAlight
+Shane & Shane
+The Worship Initiative
+Sovereign Grace Music
+North Point Worship
+Life.Church Worship
+Bethany Music
+Influence Music
+Kingdom Culture Worship
+Victory Worship
+New Life Worship
+Grace Worship
+Transformation Worship
+West Coast Revival
+Worship Circle
+Calvary Creative
+Celtic Worship
+Isla Vista Worship
+The Village Church
+Redeemer Christian Church
+Red Mountain Church
+Reach Church
+Project 1:11 Lansing
+Frontline Music
+Emu Music
+Exodus Music
+Simply Worship
+The Secret Place
+Draw Close
+All Sons & Daughters
+Bryan & Katie Torwalt
+Kari Jobe
+Kari Jobe Carnes
+Cody Carnes
+Brandon Lake
+Chris Tomlin
+Phil Wickham
+Matt Redman
+Tim Hughes
+Martin Smith
+Kristian Stanfill
+Christy Nockels
+Nathan Nockels
+Chris Brown
+Chandler Moore
+Naomi Raine
+Pat Barrett
+Leeland
+Josh Baldwin
+Steffany Gretzinger
+Jenn Johnson
+Brian Johnson
+Brian & Jenn Johnson
+Jeremy Riddle
+Kim Walker-Smith
+Bryan McCleery
+Tiffany Hudson
+Melodie Malone
+Brooke Ligertwood
+Reuben Morgan
+Joel Houston
+Taya
+Aodhan King
+Darlene Zschech
+Paul Baloche
+Don Moen
+Israel Houghton
+Michael W. Smith
+Lincoln Brewster
+Meredith Andrews
+Kristene DiMarco
+Amanda Cook
+Hannah Hobbs
+Hope Darst
+Mack Brock
+Sean Feucht
+David Brymer
+Aaron Keyes
+Aaron Shust
+Tommy Walker
+Vineyard Worship
+Matt Maher
+Matt Maher & Friends
+Hillsong Kids
+Integrity Worship Singers
+Maranatha! Music
+Maranatha! Praise Band
+Passion Worship Band
+
+# --- Hymns, liturgy and acoustic hymn projects ------------------------------
+Keith & Kristyn Getty
+Getty Music
+Stuart Townend
+Graham Kendrick
+Matt Boswell
+Matt Papa
+Matt Boswell & Matt Papa
+Page CXVI
+Page CXVI - Reimagined by Derek Webb
+Kings Kaleidoscope Hymns
+Hope Hymns
+High Street Hymns
+Holy City Hymns
+City Hymns
+Hymns of Grace
+Hymns of the People
+Indelible Grace Music
+Sojourn Music
+Cardiphonia Music
+Norton Hall Band
+The Enfield Hymn Sessions
+The Franz Brothers
+Brian Sauve
+Bob Kauflin
+Dave Hunt
+A New Liturgy
+Greg Attwells
+Providence
+Salt of the Sound
+Fernando Ortega
+Thief to King
+Dear Gravity
+Daniel Martin Moore
+Adam Wheatley
+The Journey Collective
+Ken Verheecke
+My Soul Among Lions
+Servants
+Sojourners
+She Reads Truth
+The Gospel Coalition
+Fount
+Nathan Clark George
+Gregory Wilbur
+Redeemer Presbyterian Church
+Asaph's Arrows
+The Lower Lights
+Wilder Adkins
+Paul Zach
+Nathan Drake
+Christopher Galovan
+Chris Rice
+John Ofa Rhee
+Alabaster Co.
+Simon Wester
+
+# --- Instrumental, piano and lofi worship -----------------------------------
+The Lofi Christian
+Lofi Worship
+Lofi Hymns.
+Pathway Piano
+Piano Praises
+Carl Eksmo
+Tony Anderson
+Dan Musselman
+Stian Jarrell
+Jim Brickman
+Adam Zampino
+Michele McLaughlin
+Manuel Elastic
+Sarah Brooks
+Joshua David Harris
+Khamir Music
+Huckleberry Flint
+Kendra Logozar
+Michael Logozar
+Eric Gilmour
+
+# --- CCM adult contemporary (the Big Tent Revival / The Kry kind) ------------
+MercyMe
+Casting Crowns
+Steven Curtis Chapman
+Twila Paris
+Point of Grace
+Avalon
+Natalie Grant
+Jason Gray
+Sanctus Real
+Tenth Avenue North
+Building 429
+Big Daddy Weave
+Matthew West
+Mark Schultz
+Jaci Velasquez
+Rebecca St. James
+Nichole Nordeman
+Bebo Norman
+Phillips, Craig & Dean
+4Him
+Margaret Becker
+Rich Mullins
+Ginny Owens
+Out of Eden
+Zoegirl
+BarlowGirl
+Sara Groves
+Danny Gokey
+Lauren Daigle
+Zach Williams
+Jeremy Camp
+Unspoken
+Jordan Feliz
+Cain
+Anne Wilson
+Josh Wilson
+Francesca Battistelli
+Selah
+Sidewalk Prophets
+Hawk Nelson
+
+# --- Review: gray area, OFF by default ---------------------------------------
+# These are worship or CCM artists that also show up a lot in your rock,
+# indie and youth group playlists. Delete the # to treat them as worship too.
+# Crowder
+# David Crowder Band
+# Kings Kaleidoscope
+# Citizens
+# Citizens & Saints
+# Chris Renzema
+# John Mark Pantana
+# Rivers & Robots
+# Rend Collective
+# Josh Garrels
+# Third Day
+# Delirious?
+# Newsboys
+# TobyMac
+# Audio Adrenaline
+# Jars of Clay
+# Forrest Frank
+# Josiah Queen
+# We The Kingdom
+# for KING & COUNTRY
+# Tauren Wells
+# Hulvey
+# Local Sound

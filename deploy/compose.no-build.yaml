@@ -1,0 +1,32 @@
+# Pulls the published image instead of building locally.
+#   cp .env.example .env    # edit it, then:
+#   docker compose -f deploy/compose.no-build.yaml up -d
+services:
+  homelab-music-toolkit:
+    image: ${IMAGE:-ghcr.io/mikestecker/docker-homelab-music-toolkit:latest}
+    container_name: homelab-music-toolkit
+    restart: unless-stopped
+    user: "${PUID:-1000}:${PGID:-1000}"
+    environment:
+      - TZ=${TZ:-UTC}
+      - AUTH_USER=${AUTH_USER:?Set AUTH_USER in .env}
+      - AUTH_PASS=${AUTH_PASS:?Set AUTH_PASS in .env}
+      - AUTH_DISABLED=${AUTH_DISABLED:-}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-}
+      - ND_URL=${ND_URL:?Set ND_URL in .env}
+      - ND_USER=${ND_USER:?Set ND_USER in .env}
+      - ND_PASS=${ND_PASS:?Set ND_PASS in .env}
+      - AUDIOMUSE_URL=${AUDIOMUSE_URL:-}
+      - AUDIOMUSE_API_TOKEN=${AUDIOMUSE_API_TOKEN:-}
+      - PREFER_SOURCES=${PREFER_SOURCES:-Tidarr}
+      - PREFER_REMASTERS=${PREFER_REMASTERS:-true}
+      - FINGERPRINT=${FINGERPRINT:-report}
+      - FINGERPRINT_WORKERS=${FINGERPRINT_WORKERS:-}
+      - LIDARR_URL=${LIDARR_URL:-}
+      - LIDARR_API_KEY=${LIDARR_API_KEY:-}
+      - LIDARR_MUSIC_ROOT=${LIDARR_MUSIC_ROOT:-/data/media/music}
+    volumes:
+      - ${CONFIG_PATH:-./config}:/config
+      - ${MUSIC_PATH:?Set MUSIC_PATH in .env to your music library}:/music
+    ports:
+      - "${PORT:-8095}:8095"
