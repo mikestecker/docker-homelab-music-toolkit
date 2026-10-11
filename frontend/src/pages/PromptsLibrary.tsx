@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import type { Recipe, SeedPrompt } from "../api/types";
+import Drawer from "../components/Drawer";
 import ErrorBanner from "../components/ErrorBanner";
 import { useApiError } from "../hooks/useApiError";
 
@@ -23,17 +24,23 @@ function songLabel(s: Song): string {
   const artist = s.artist ?? s.Artist ?? "";
   return artist ? `${title} — ${artist}` : String(title);
 }
+// The wrapper key AudioMuse puts the song list under isn't confirmed either -
+// try the likely candidates before giving up, rather than assuming "songs".
+function extractSongs(raw: Record<string, unknown>): Song[] {
+  const candidates = raw.songs ?? raw.tracks ?? raw.items ?? raw.results ?? raw.playlist;
+  return Array.isArray(candidates) ? (candidates as Song[]) : [];
+}
 
 export default function PromptsLibraryPage() {
   const { error, run, setError } = useApiError();
   const navigate = useNavigate();
-  const panelRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<Tab>("prompts");
   const [prompts, setPrompts] = useState<SeedPrompt[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState<{ name: string; prompt: string } | null>(null);
   const [songs, setSongs] = useState<Song[] | null>(null);
+  const [rawResponse, setRawResponse] = useState<unknown>(null);
   const [playlistName, setPlaylistName] = useState("");
   const [running, setRunning] = useState(false);
   const [created, setCreated] = useState<string | null>(null);
@@ -44,10 +51,6 @@ export default function PromptsLibraryPage() {
     run(() => api.get<Recipe[]>("/api/prompts/recipes")).then((r) => r && setRecipes(r));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  useEffect(() => {
-    if (active) panelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, [active]);
 
   const items = tab === "prompts" ? prompts : recipes;
   const filtered = useMemo(() => {
@@ -85,11 +88,16 @@ export default function PromptsLibraryPage() {
   const runPrompt = (item: { name: string; prompt: string }) => {
     setActive(item);
     setSongs(null);
+    setRawResponse(null);
     setCreated(null);
     setPlaylistName(`Occasions/${item.name}`);
     setRunning(true);
-    run(() => api.post<{ songs?: Song[] }>("/api/prompts/run", { prompt: item.prompt }))
-      .then((r) => r && setSongs(r.songs ?? []))
+    run(() => api.post<Record<string, unknown>>("/api/prompts/run", { prompt: item.prompt }))
+      .then((r) => {
+        if (!r) return;
+        setRawResponse(r);
+        setSongs(extractSongs(r));
+      })
       .finally(() => setRunning(false));
   };
 
@@ -153,38 +161,61 @@ export default function PromptsLibraryPage() {
         {filtered.length > 200 && <p className="muted">Showing first 200 of {filtered.length} matches.</p>}
       </div>
 
-      {active && (
-        <div className="panel" ref={panelRef}>
-          <h3 style={{ marginTop: 0 }}>{active.name}</h3>
-          <p className="muted">{active.prompt}</p>
-          <div className="row">
-            <button disabled={running} onClick={() => runPrompt(active)}>
-              {running ? "Running…" : "Run again"}
-            </button>
-            <button onClick={() => setActive(null)}>Close</button>
-          </div>
-          {songs && (
-            <>
-              <p>{songs.length} songs returned.</p>
-              <ul>
-                {songs.slice(0, 50).map((s, i) => (
-                  <li key={songId(s) ?? i}>{songLabel(s)}</li>
-                ))}
-              </ul>
-              <div className="row">
-                <label style={{ flex: 1 }}>
-                  Playlist name
-                  <input type="text" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
-                </label>
-                <button className="primary" onClick={createPlaylist}>
-                  Create playlist
-                </button>
-              </div>
-              {created && <p className="chip good">Created "{created}"</p>}
-            </>
-          )}
-        </div>
-      )}
+      <Drawer open={!!active} onClose={() => setActive(null)}>
+        {active && (
+          <>
+            <div className="row" style={{ justifyContent: "space-between", flexWrap: "nowrap" }}>
+              <h3 style={{ marginTop: 0 }}>{active.name}</h3>
+              <button onClick={() => setActive(null)}>✕</button>
+            </div>
+            <p className="muted">{active.prompt}</p>
+            <div className="row">
+              <button disabled={running} onClick={() => runPrompt(active)}>
+                {running ? "Running…" : "Run again"}
+              </button>
+            </div>
+            {songs && (
+              <>
+                <p>{songs.length} songs returned.</p>
+                {songs.length === 0 && (
+                  <>
+                    <p className="chip warn">
+                      AudioMuse returned a response, but no songs came out of it - either it genuinely found no
+                      matches, or this app guessed the wrong field name for the song list. The raw response below
+                      settles which.
+                    </p>
+                    <details>
+                      <summary className="muted" style={{ cursor: "pointer" }}>
+                        Show raw AudioMuse response
+                      </summary>
+                      <pre className="log" style={{ marginTop: 8 }}>
+                        {JSON.stringify(rawResponse, null, 2)}
+                      </pre>
+                    </details>
+                  </>
+                )}
+                <ul>
+                  {songs.slice(0, 50).map((s, i) => (
+                    <li key={songId(s) ?? i}>{songLabel(s)}</li>
+                  ))}
+                </ul>
+                {songs.length > 0 && (
+                  <div className="row">
+                    <label style={{ flex: 1 }}>
+                      Playlist name
+                      <input type="text" value={playlistName} onChange={(e) => setPlaylistName(e.target.value)} />
+                    </label>
+                    <button className="primary" onClick={createPlaylist}>
+                      Create playlist
+                    </button>
+                  </div>
+                )}
+                {created && <p className="chip good">Created "{created}"</p>}
+              </>
+            )}
+          </>
+        )}
+      </Drawer>
     </div>
   );
 }
