@@ -18,6 +18,12 @@ Two ways in:
     reimplementing a cruder merge ourselves. If a real /api/alchemy contract
     is confirmed later, only generate_alchemy()'s body needs to change.
 
+Every song dict here comes straight from audiomuse_client.chat_playlist(),
+which already normalizes AudioMuse's real (envelope-wrapped) response into
+a flat {"id", "title", "artist", "album"} shape - no second normalization
+layer here, so there's exactly one place that knows AudioMuse's real
+response shape instead of two that could quietly drift apart.
+
 Every generation (instant, alchemy, or a refine) is saved to a per-session
 history so refine() can diff against "whatever we showed the user last" and
 so a session's attempts can be browsed without regenerating. Sessions live
@@ -41,17 +47,6 @@ def _studio_dir(session_id):
 
 def _manifest_path(session_id):
     return os.path.join(_studio_dir(session_id), "manifest.json")
-
-
-def _normalize_song(raw):
-    """AudioMuse's chatPlaylist response shape isn't confirmed against a live
-    /apidocs/ (see audiomuse_client.py) - read a few likely field names
-    defensively, matching prompts_library's frontend (PromptsLibrary.tsx's
-    songId/songLabel) rather than assuming one exact schema."""
-    sid = raw.get("item_id") or raw.get("id") or raw.get("song_id") or raw.get("ItemId")
-    title = raw.get("title") or raw.get("Title") or raw.get("name") or "Untitled"
-    artist = raw.get("artist") or raw.get("Artist") or ""
-    return {"id": str(sid) if sid else None, "title": str(title), "artist": str(artist)}
 
 
 def search_anchors(query):
@@ -122,7 +117,7 @@ def _latest_entry(session_id):
 def generate_instant(prompt, session_id=None):
     session_id = session_id or uuid.uuid4().hex
     raw = chat_playlist(prompt)
-    tracks = [_normalize_song(s) for s in (raw.get("songs") or [])]
+    tracks = raw["songs"]
     entry = _save_history(session_id, "instant", tracks, {"prompt": prompt})
     return session_id, entry
 
@@ -131,7 +126,7 @@ def generate_alchemy(anchors, excludes, size, variety="balanced", session_id=Non
     session_id = session_id or uuid.uuid4().hex
     prompt = _alchemy_prompt(anchors, excludes, size, variety)
     raw = chat_playlist(prompt)
-    tracks = [_normalize_song(s) for s in (raw.get("songs") or [])]
+    tracks = raw["songs"]
     entry = _save_history(session_id, "alchemy", tracks,
                            {"prompt": prompt, "anchors": anchors, "excludes": excludes})
     return session_id, entry
@@ -147,7 +142,7 @@ def refine(session_id, instruction):
         raise ValueError("Describe what to change.")
     combined = f"{base_prompt}. Also: {instruction}"
     raw = chat_playlist(combined)
-    tracks = [_normalize_song(s) for s in (raw.get("songs") or [])]
+    tracks = raw["songs"]
     entry = _save_history(session_id, "refine", tracks,
                            {"prompt": combined, "instruction": instruction})
     return entry, diff_tracks(prev["tracks"], tracks)

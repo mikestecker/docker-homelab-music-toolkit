@@ -39,7 +39,12 @@ def fake_audiomuse(monkeypatch):
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             if self.path.endswith("chatPlaylist"):
-                self.wfile.write(json.dumps({"songs": [{"id": "1", "title": "Song"}]}).encode())
+                # AudioMuse's real response shape, confirmed from a live
+                # capture (Oct 2026): everything nested under response, the
+                # song list at query_results keyed item_id/title/artist.
+                self.wfile.write(json.dumps({"response": {
+                    "query_results": [{"item_id": "1", "title": "Song", "artist": "Band", "album": "Album"}],
+                }}).encode())
             else:
                 self.wfile.write(json.dumps({"ok": True}).encode())
 
@@ -53,7 +58,8 @@ def fake_audiomuse(monkeypatch):
 
 def test_chat_playlist_sends_prompt_and_token(fake_audiomuse):
     result = am.chat_playlist("Upbeat summer country for a pool day")
-    assert result == {"songs": [{"id": "1", "title": "Song"}]}
+    assert result["songs"] == [{"id": "1", "title": "Song", "artist": "Band", "album": "Album"}]
+    assert "response" in result["raw_response"]  # the original envelope stays available
     path, auth, body = fake_audiomuse[0]
     assert path == "/chat/api/chatPlaylist"
     assert auth == "Bearer secret-token"

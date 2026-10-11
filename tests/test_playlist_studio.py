@@ -162,6 +162,15 @@ def test_search_anchors_empty_query_returns_nothing(studio, nd_search_mock):
 
 # ---------- generation + history against a fake AudioMuse ----------
 
+def am_songs(*songs):
+    """Wrap (item_id, title, artist) triples in AudioMuse's real envelope
+    shape (response.query_results) - confirmed from a live capture, Oct 2026 -
+    the shape audiomuse_client.chat_playlist() actually has to unwrap."""
+    return {"response": {"query_results": [
+        {"item_id": i, "title": t, "artist": a} for i, t, a in songs
+    ]}}
+
+
 @pytest.fixture
 def fake_audiomuse(monkeypatch):
     calls = []
@@ -179,7 +188,7 @@ def fake_audiomuse(monkeypatch):
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             if self.path.endswith("chatPlaylist"):
-                resp = responses.pop(0) if responses else {"songs": []}
+                resp = responses.pop(0) if responses else am_songs()
             else:
                 resp = {"ok": True}
             self.wfile.write(json.dumps(resp).encode())
@@ -193,16 +202,15 @@ def fake_audiomuse(monkeypatch):
     srv.shutdown()
 
 
-def test_generate_instant_saves_history_and_normalizes_songs(studio, fake_audiomuse):
+def test_generate_instant_saves_history_with_tracks_from_audiomuse(studio, fake_audiomuse):
     calls, responses = fake_audiomuse
-    responses.append({"songs": [{"id": "1", "title": "Song A", "artist": "Band"},
-                                 {"item_id": "2", "Title": "Song B"}]})
+    responses.append(am_songs(("1", "Song A", "Band"), ("2", "Song B", "Band")))
     session_id, entry = studio.generate_instant("Upbeat road trip music")
     assert entry["kind"] == "instant"
     assert entry["prompt"] == "Upbeat road trip music"
     assert entry["tracks"] == [
-        {"id": "1", "title": "Song A", "artist": "Band"},
-        {"id": "2", "title": "Song B", "artist": ""},
+        {"id": "1", "title": "Song A", "artist": "Band", "album": ""},
+        {"id": "2", "title": "Song B", "artist": "Band", "album": ""},
     ]
     assert calls[0] == ("/chat/api/chatPlaylist", {"userInput": "Upbeat road trip music"})
     assert studio.history(session_id) == [entry]
@@ -210,7 +218,7 @@ def test_generate_instant_saves_history_and_normalizes_songs(studio, fake_audiom
 
 def test_generate_alchemy_builds_seed_prompt_and_saves_anchors(studio, fake_audiomuse):
     calls, responses = fake_audiomuse
-    responses.append({"songs": [{"id": "1", "title": "Higher Throne", "artist": "Kings Kaleidoscope"}]})
+    responses.append(am_songs(("1", "Higher Throne", "Kings Kaleidoscope")))
     anchors = [track("s1", "Higher Throne", "Kings Kaleidoscope")]
     session_id, entry = studio.generate_alchemy(anchors, [], size=25, variety="wide")
     assert entry["kind"] == "alchemy"
@@ -221,11 +229,9 @@ def test_generate_alchemy_builds_seed_prompt_and_saves_anchors(studio, fake_audi
 
 def test_refine_diffs_against_the_prior_entry(studio, fake_audiomuse):
     calls, responses = fake_audiomuse
-    responses.append({"songs": [{"id": "1", "title": "Song A", "artist": "Band"},
-                                 {"id": "2", "title": "Song B", "artist": "Band"}]})
+    responses.append(am_songs(("1", "Song A", "Band"), ("2", "Song B", "Band")))
     session_id, first = studio.generate_instant("Chill evening music")
-    responses.append({"songs": [{"id": "1", "title": "Song A", "artist": "Band"},
-                                 {"id": "3", "title": "Song C", "artist": "Other"}]})
+    responses.append(am_songs(("1", "Song A", "Band"), ("3", "Song C", "Other")))
     entry, diff = studio.refine(session_id, "more upbeat")
     assert entry["kind"] == "refine"
     assert entry["instruction"] == "more upbeat"
@@ -244,7 +250,7 @@ def test_refine_without_any_history_raises(studio, fake_audiomuse):
 
 def test_refine_requires_a_non_empty_instruction(studio, fake_audiomuse):
     calls, responses = fake_audiomuse
-    responses.append({"songs": [{"id": "1", "title": "A", "artist": "B"}]})
+    responses.append(am_songs(("1", "A", "B")))
     session_id, _ = studio.generate_instant("Something")
     with pytest.raises(ValueError):
         studio.refine(session_id, "   ")
@@ -252,8 +258,7 @@ def test_refine_requires_a_non_empty_instruction(studio, fake_audiomuse):
 
 def test_create_playlist_from_session_sends_track_ids(studio, fake_audiomuse):
     calls, responses = fake_audiomuse
-    responses.append({"songs": [{"id": "1", "title": "A", "artist": "B"},
-                                 {"id": "2", "title": "C", "artist": "D"}]})
+    responses.append(am_songs(("1", "A", "B"), ("2", "C", "D")))
     session_id, entry = studio.generate_instant("Something")
     studio.create_playlist_from_session(session_id, entry["id"], "Occasions/Test Mix")
     path, body = calls[-1]
