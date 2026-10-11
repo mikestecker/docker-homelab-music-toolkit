@@ -64,3 +64,48 @@ export interface Recipe {
   prompt: string;
   [key: string]: unknown;
 }
+
+export interface CoverPlaylist {
+  id: string;
+  name: string;
+  path: string | null;
+  file_backed: boolean;
+  has_sidecar: boolean;
+}
+
+export interface CoverStyle {
+  id: string;
+  label: string;
+  prompt: string;
+}
+
+export interface CoverLayout {
+  id: string;
+  label: string;
+  description: string;
+  default_font: string;
+}
+
+export interface CoverFont {
+  id: string;
+  label: string;
+  vibe: string;
+}
+
+export interface CoverBackground {
+  id: string;
+  source: "builtin" | "custom";
+  name: string;
+}
+
+export interface CoverHistoryEntry {
+  id: string;
+  created: number;
+  mode: "template" | "ai";
+  filename: string;
+  layout: string;
+  font: string;
+  background_id?: string;
+  style?: string;
+  prompt?: string;
+}

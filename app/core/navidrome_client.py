@@ -9,10 +9,12 @@ gives every module one place to call instead of three copies of the same code.
 """
 import hashlib
 import json
+import mimetypes
 import secrets
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
 
 from app.core.config import ND_PASS, ND_URL, ND_USER
 
@@ -102,3 +104,61 @@ def native_playlists(url=None, timeout=60):
         return json.load(urllib.request.urlopen(req, timeout=timeout))
     except (urllib.error.URLError, OSError) as e:
         raise NavidromeError(f"Couldn't list playlists from Navidrome at {url}: {e}")
+
+
+def _multipart_body(field_name, filename, content_type, data):
+    """Hand-built multipart/form-data body (stdlib only, no new dependency
+    just for this one call). -> (content_type_header, body_bytes)."""
+    boundary = uuid.uuid4().hex
+    parts = [
+        f"--{boundary}\r\n".encode(),
+        (f'Content-Disposition: form-data; name="{field_name}"; '
+         f'filename="{filename}"\r\n').encode(),
+        f"Content-Type: {content_type}\r\n\r\n".encode(),
+        data,
+        f"\r\n--{boundary}--\r\n".encode(),
+    ]
+    return f"multipart/form-data; boundary={boundary}", b"".join(parts)
+
+
+def upload_playlist_image(playlist_id, image_bytes, ext="png", url=None, timeout=30):
+    """POST /api/playlist/{id}/image - native API, shipped in Navidrome PR #5110.
+    Needs ND_USER to be a Navidrome admin, or EnableArtworkUpload set on the
+    Navidrome server itself; otherwise Navidrome returns 403."""
+    url = (url or ND_URL).rstrip("/")
+    token = native_login(url=url)
+    ext = ext.lstrip(".")
+    content_type = mimetypes.guess_type(f"x.{ext}")[0] or "image/png"
+    ctype_header, body = _multipart_body("image", f"cover.{ext}", content_type, image_bytes)
+    req = urllib.request.Request(
+        f"{url}/api/playlist/{playlist_id}/image", method="POST", data=body,
+        headers={"X-ND-Authorization": f"Bearer {token}", "Content-Type": ctype_header})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            json.load(r)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")
+        if e.code == 403:
+            raise NavidromeError(
+                "Navidrome refused the cover upload (403) - ND_USER must be a Navidrome "
+                "admin, or EnableArtworkUpload must be set on the Navidrome server itself.")
+        raise NavidromeError(f"Couldn't upload cover for playlist {playlist_id}: {detail[:300]}")
+    except (urllib.error.URLError, OSError) as e:
+        raise NavidromeError(f"Couldn't upload cover for playlist {playlist_id}: {e}")
+
+
+def delete_playlist_image(playlist_id, url=None, timeout=30):
+    """DELETE /api/playlist/{id}/image - reverts to Navidrome's auto-tiled cover."""
+    url = (url or ND_URL).rstrip("/")
+    token = native_login(url=url)
+    req = urllib.request.Request(
+        f"{url}/api/playlist/{playlist_id}/image", method="DELETE",
+        headers={"X-ND-Authorization": f"Bearer {token}"})
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            json.load(r)
+    except urllib.error.HTTPError as e:
+        detail = e.read().decode("utf-8", "replace")
+        raise NavidromeError(f"Couldn't remove cover for playlist {playlist_id}: {detail[:300]}")
+    except (urllib.error.URLError, OSError) as e:
+        raise NavidromeError(f"Couldn't remove cover for playlist {playlist_id}: {e}")

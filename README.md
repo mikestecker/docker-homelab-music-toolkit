@@ -9,9 +9,10 @@ A self-hosted web app for a Navidrome + AudioMuse-AI homelab music setup. It rep
 3. **Tidarr import filing** — tags and prefixes playlists Navidrome imported from Tidarr so they group together in every client.
 4. **Playlist folders** — files playlists into `Folder/Subfolder/Name` folders by renaming them, from an editable map.
 5. **Fix m3u paths** — repoints broken `.m3u` entries at the files you actually have, with a backup of every playlist it touches.
-6. **Prompts library** — the Apple Music playlist prompts and recipes, searchable, with a "Run in AudioMuse" button that creates the playlist for you.
-7. **Scheduler** — built-in scheduled jobs (replacing the old TrueNAS cron jobs) with enable/disable, a schedule editor and full run history.
-8. **Status page** — Navidrome and AudioMuse reachability, versions, playlist counts, last run of every job.
+6. **Playlist cover art** — generates real cover art for playlists (AI photography via Replicate, or curated background + typography), applied the way Navidrome actually supports: a sidecar image or its playlist-image upload API.
+7. **Prompts library** — the Apple Music playlist prompts and recipes, searchable, with a "Run in AudioMuse" button that creates the playlist for you.
+8. **Scheduler** — built-in scheduled jobs (replacing the old TrueNAS cron jobs) with enable/disable, a schedule editor and full run history.
+9. **Status page** — Navidrome and AudioMuse reachability, versions, playlist counts, last run of every job.
 
 Every write operation previews by default; applying is a separate, explicit action.
 
@@ -35,6 +36,7 @@ Every write operation previews by default; applying is a separate, explicit acti
   - [Tidarr import filing](#tidarr-import-filing)
   - [Playlist folders](#playlist-folders)
   - [Fix m3u paths](#fix-m3u-paths)
+  - [Playlist cover art](#playlist-cover-art)
   - [Prompts library](#prompts-library)
   - [Scheduler](#scheduler)
 - [How the duplicate finder decides](#how-the-duplicate-finder-decides)
@@ -115,6 +117,8 @@ Everything is environment variables, set at the container level — never in fil
 | `ND_USER` / `ND_PASS` | — | The Navidrome user AudioMuse logs in as. Cluster cleanup, Tidarr tagging and playlist folders all act as this user, and can only edit playlists it owns (or that it's an admin over). |
 | `AUDIOMUSE_URL` | — | AudioMuse-AI base URL, e.g. `http://<your-audiomuse-host>:8000` |
 | `AUDIOMUSE_API_TOKEN` | — | From AudioMuse's Setup Wizard. Used for the prompts library's "Run in AudioMuse" and playlist-creation calls. |
+| `REPLICATE_API_TOKEN` | — | From [replicate.com/account/api-tokens](https://replicate.com/account/api-tokens). Only needed for AI-mode cover art — template mode (curated backgrounds + typography) needs neither this nor network access. Leave unset and AI mode just disables itself in the UI. |
+| `REPLICATE_MODEL` | `google/imagen-4` | An `owner/name` *official-model* id on Replicate — official models always run their latest version, so there's no version hash to track. `google/imagen-4` is photorealistic (~$0.04/image); `google/imagen-4-fast` is the same model family at roughly half the price (~$0.02/image) and is "good enough" for most playlist covers; `black-forest-labs/flux-dev` (~$0.025/image) is a non-Google alternative. Check [replicate.com/pricing](https://replicate.com/pricing) for current numbers — Replicate changes these from time to time. |
 | `PREFER_SOURCES` | `Tidarr` | Duplicate finder: when copies are otherwise equal, keep the one whose Source label contains the first of these (comma-separated). Empty turns it off. |
 | `PREFER_REMASTERS` | `true` | Duplicate finder: prefer a remastered edition as a tiebreak. `false` prefers originals. |
 | `FINGERPRINT` | `report` | Duplicate finder: `report` shows what acoustic fingerprints would change without acting on it, `on` lets them confirm/veto duplicates, `off` skips them. |
@@ -137,6 +141,8 @@ Everything is environment variables, set at the container level — never in fil
 | `tidarr-tagging-settings.json` | Tidarr filing's prefix/path-match settings. |
 | `playlist-folders.txt` | The playlist-folder map, seeded from a default on first boot. This is the source of truth — UI edits write back to it. |
 | `m3u-fix-settings.json` | The m3u fixer's playlist-folder and host-root settings. |
+| `cover-backgrounds/` | Your own uploaded backgrounds for template-mode cover art, alongside the 150 built-in ones. |
+| `covers/<playlist-id>/` | Generation history for that playlist's cover art — every template or AI generation, so you can reuse or re-apply one without regenerating (or spending another Replicate call). |
 | `job-schedules.json` / `run-history.json` | The scheduler's state. |
 
 ---
@@ -263,6 +269,20 @@ Shows every current playlist grouped by its implied folder. **Assign** writes an
 
 Finds `.m3u` entries that no longer resolve (a re-download changed the extension, folder or edition) and matches them to what's actually in your library now, by artist folder and track title. Every applied fix keeps a timestamped backup of the original playlist file, listed (and deletable) from this page.
 
+### Playlist cover art
+
+Pick a playlist, pick a layout (6 options — bottom banner, top editorial, big bleed, center badge, sidebar, vinyl badge) and a font (7 bundled, OFL-licensed), then generate a cover in one of two modes:
+
+- **Template** — pick from 150 built-in backgrounds (procedurally generated gradients/mesh/contour art, plus curated real photography) or one you've uploaded, and the playlist name is composited on top as a real font layer.
+- **AI** — a photorealistic background generated by Replicate (needs `REPLICATE_API_TOKEN`/`REPLICATE_MODEL`; the AI button disables itself if those aren't set), from a style preset (10 options) optionally informed by the playlist's own track names. The title is always added afterward as the same font layer as template mode — the AI model is explicitly instructed never to render text itself, since image models reliably garble lettering, and a separate text layer means renaming a playlist never costs another generation.
+
+Every generation is kept in a per-playlist history so you can flip back to an earlier one or re-apply it without regenerating. **Apply** writes the cover the way Navidrome actually supports it:
+
+- For playlists backed by a `.m3u`/`.m3u8`/`.nsp` file (Tidarr imports, smart playlists), it writes a same-named image file next to it — Navidrome's sidecar convention, picked up automatically, no restart needed.
+- For playlists with no backing file (created directly in Navidrome's UI), it calls Navidrome's playlist-image upload API instead. **This needs `ND_USER` to be a Navidrome admin, or `EnableArtworkUpload` set in Navidrome's own config** — that's a Navidrome-side prerequisite, not something this app can grant itself. If neither is true, Apply fails with a 502 explaining exactly that; the sidecar path (the common case for this library) has no such requirement.
+
+**Remove** deletes the sidecar file or calls the matching delete endpoint, and Navidrome falls back to its own auto-generated track-tile artwork.
+
 ### Prompts library
 
 Search and filter the Apple Music playlist prompts and recipes. **Copy** puts the prompt text on your clipboard. **Run in AudioMuse** sends it to AudioMuse's Instant Playlist API, shows the songs it returns, and lets you name the playlist (defaulting to `Occasions/<name>`, matching the folder convention above) before creating it on Navidrome.
@@ -289,6 +309,12 @@ Enable/disable each job, set its daily time, trigger a run immediately, and dril
 
 **A playlist rename didn't stick after Navidrome re-imports its `.m3u`/`.nsp` file.** It should — Navidrome keeps a playlist's renamed name across re-imports from the same file. If it didn't, check you're not accidentally running the old script and this app against the same playlist at the same time.
 
+**The AI button on the cover art page is disabled.** `REPLICATE_API_TOKEN` and/or `REPLICATE_MODEL` aren't set. Template mode (curated backgrounds + typography) works regardless — it needs neither.
+
+**Cover art generation fails with a 502 mentioning Replicate.** Usually an expired or invalid token — Replicate's free "getting started" tokens are short-lived demo tokens, not permanent ones; generate a real token at [replicate.com/account/api-tokens](https://replicate.com/account/api-tokens) if you hit this.
+
+**Applying a cover art fails with "Navidrome refused the cover upload (403)".** That playlist has no backing file, so this app used Navidrome's upload API instead of writing a sidecar image — and Navidrome itself rejected it. `ND_USER` needs to be a Navidrome admin, or `EnableArtworkUpload` needs to be set in Navidrome's own config. This app can't grant either of those; it's a Navidrome-side setting.
+
 **Check it's alive:** `curl http://localhost:8095/healthz` should return `{"ok":true}`. The image also has a Docker healthcheck, so `docker ps` shows `(healthy)`.
 
 ---
@@ -305,6 +331,7 @@ app/
     tidarr_tagging/       ported from tag-tidarr-playlists.py
     playlist_folders/     ported from rename-playlists.py
     m3u_fix/              ported from fix-m3u-paths.py
+    playlist_covers/      net-new: AI (Replicate) + template cover art, sidecar/upload apply
     prompts_library/      Apple Music prompts/recipes data + AudioMuse calls
     scheduler/, status/   net-new: job scheduling, run history, status page
   cli/                    thin CLI wrappers, so each module still runs via `docker exec`
@@ -346,6 +373,9 @@ Not missing — intentionally deferred, so the app isn't painted into a corner:
 - A smart playlist (`.nsp`) editor that writes to `<music>/_playlists/`.
 - Rebuilding the prompts library data from a new Apple Music export (porting the `generators/` pipeline).
 - A log viewer for `update-navidrome-plugins.sh`.
+- A UI for uploading a custom cover-art background (the API endpoint exists; there's no drag-and-drop uploader on the Cover art page yet, so it's host-filesystem-only for now).
+- A full drag-and-drop layer editor for cover art (manual text/image positioning, closer to a design tool) — the current layout/font/style pickers cover the common cases; worth revisiting if that feels limiting.
+- A library "health check" module that screens audio files for defects (clipping, truncation, loudness outliers) — unrelated to cover art, but a plausible future module alongside the duplicate finder.
 
 **Permanently out of scope:** mounting the Docker socket into this app to let it `docker exec`/`docker restart` Navidrome for plugin updates. That would effectively give this app root on your NAS.
 

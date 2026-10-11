@@ -1,5 +1,6 @@
 import { NavLink, Route, Routes } from "react-router-dom";
 import ClusterCleanupPage from "./pages/ClusterCleanup";
+import CoverArtPage from "./pages/CoverArt";
 import DuplicateFinderPage from "./pages/DuplicateFinder";
 import M3uFixPage from "./pages/M3uFix";
 import PlaylistFoldersPage from "./pages/PlaylistFolders";
@@ -15,6 +16,7 @@ const LINKS = [
   { to: "/tidarr-imports", label: "Tidarr imports" },
   { to: "/playlist-folders", label: "Playlist folders" },
   { to: "/m3u-fix", label: "Fix m3u paths" },
+  { to: "/cover-art", label: "Cover art" },
   { to: "/prompts", label: "Prompts library" },
   { to: "/scheduler", label: "Scheduler" },
 ];
@@ -38,6 +40,7 @@ export default function App() {
           <Route path="/tidarr-imports" element={<TidarrImportsPage />} />
           <Route path="/playlist-folders" element={<PlaylistFoldersPage />} />
           <Route path="/m3u-fix" element={<M3uFixPage />} />
+          <Route path="/cover-art" element={<CoverArtPage />} />
           <Route path="/prompts" element={<PromptsLibraryPage />} />
           <Route path="/scheduler" element={<SchedulerPage />} />
         </Routes>

@@ -16,6 +16,7 @@ from app.modules.cluster_cleanup import service as cluster_cleanup_service
 from app.modules.cluster_cleanup.router import router as cluster_cleanup_router
 from app.modules.duplicate_finder.router import router as duplicate_finder_router
 from app.modules.m3u_fix.router import router as m3u_fix_router
+from app.modules.playlist_covers.router import router as playlist_covers_router
 from app.modules.playlist_folders.router import router as playlist_folders_router
 from app.modules.prompts_library.router import router as prompts_library_router
 from app.modules.scheduler.router import router as jobs_router
@@ -38,7 +39,7 @@ app.middleware("http")(request_guard)
 
 for _router in (duplicate_finder_router, cluster_cleanup_router, tidarr_tagging_router,
                 playlist_folders_router, m3u_fix_router, prompts_library_router,
-                jobs_router, status_router):
+                playlist_covers_router, jobs_router, status_router):
     app.include_router(_router)
 
 

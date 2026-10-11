@@ -213,7 +213,7 @@ def test_group_files_unions_keys(app_mod):
 @pytest.mark.parametrize("artist,kept,removed,why", [
     ("Peppy", "02 Queen Songs + human.flac", "02 Queen SongsHuman.flac", "filename matches its title"),
     ("Kaleido", "02 Alive (feat. Guest).flac", "02 Alive.flac", "has an ISRC"),
-    ("Sourcey", "02 song.flac", "02 Song.flac", "from Tidarr, a preferred source"),
+    ("Sourcey", "02 Song!.flac", "02 Song.flac", "from Tidarr, a preferred source"),
 ])
 def test_keeper_by_metadata(loose, artist, kept, removed, why):
     files = {f["name"]: f for r in loose[artist]["rows"] for f in r["files"]}
@@ -227,7 +227,7 @@ def test_prefer_sources_can_be_turned_off(app_mod, scan, monkeypatch):
     s = scan()
     c = next(c for c in s["clusters"] if c["artist"] == "Sourcey")
     files = {f["name"]: f for r in c["rows"] for f in r["files"]}
-    assert [n for n, f in files.items() if f["suggested"]] == ["02 song.flac"]
+    assert [n for n, f in files.items() if f["suggested"]] == ["02 Song!.flac"]
     assert files["02 Song.flac"]["keep_why"] == "more complete tags"
 
 

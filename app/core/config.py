@@ -24,6 +24,12 @@ ND_PASS = os.environ.get("ND_PASS", "")
 AUDIOMUSE_URL = os.environ.get("AUDIOMUSE_URL", "").rstrip("/")
 AUDIOMUSE_API_TOKEN = os.environ.get("AUDIOMUSE_API_TOKEN", "")
 
+# Replicate (AI cover art generation). An "owner/name" official-model id,
+# e.g. "google/imagen-4" - Replicate always runs that model's latest version
+# for official models, so there's no version hash to pin or keep updated.
+REPLICATE_API_TOKEN = os.environ.get("REPLICATE_API_TOKEN", "")
+REPLICATE_MODEL = os.environ.get("REPLICATE_MODEL", "")
+
 # Basic auth. Required by default: this app holds your Navidrome admin
 # password and can permanently delete files, so unlike the single-purpose
 # apps it was built from, "optional" is the wrong default here. Set

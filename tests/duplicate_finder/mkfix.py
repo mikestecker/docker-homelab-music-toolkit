@@ -150,10 +150,16 @@ def build(root):
        "Kaleido", "Kaleido", "Album", "2019", 2, mtime=t0 + 10, **extra)
     mk(2102, FL, 5, "Kaleido/Album (2019)/02 Alive (feat. Guest).flac", "Alive (feat. Guest)",
        "Kaleido", "Kaleido", "Album", "2019", 2, "USKK20000001", mtime=t0 + 600)
-    # Otherwise equal: the preferred source (Tidarr) wins.
+    # Otherwise equal: the preferred source (Tidarr) wins. The second filename
+    # needs to differ from the first by more than case - "Song"/"song" collide
+    # as one file on case-insensitive filesystems (APFS, NTFS), which silently
+    # dropped this fixture there - without changing the title-match or
+    # folder-fit signals the other rules key off. A trailing "!" normalizes
+    # away for the title match (still equals "song") and sits after the
+    # "02 " prefix those other checks key on, so it's a no-op for both.
     mk(2202, FL, 5, "Sourcey/Album (2019)/02 Song.flac", "Song",
        "Sourcey", "Sourcey", "Album", "2019", 2, mtime=t0 + 10, **extra)
-    mk(2202, FL, 5, "Sourcey/Album (2019)/02 song.flac", "Song",
+    mk(2202, FL, 5, "Sourcey/Album (2019)/02 Song!.flac", "Song",
        "Sourcey", "Sourcey", "Album", "2019", 2, mtime=t0 + 600,
        compatible_brands="mp41dashcmfc", major_brand="iso8")
     # One recording on three releases (album, best-of, single): all stay.
