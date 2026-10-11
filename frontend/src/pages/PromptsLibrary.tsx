@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import type { Recipe, SeedPrompt } from "../api/types";
@@ -25,8 +25,9 @@ function songLabel(s: Song): string {
 }
 
 export default function PromptsLibraryPage() {
-  const { error, run } = useApiError();
+  const { error, run, setError } = useApiError();
   const navigate = useNavigate();
+  const panelRef = useRef<HTMLDivElement>(null);
   const [tab, setTab] = useState<Tab>("prompts");
   const [prompts, setPrompts] = useState<SeedPrompt[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -36,12 +37,17 @@ export default function PromptsLibraryPage() {
   const [playlistName, setPlaylistName] = useState("");
   const [running, setRunning] = useState(false);
   const [created, setCreated] = useState<string | null>(null);
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   useEffect(() => {
     run(() => api.get<SeedPrompt[]>("/api/prompts/seedprompts")).then((r) => r && setPrompts(r));
     run(() => api.get<Recipe[]>("/api/prompts/recipes")).then((r) => r && setRecipes(r));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (active) panelRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [active]);
 
   const items = tab === "prompts" ? prompts : recipes;
   const filtered = useMemo(() => {
@@ -50,19 +56,39 @@ export default function PromptsLibraryPage() {
     return items.filter((i) => i.name.toLowerCase().includes(q) || i.prompt.toLowerCase().includes(q));
   }, [items, query]);
 
-  const copy = (text: string) => navigator.clipboard.writeText(text);
+  const copy = async (key: string, text: string) => {
+    try {
+      if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        // The Clipboard API needs a secure context (HTTPS, or localhost) -
+        // a typical homelab setup reached over plain http://<lan-ip> doesn't
+        // qualify, and navigator.clipboard is undefined there entirely.
+        // Fall back to the older execCommand trick, which still works.
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.style.position = "fixed";
+        ta.style.opacity = "0";
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+      }
+      setCopiedKey(key);
+      setTimeout(() => setCopiedKey((k) => (k === key ? null : k)), 1500);
+    } catch {
+      setError("Couldn't copy to the clipboard - your browser may be blocking it on a non-HTTPS connection.");
+    }
+  };
 
-  const openRunner = (item: { name: string; prompt: string }) => {
+  const runPrompt = (item: { name: string; prompt: string }) => {
     setActive(item);
     setSongs(null);
     setCreated(null);
     setPlaylistName(`Occasions/${item.name}`);
-  };
-
-  const runInAudioMuse = () => {
-    if (!active) return;
     setRunning(true);
-    run(() => api.post<{ songs?: Song[] }>("/api/prompts/run", { prompt: active.prompt }))
+    run(() => api.post<{ songs?: Song[] }>("/api/prompts/run", { prompt: item.prompt }))
       .then((r) => r && setSongs(r.songs ?? []))
       .finally(() => setRunning(false));
   };
@@ -113,8 +139,9 @@ export default function PromptsLibraryPage() {
                   {item.prompt}
                 </td>
                 <td style={{ whiteSpace: "nowrap" }}>
-                  <button onClick={() => copy(item.prompt)}>Copy</button>{" "}
-                  <button onClick={() => openRunner(item)}>Run in AudioMuse</button>{" "}
+                  <button onClick={() => copy(item.name, item.prompt)}>Copy</button>{" "}
+                  {copiedKey === item.name && <span className="chip good">Copied!</span>}{" "}
+                  <button onClick={() => runPrompt(item)}>Run in AudioMuse</button>{" "}
                   <button onClick={() => navigate("/playlist-studio", { state: { seedPrompt: item.prompt } })}>
                     Refine in Studio
                   </button>
@@ -127,12 +154,12 @@ export default function PromptsLibraryPage() {
       </div>
 
       {active && (
-        <div className="panel">
+        <div className="panel" ref={panelRef}>
           <h3 style={{ marginTop: 0 }}>{active.name}</h3>
           <p className="muted">{active.prompt}</p>
           <div className="row">
-            <button disabled={running} onClick={runInAudioMuse}>
-              {running ? "Running…" : "Run in AudioMuse"}
+            <button disabled={running} onClick={() => runPrompt(active)}>
+              {running ? "Running…" : "Run again"}
             </button>
             <button onClick={() => setActive(null)}>Close</button>
           </div>
