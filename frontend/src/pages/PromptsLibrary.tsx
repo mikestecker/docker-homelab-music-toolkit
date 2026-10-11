@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
 import type { Recipe, SeedPrompt } from "../api/types";
 import ErrorBanner from "../components/ErrorBanner";
@@ -25,6 +26,7 @@ function songLabel(s: Song): string {
 
 export default function PromptsLibraryPage() {
   const { error, run } = useApiError();
+  const navigate = useNavigate();
   const [tab, setTab] = useState<Tab>("prompts");
   const [prompts, setPrompts] = useState<SeedPrompt[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -112,7 +114,10 @@ export default function PromptsLibraryPage() {
                 </td>
                 <td style={{ whiteSpace: "nowrap" }}>
                   <button onClick={() => copy(item.prompt)}>Copy</button>{" "}
-                  <button onClick={() => openRunner(item)}>Run in AudioMuse</button>
+                  <button onClick={() => openRunner(item)}>Run in AudioMuse</button>{" "}
+                  <button onClick={() => navigate("/playlist-studio", { state: { seedPrompt: item.prompt } })}>
+                    Refine in Studio
+                  </button>
                 </td>
               </tr>
             ))}

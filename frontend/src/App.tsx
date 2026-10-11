@@ -4,6 +4,7 @@ import CoverArtPage from "./pages/CoverArt";
 import DuplicateFinderPage from "./pages/DuplicateFinder";
 import M3uFixPage from "./pages/M3uFix";
 import PlaylistFoldersPage from "./pages/PlaylistFolders";
+import PlaylistStudioPage from "./pages/PlaylistStudio";
 import PromptsLibraryPage from "./pages/PromptsLibrary";
 import SchedulerPage from "./pages/Scheduler";
 import StatusPage from "./pages/Status";
@@ -18,6 +19,7 @@ const LINKS = [
   { to: "/m3u-fix", label: "Fix m3u paths" },
   { to: "/cover-art", label: "Cover art" },
   { to: "/prompts", label: "Prompts library" },
+  { to: "/playlist-studio", label: "Playlist Studio" },
   { to: "/scheduler", label: "Scheduler" },
 ];
 
@@ -42,6 +44,7 @@ export default function App() {
           <Route path="/m3u-fix" element={<M3uFixPage />} />
           <Route path="/cover-art" element={<CoverArtPage />} />
           <Route path="/prompts" element={<PromptsLibraryPage />} />
+          <Route path="/playlist-studio" element={<PlaylistStudioPage />} />
           <Route path="/scheduler" element={<SchedulerPage />} />
         </Routes>
       </main>

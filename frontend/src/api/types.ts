@@ -109,3 +109,27 @@ export interface CoverHistoryEntry {
   style?: string;
   prompt?: string;
 }
+
+export interface StudioTrack {
+  id: string;
+  title: string;
+  artist: string;
+}
+
+export interface StudioEntry {
+  id: string;
+  created: number;
+  kind: "instant" | "alchemy" | "refine";
+  tracks: StudioTrack[];
+  prompt?: string;
+  instruction?: string;
+  anchors?: StudioTrack[];
+  excludes?: StudioTrack[];
+}
+
+export interface StudioDiff {
+  added: StudioTrack[];
+  removed: StudioTrack[];
+  kept: StudioTrack[];
+  moved: StudioTrack[];
+}

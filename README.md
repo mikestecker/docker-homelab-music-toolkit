@@ -11,8 +11,9 @@ A self-hosted web app for a Navidrome + AudioMuse-AI homelab music setup. It rep
 5. **Fix m3u paths** — repoints broken `.m3u` entries at the files you actually have, with a backup of every playlist it touches.
 6. **Playlist cover art** — generates real cover art for playlists (AI photography via Replicate, or curated background + typography), applied the way Navidrome actually supports: a sidecar image or its playlist-image upload API.
 7. **Prompts library** — the Apple Music playlist prompts and recipes, searchable, with a "Run in AudioMuse" button that creates the playlist for you.
-8. **Scheduler** — built-in scheduled jobs (replacing the old TrueNAS cron jobs) with enable/disable, a schedule editor and full run history.
-9. **Status page** — Navidrome and AudioMuse reachability, versions, playlist counts, last run of every job.
+8. **Playlist Studio** — an iterative workshop on top of AudioMuse: blend several of your own library's tracks into one playlist (Alchemy), or generate from a free-text prompt, then refine in plain language and see a diff before committing.
+9. **Scheduler** — built-in scheduled jobs (replacing the old TrueNAS cron jobs) with enable/disable, a schedule editor and full run history.
+10. **Status page** — Navidrome and AudioMuse reachability, versions, playlist counts, last run of every job.
 
 Every write operation previews by default; applying is a separate, explicit action.
 
@@ -38,6 +39,7 @@ Every write operation previews by default; applying is a separate, explicit acti
   - [Fix m3u paths](#fix-m3u-paths)
   - [Playlist cover art](#playlist-cover-art)
   - [Prompts library](#prompts-library)
+  - [Playlist Studio](#playlist-studio)
   - [Scheduler](#scheduler)
 - [How the duplicate finder decides](#how-the-duplicate-finder-decides)
 - [Troubleshooting](#troubleshooting)
@@ -285,7 +287,16 @@ Every generation is kept in a per-playlist history so you can flip back to an ea
 
 ### Prompts library
 
-Search and filter the Apple Music playlist prompts and recipes. **Copy** puts the prompt text on your clipboard. **Run in AudioMuse** sends it to AudioMuse's Instant Playlist API, shows the songs it returns, and lets you name the playlist (defaulting to `Occasions/<name>`, matching the folder convention above) before creating it on Navidrome.
+Search and filter the Apple Music playlist prompts and recipes. **Copy** puts the prompt text on your clipboard. **Run in AudioMuse** sends it to AudioMuse's Instant Playlist API, shows the songs it returns, and lets you name the playlist (defaulting to `Occasions/<name>`, matching the folder convention above) before creating it on Navidrome. **Refine in Studio** hands a library prompt over to Playlist Studio below as a starting point, instead of a one-shot run.
+
+### Playlist Studio
+
+An iterative workshop for building a playlist, rather than one-shot "Run in AudioMuse": generate, describe a tweak in plain language, see what actually changed, decide whether to keep it, repeat.
+
+- **Instant** — the same free-text-to-AudioMuse flow as the prompts library, but with the refine loop below.
+- **Alchemy** — search your own library and pick a few tracks as **Include** anchors (optionally some **Exclude** ones too), set a size and a variety preference, and it blends them into one playlist. AudioMuse's own Song Alchemy feature (its web UI, not this app) does this with a true multi-song blend; its playbook never documents a public API for it, so this composes the closest working equivalent instead — a multi-artist Instant Playlist request ("Songs like X, Y, Z") — rather than guess at an unconfirmed endpoint. If AudioMuse's real Alchemy API ever gets confirmed, only the one function building that request needs to change.
+- **Refine** — type a change ("more upbeat", "less rap", "swap in some 90s") and it re-generates and shows a diff: new tracks, removed tracks, and which ones moved — before you commit to it.
+- Every attempt in a session is kept, so you can jump back to an earlier result without regenerating or spending another request.
 
 ### Scheduler
 
@@ -332,6 +343,7 @@ app/
     playlist_folders/     ported from rename-playlists.py
     m3u_fix/              ported from fix-m3u-paths.py
     playlist_covers/      net-new: AI (Replicate) + template cover art, sidecar/upload apply
+    playlist_studio/      net-new: Alchemy + refine/diff workshop on top of AudioMuse
     prompts_library/      Apple Music prompts/recipes data + AudioMuse calls
     scheduler/, status/   net-new: job scheduling, run history, status page
   cli/                    thin CLI wrappers, so each module still runs via `docker exec`
@@ -374,6 +386,8 @@ Not missing — intentionally deferred, so the app isn't painted into a corner:
 - Rebuilding the prompts library data from a new Apple Music export (porting the `generators/` pipeline).
 - A log viewer for `update-navidrome-plugins.sh`.
 - A UI for uploading a custom cover-art background (the API endpoint exists; there's no drag-and-drop uploader on the Cover art page yet, so it's host-filesystem-only for now).
+- Sung-language filtering in Playlist Studio (needs a lyrics source and a language-ID library, neither of which exist in the toolkit yet) - a candidate addition if your library turns out to be meaningfully multilingual.
+- Swapping Playlist Studio's Alchemy mode over to AudioMuse's own Song Alchemy API, if a real public contract for it is ever confirmed (its playbook documents the feature but never a request/response shape for it).
 - A full drag-and-drop layer editor for cover art (manual text/image positioning, closer to a design tool) — the current layout/font/style pickers cover the common cases; worth revisiting if that feels limiting.
 - A library "health check" module that screens audio files for defects (clipping, truncation, loudness outliers) — unrelated to cover art, but a plausible future module alongside the duplicate finder.
 
