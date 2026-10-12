@@ -6,17 +6,24 @@ and name updatePlaylist calls this module needs.
 import pytest
 
 from app.core import config as cfg
+from app.modules.christian_artists import service as christian_artists
 from app.modules.cluster_cleanup import service
 
 WORSHIP = ["Hillsong UNITED", "Big Tent Revival", "Chris Tomlin", "Elevation Worship",
            "Bethel Music & Jenn Johnson", "Chris Renzema", "John Mark Pantana"]
+
+_CSV_HEADER = "artist,genre,worship,tier,ambiguous,enabled,mbid,notes\n"
 
 
 @pytest.fixture
 def cc(tmp_path, nd_mock, monkeypatch):
     monkeypatch.setattr(cfg, "CONFIG_DIR", str(tmp_path))
     nd_mock("mock_navidrome_clusters_rename.py")
-    service.save_artists_text("\n".join(WORSHIP) + "\n")
+    # A small, fully-controlled artist list, independent of the real
+    # christian-artists.csv seed, so this test's behavior doesn't drift if
+    # that seed's own classifications ever change.
+    rows = _CSV_HEADER + "".join(f"{name},worship,yes,core,no,yes,,\n" for name in WORSHIP)
+    christian_artists.save_artists_text(rows)
     return service
 
 
@@ -54,8 +61,43 @@ def test_apply_is_idempotent(cc):
 
 def test_settings_roundtrip(cc):
     saved = cc.save_settings(min_seconds=45, max_share=0.5, rename_prefix="AudioMuse/")
-    assert saved == {"min_seconds": 45, "max_share": 0.5, "rename_prefix": "AudioMuse/"}
+    assert saved == {"min_seconds": 45, "max_share": 0.5, "rename_prefix": "AudioMuse/",
+                      "scope": "christian", "reverse_cleanup": False}
     assert cc.get_settings() == saved
+
+
+def test_scope_worship_only_counts_worship_flagged_artists(cc):
+    # Big Tent Revival is christian but not worship-flagged in this fixture's
+    # list - "worship" scope should leave it (and its minority removal) alone.
+    rows = (_CSV_HEADER
+            + "Hillsong UNITED,worship,yes,core,no,yes,,\n"
+            + "Big Tent Revival,ccm,no,core,no,yes,,\n")
+    christian_artists.save_artists_text(rows)
+    cc.save_settings(scope="worship")
+    result = cc.run(dry_run=True)
+    skate = next(p for p in result["playlists"] if p["name"] == "Skate Session_automatic")
+    # Only "Oceans" (Hillsong UNITED, worship=yes) counts now - Big Tent
+    # Revival is christian but worship=no, so it's out of scope.
+    assert skate["worship_removed"] == 1
+
+
+def test_reverse_cleanup_removes_secular_minority(cc):
+    # Every Skate Session artist except Weezer, so that playlist becomes
+    # 19/20 (95%) "listed" - a mostly-Christian cluster with one secular
+    # straggler (Weezer's "Smile") that reverse_cleanup should remove.
+    everyone_but_weezer = ["Sparta", "Thursday", "Big Tent Revival", "Thrice", "Ascend the Hill",
+                            "The Kry", "Passion & Kristian Stanfill", "Hillsong UNITED", "Anberlin",
+                            "Thousand Foot Krutch", "Project 86", "Switchfoot", "Passion Pit",
+                            "Lifehouse", "Chevelle", "Tonic", "Incubus"]
+    rows = _CSV_HEADER + "".join(f"{name},rock,no,core,no,yes,,\n" for name in everyone_but_weezer)
+    christian_artists.save_artists_text(rows)
+    cc.save_settings(reverse_cleanup=True, max_share=0.1)
+    result = cc.run(dry_run=True)
+    skate = next(p for p in result["playlists"] if p["name"] == "Skate Session_automatic")
+    assert skate["kept_worship_leaning"] is True
+    assert skate["secular_removed"] == 1
+    assert skate["removed_tracks"] == [{"title": "Smile", "artist": "Weezer",
+                                         "why": "secular minority", "direction": "secular_minority"}]
 
 
 def test_rename_prefix_is_applied_once(cc):
