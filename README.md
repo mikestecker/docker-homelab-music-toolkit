@@ -5,15 +5,16 @@ A self-hosted web app for a Navidrome + AudioMuse-AI homelab music setup. It rep
 **What it does, in rough priority order:**
 
 1. **Duplicate finder** — finds duplicate tracks, explains why with raw tags and audio checksums, quarantines the extras (reversible) or deletes them for good (explicit, confirmed).
-2. **Cluster cleanup** — takes stray worship songs out of AudioMuse's `_automatic` clustering playlists when they're a minority of the playlist.
-3. **Tidarr import filing** — tags and prefixes playlists Navidrome imported from Tidarr so they group together in every client.
-4. **Playlist folders** — files playlists into `Folder/Subfolder/Name` folders by renaming them, from an editable map.
-5. **Fix m3u paths** — repoints broken `.m3u` entries at the files you actually have, with a backup of every playlist it touches.
-6. **Playlist cover art** — generates real cover art for playlists (AI photography via Replicate, or curated background + typography), applied the way Navidrome actually supports: a sidecar image or its playlist-image upload API.
-7. **Prompts library** — the Apple Music playlist prompts and recipes, searchable, with a "Run in AudioMuse" button that creates the playlist for you.
-8. **Playlist Studio** — an iterative workshop on top of AudioMuse: blend several of your own library's tracks into one playlist (Alchemy), or generate from a free-text prompt, then refine in plain language and see a diff before committing.
-9. **Scheduler** — built-in scheduled jobs (replacing the old TrueNAS cron jobs) with enable/disable, a schedule editor and full run history.
-10. **Status page** — Navidrome and AudioMuse reachability, versions, playlist counts, last run of every job.
+2. **Cluster cleanup** — takes stray songs out of AudioMuse's `_automatic` clustering playlists when a scoped set (Christian, or just worship) is a minority of the playlist.
+3. **Christian artists** — a CSV allowlist that tags files with a `CATEGORY` of `christian`/`worship`, and filters AudioMuse-generated playlists so secular artists don't end up in a worship playlist, without needing file tags written first.
+4. **Tidarr import filing** — tags and prefixes playlists Navidrome imported from Tidarr so they group together in every client.
+5. **Playlist folders** — files playlists into `Folder/Subfolder/Name` folders by renaming them, from an editable map.
+6. **Fix m3u paths** — repoints broken `.m3u` entries at the files you actually have, with a backup of every playlist it touches.
+7. **Playlist cover art** — generates real cover art for playlists (AI photography via Replicate, or curated background + typography), applied the way Navidrome actually supports: a sidecar image or its playlist-image upload API.
+8. **Prompts library** — the Apple Music playlist prompts and recipes, searchable, with a "Run in AudioMuse" button that creates the playlist for you.
+9. **Playlist Studio** — an iterative workshop on top of AudioMuse: blend several of your own library's tracks into one playlist (Alchemy), or generate from a free-text prompt, then refine in plain language and see a diff before committing.
+10. **Scheduler** — built-in scheduled jobs (replacing the old TrueNAS cron jobs) with enable/disable, a schedule editor and full run history.
+11. **Status page** — Navidrome and AudioMuse reachability, versions, playlist counts, last run of every job.
 
 Every write operation previews by default; applying is a separate, explicit action.
 
@@ -34,6 +35,7 @@ Every write operation previews by default; applying is a separate, explicit acti
 - [Using it](#using-it)
   - [Duplicate finder](#duplicate-finder)
   - [Cluster cleanup](#cluster-cleanup)
+  - [Christian artists](#christian-artists)
   - [Tidarr import filing](#tidarr-import-filing)
   - [Playlist folders](#playlist-folders)
   - [Fix m3u paths](#fix-m3u-paths)
@@ -138,8 +140,13 @@ Everything is environment variables, set at the container level — never in fil
 | `quarantine.json` | What's in each quarantine batch, so restores know where files go back to. **Never delete this by hand** while anything is quarantined. |
 | `kept-both.json` | Albums you marked "Keep both" in the duplicate finder. |
 | `sources.json` | Your own source-detection rules for the duplicate finder. |
-| `worship-artists.txt` | Cluster cleanup's artist list, seeded from a sensible default on first boot. |
-| `cleanup-settings.json` | Cluster cleanup's `max_share`/`min_seconds`/`rename_prefix`. |
+| `cleanup-settings.json` | Cluster cleanup's `max_share`/`min_seconds`/`rename_prefix`/`scope`/`reverse_cleanup`. |
+| `christian-artists.csv` | The Christian artists allowlist, seeded from a ~5,350-artist default on first boot. The source of truth — UI edits write back to it. |
+| `worship-overrides.txt` | Per-album/track worship exceptions for an otherwise non-worship (or worship) Christian artist, seeded empty. |
+| `christian-tagging-settings.json` | The tagger's `prune` setting. |
+| `christian-artists-last-scan.json` | The Christian artists page's last library scan result, cached so it doesn't need to re-scan on every page load. Safe to delete. |
+| `christian-artists-migration-log.json` | What got imported from your old `worship-artists.txt`, if anything. Written once, by the one-time migration. |
+| `worship-artists.txt.migrated` | Cluster cleanup's old artist list, renamed here (not deleted) once its contents are migrated into `christian-artists.csv`. Only appears if you had one before upgrading. |
 | `tidarr-tagging-settings.json` | Tidarr filing's prefix/path-match settings. |
 | `playlist-folders.txt` | The playlist-folder map, seeded from a default on first boot. This is the source of truth — UI edits write back to it. |
 | `m3u-fix-settings.json` | The m3u fixer's playlist-folder and host-root settings. |
@@ -260,7 +267,63 @@ The kept copy says why, from the first step that separated it from the other. Ne
 
 ### Cluster cleanup
 
-Edit the worship artist list and the `max_share`/`min_seconds`/`rename_prefix` settings, then **Preview** before **Apply**. Removal only happens when listed artists are a *minority* of a clustering playlist (`max_share`, default 34%) — a cluster that's mostly worship is left alone. Songs shorter than `min_seconds` (intros, interludes) are dropped too, when set.
+Manage the artist list itself on the [Christian artists](#christian-artists) page — this page is just the cleanup settings. Pick a **Scope** (`Christian`, the default — stop Christian and secular music mixing at all — or `Worship only`, the original, narrower behavior), set `max_share`/`min_seconds`/`rename_prefix`, then **Preview** before **Apply**. Removal only happens when the scoped set is a *minority* of a clustering playlist (`max_share`, default 34%) — a cluster that's mostly in-scope is left alone. Songs shorter than `min_seconds` (intros, interludes) are dropped too, when set.
+
+**Reverse cleanup** (off by default): in a cluster where the scoped set is instead the *majority* (≥ `1 - max_share`), remove the secular minority — the "a secular artist snuck into my worship cluster" fix. Preview shows both directions, with the artist and reason for each removal, under "Removed tracks, by direction."
+
+**Behavior change from the old `clean-clusters.py`/`worship-artists.txt` list, if you're upgrading:** that list treated CCM acts (MercyMe, Casting Crowns, and similar) as "worship." The new Christian artists seed classifies them honestly as `christian`, `worship=no`. If you relied on the old, broader behavior, either switch Scope to `Christian` (the new default) so CCM is still included, or edit those artists' `worship` flag on the Christian artists page. Your edits to the old list were migrated automatically — see the [Christian artists](#christian-artists) section below — and the old file is kept as `worship-artists.txt.migrated`, never deleted.
+
+### Christian artists
+
+One CSV allowlist (`christian-artists.csv`, seeded with ~5,350 artists across every genre — worship, hymns, CCM, rock, punk, metal, hip-hop, gospel, southern gospel, kids, and more) drives three things:
+
+- **A `CATEGORY` file tag** (`christian`, plus `worship` where it applies) — see the tagger below and the Navidrome integration section.
+- **Cluster cleanup's scope**, above.
+- **A live Content filter** on AudioMuse-generated playlists (Prompts library, Playlist Studio), below — this is the one that actually fixes "my worship playlist has David Bowie in it," since it works immediately without depending on any file ever being tagged.
+
+**The list.** `worship` is three-state (`yes`/`no`/`unknown` — unknown counts as not-worship for matching, but is shown distinctly so you can work through it with the "Unknown worship" filter). `tier=crossover` (Switchfoot, Underoath, NF, twenty one pilots and similar — Christian artists who mostly play in the mainstream market) and `ambiguous=yes` (a name that collides with a secular act — Chris Brown, Brian Johnson, Red, Avalon, Passion, KB and similar) both ship `enabled=no` until you confirm them, ideally by adding an `mbid` (MusicBrainz artist ID — Lidarr writes this tag, so once set it's matched by ID instead of name, which is the real fix for a name collision). Add, edit, bulk-add or delete artists from the table; **Export** downloads the CSV; **Reset to defaults** merges in any new artists from an updated seed without ever touching your edits.
+
+**Worship overrides** (`worship-overrides.txt`) handle the exception case: one album or track by an otherwise non-worship Christian artist that counts as worship anyway (or the reverse, with a leading `!`) — `Artist | Album` or `Artist | Album | Title`, edited as structured per-album/track toggles or as raw text on the artist's row.
+
+**Library scan** reads tags (no changes made) and shows three things: artists on the list that are disabled or ambiguous but do show up in your library (with sample albums, so you can tell the R&B Chris Brown from the worship one, and an MBID prefill when your files agree on one); library artists *not* on the list whose `GENRE` tag looks Christian; and enabled list entries with zero matching tracks (informational — new imports may match them later).
+
+**Tagging.** Writes the managed `CATEGORY` values only — any other value you've set yourself is preserved, and no other tag is touched. Preview lists every file that would change; **Apply** is separate and explicit, same as every other module. Pruning (on by default, toggle in Settings) removes `christian`/`worship` from a file if its artist is no longer on the list. The scheduled job (**Scheduler** page, job id `christian_tagging`) ships **disabled by default**, since newly-imported Lidarr/Tidarr files arrive untagged and you likely want to preview a run or two first; it defaults to 07:00, after Tidarr import filing. CLI: `python -m app.cli.christian_tagging --apply`.
+
+**Content filter.** In the Prompts library ("Run in AudioMuse") and Playlist Studio (Instant, Alchemy, Refine), a **Content** control (`Any` / `Christian only` / `Worship only` / `No Christian`) filters AudioMuse's results by artist name against the list (plus overrides) — no MBID matching here, since AudioMuse never returns one and its track ids aren't Navidrome's, so the ~0.5% of artists disambiguated by MBID alone aren't filterable live (they're still tagged correctly on your files). If filtering leaves fewer tracks than you asked for, it automatically asks AudioMuse for more (Alchemy: a bigger `n`; Instant/Refine: a nudged prompt, since `chatPlaylist` has no size parameter) and merges them in, keeping AudioMuse's order; if it's still short, it says so ("Only N tracks matched") rather than silently handing back fewer. The filter is auto-suggested from your prompt text or (Alchemy) your Include anchors — a suggestion, not a lock — and Playlist Studio remembers the last one you picked for that session. Playlist Studio's diff view lists anything the filter removed under its own "Filtered out" group.
+
+**Migrating from `worship-artists.txt`.** If you have one from before this feature existed, your edits to it are imported automatically, once, the first time any of this loads: a line you added becomes `worship=yes, enabled=yes`; a default line you deleted or commented out becomes `enabled=no`; a "gray area" line you uncommented becomes `worship=yes, enabled=yes`. If you never touched the file, nothing changes. The old file is renamed to `worship-artists.txt.migrated` (never deleted), and a summary of what was imported is shown on the Christian artists page.
+
+#### Navidrome integration
+
+To expose `CATEGORY` as a real tag in Navidrome (for smart playlists, below), add it to `navidrome.toml` — **verified against Navidrome v0.64.2's docs** (`navidrome.org/docs/usage/configuration/custom-tags/`, checked October 2026; re-check if you're on a materially different version):
+
+```toml
+Tags.CATEGORY.Aliases = ["category"]
+```
+
+That one line is enough: `Aliases` lists every alternate name Navidrome should treat as this tag across formats — this app only ever writes the lowercase Vorbis comment `category` (FLAC/Ogg/Opus), the ID3 `TXXX:CATEGORY` frame (MP3, read as `category` once imported), and the MP4 freeform atom `----:com.apple.iTunes:CATEGORY` (M4A) — Navidrome's own tag importer normalizes all three to this one alias list, so a single alias covers every format this app writes. **A full library scan is required after adding this** (Navidrome's docs are explicit that a quick scan won't pick up a tag-configuration change) — Navidrome → Settings → Scan Library → full scan, not the quick one.
+
+Then a `.nsp` smart playlist file can reference `category` directly, since Navidrome's smart-playlist docs say any imported tag not in its built-in field list can be used as a field. Two examples (drop these in your playlists folder):
+
+```json
+{
+  "name": "All Worship",
+  "all": [{ "contains": { "category": "worship" } }],
+  "sort": "artist"
+}
+```
+
+```json
+{
+  "name": "All Christian",
+  "all": [{ "contains": { "category": "christian" } }],
+  "sort": "artist"
+}
+```
+
+(`contains` rather than `is`, since a file can carry both `christian` and `worship` as separate values of the same multi-valued tag.) Navidrome's smart playlists are documented as a **beta** feature as of v0.64.2 — expect the schema to keep evolving.
+
+**Heads-up on Lidarr.** Lidarr's retag can drop tags it doesn't know about. Test this once before relying on it: tag one album, run Lidarr's **Retag** on it, then check `CATEGORY` survived. If Lidarr strips it, that's expected — the scheduled Christian tagging job (above) re-applies it on its next run, so nothing stays untagged for long either way.
 
 ### Tidarr import filing
 
@@ -290,7 +353,7 @@ Every generation is kept in a per-playlist history so you can flip back to an ea
 
 ### Prompts library
 
-Search and filter the Apple Music playlist prompts and recipes. **Copy** puts the prompt text on your clipboard. **Run in AudioMuse** sends it to AudioMuse's Instant Playlist API, shows the songs it returns, and lets you name the playlist (defaulting to `Occasions/<name>`, matching the folder convention above) before creating it on Navidrome. **Refine in Studio** hands a library prompt over to Playlist Studio below as a starting point, instead of a one-shot run.
+Search and filter the Apple Music playlist prompts and recipes. **Copy** puts the prompt text on your clipboard. **Run in AudioMuse** sends it to AudioMuse's Instant Playlist API, shows the songs it returns, and lets you name the playlist (defaulting to `Occasions/<name>`, matching the folder convention above) before creating it on Navidrome. **Refine in Studio** hands a library prompt over to Playlist Studio below as a starting point, instead of a one-shot run. The **Content** filter (see [Christian artists](#christian-artists)) is auto-suggested from the prompt text before each run — change it in the drawer if the suggestion isn't what you want.
 
 ### Playlist Studio
 
@@ -300,6 +363,7 @@ An iterative workshop for building a playlist, rather than one-shot "Run in Audi
 - **Alchemy** — search your own library (via AudioMuse's own track index, not Navidrome's) and pick a few tracks as **Include** anchors (optionally some **Exclude** ones too), set a size and a variety preference, and it blends them into one playlist via AudioMuse's real `POST /api/alchemy`. That request shape is fully documented in AudioMuse's own API spec; its *response* shape isn't (just "each row contains the song and its centroid," no schema), so the parser tries a couple of plausible shapes inferred from sibling endpoints that are documented, rather than one guessed blind — if it's ever wrong, the raw response is kept so it can be fixed from a real example.
 - **Refine** — type a change ("more upbeat", "less rap", "swap in some 90s") and it re-generates and shows a diff: new tracks, removed tracks, and which ones moved — before you commit to it.
 - Every attempt in a session is kept, so you can jump back to an earlier result without regenerating or spending another request.
+- The **Content** filter (see [Christian artists](#christian-artists)) applies to Instant, Alchemy and Refine alike, is auto-suggested from your prompt text or Alchemy anchors, and whatever it filtered out shows up in its own "Filtered out" group next to the diff. Studio remembers the last filter you picked for the session.
 
 ### Scheduler
 
@@ -329,6 +393,8 @@ Enable/disable each job, set its daily time, trigger a run immediately, and dril
 
 **Applying a cover art fails with "Navidrome refused the cover upload (403)".** That playlist has no backing file, so this app used Navidrome's upload API instead of writing a sidecar image — and Navidrome itself rejected it. `ND_USER` needs to be a Navidrome admin, or `EnableArtworkUpload` needs to be set in Navidrome's own config. This app can't grant either of those; it's a Navidrome-side setting.
 
+**My worship playlist still has a secular song in it.** Check the Playlist Studio diff view or the Prompts library drawer for the "Filtered out" group first — if the song's there, the filter worked but something else in the result still slipped past a different rule; if it's *not* there, the Content filter never saw it as Christian/worship at all. From there: check whether that artist is wrongly on (or missing from) the Christian artists list, and check the "ambiguous" badge — a secular act with the same name as a Christian one ships disabled until you confirm it (ideally with an MBID), so it won't be removed from *or* added to anything until you do.
+
 **Logged out unexpectedly.** Either the session genuinely expired (about three weeks of inactivity), or `/config/session-secret.txt` got reset (a fresh config volume, or the file was deleted) — either way, just log back in.
 
 **Can't log in at all.** Same check as before: `AUTH_USER`/`AUTH_PASS` are set correctly and match what you're typing. The login page itself doesn't trigger a browser popup — if you're seeing one, you're on an old build; rebuild and redeploy.
@@ -346,6 +412,7 @@ app/
   modules/
     duplicate_finder/     ported from docker-music-dupes, verbatim logic
     cluster_cleanup/      ported from clean-clusters.py
+    christian_artists/    ported from christian_tag.py + net-new artist store/content filter
     tidarr_tagging/       ported from tag-tidarr-playlists.py
     playlist_folders/     ported from rename-playlists.py
     m3u_fix/              ported from fix-m3u-paths.py
@@ -396,6 +463,7 @@ Not missing — intentionally deferred, so the app isn't painted into a corner:
 - Saved/reusable Alchemy anchors and scheduled "radios" (AudioMuse has real APIs for both, `/api/anchors` and `/api/radios` — Playlist Studio only does one-off Alchemy blends today).
 - A full drag-and-drop layer editor for cover art (manual text/image positioning, closer to a design tool) — the current layout/font/style pickers cover the common cases; worth revisiting if that feels limiting.
 - A library "health check" module that screens audio files for defects (clipping, truncation, loudness outliers) — unrelated to cover art, but a plausible future module alongside the duplicate finder.
+- Classifying an artist as Christian automatically, via a MusicBrainz genre/tag lookup or an LLM, instead of the hand-maintained CSV list — deliberately out of this pass (no network calls for classification), but a plausible way to shrink the "Suggestions"/"not on the list" backlog later.
 
 **Permanently out of scope:** mounting the Docker socket into this app to let it `docker exec`/`docker restart` Navidrome for plugin updates. That would effectively give this app root on your NAS.
 
