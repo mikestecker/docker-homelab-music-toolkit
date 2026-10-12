@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { api } from "../api/client";
 import ErrorBanner from "../components/ErrorBanner";
 import LogPanel from "../components/LogPanel";
@@ -8,6 +9,8 @@ interface Settings {
   max_share: number;
   min_seconds: number;
   rename_prefix: string;
+  scope: "christian" | "worship";
+  reverse_cleanup: boolean;
 }
 
 interface Playlist {
@@ -17,10 +20,11 @@ interface Playlist {
   total_songs: number;
   worship_removed: number;
   short_removed: number;
+  secular_removed: number;
   kept_worship_leaning: boolean;
   worship_share: number;
   renamed_to: string | null;
-  removed_tracks: { title: string; artist: string; why: string }[];
+  removed_tracks: { title: string; artist: string; why: string; direction: string | null }[];
   error: string | null;
 }
 
@@ -35,21 +39,17 @@ interface RunResult {
 export default function ClusterCleanupPage() {
   const { error, run } = useApiError();
   const [settings, setSettings] = useState<Settings | null>(null);
-  const [artists, setArtists] = useState("");
   const [result, setResult] = useState<RunResult | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     run(() => api.get<Settings>("/api/cluster-cleanup/settings")).then((r) => r && setSettings(r));
-    run(() => api.get<{ text: string }>("/api/cluster-cleanup/artists")).then((r) => r && setArtists(r.text));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const saveSettings = () =>
     settings &&
     run(() => api.put<Settings>("/api/cluster-cleanup/settings", settings)).then((r) => r && setSettings(r));
-
-  const saveArtists = () => run(() => api.put("/api/cluster-cleanup/artists", { text: artists }));
 
   const doRun = (apply: boolean) => {
     setBusy(true);
@@ -62,8 +62,9 @@ export default function ClusterCleanupPage() {
     <div>
       <h2>Cluster cleanup</h2>
       <p className="muted">
-        Removes worship songs from AudioMuse's <code>_automatic</code> clustering playlists when they're a minority
-        of the playlist. Always preview first.
+        Removes songs from AudioMuse's <code>_automatic</code> clustering playlists when the scoped set is a minority
+        of the playlist. Always preview first. Manage the artist list itself on the{" "}
+        <Link to="/christian-artists">Christian artists</Link> page.
       </p>
       <ErrorBanner message={error} />
 
@@ -72,6 +73,16 @@ export default function ClusterCleanupPage() {
         {settings && (
           <>
             <div className="row">
+              <label>
+                Scope
+                <select
+                  value={settings.scope}
+                  onChange={(e) => setSettings({ ...settings, scope: e.target.value as Settings["scope"] })}
+                >
+                  <option value="christian">Christian (all listed artists)</option>
+                  <option value="worship">Worship only</option>
+                </select>
+              </label>
               <label>
                 Max share (remove only below this)
                 <input
@@ -101,17 +112,21 @@ export default function ClusterCleanupPage() {
                 />
               </label>
             </div>
-            <button onClick={saveSettings}>Save settings</button>
+            <div className="row" style={{ marginTop: 10 }}>
+              <label>
+                <input
+                  type="checkbox"
+                  checked={settings.reverse_cleanup}
+                  onChange={(e) => setSettings({ ...settings, reverse_cleanup: e.target.checked })}
+                />{" "}
+                Reverse cleanup: in a cluster where the scope is the majority, remove the secular minority instead
+              </label>
+            </div>
+            <button onClick={saveSettings} style={{ marginTop: 10 }}>
+              Save settings
+            </button>
           </>
         )}
-      </div>
-
-      <div className="panel">
-        <h3 style={{ marginTop: 0 }}>Worship artists</h3>
-        <textarea rows={10} value={artists} onChange={(e) => setArtists(e.target.value)} />
-        <div className="row" style={{ marginTop: 10 }}>
-          <button onClick={saveArtists}>Save artist list</button>
-        </div>
       </div>
 
       <div className="panel">
@@ -130,7 +145,7 @@ export default function ClusterCleanupPage() {
               <tr>
                 <th>Playlist</th>
                 <th>Songs</th>
-                <th>Removed (worship / short)</th>
+                <th>Removed (listed / secular / short)</th>
                 <th>Kept as worship-leaning</th>
                 <th>Renamed to</th>
               </tr>
@@ -141,7 +156,7 @@ export default function ClusterCleanupPage() {
                   <td>{p.name}</td>
                   <td>{p.total_songs}</td>
                   <td>
-                    {p.worship_removed} / {p.short_removed}
+                    {p.worship_removed} / {p.secular_removed} / {p.short_removed}
                   </td>
                   <td>{p.kept_worship_leaning ? <span className="chip warn">yes</span> : ""}</td>
                   <td>{p.renamed_to ?? ""}</td>
@@ -149,6 +164,37 @@ export default function ClusterCleanupPage() {
               ))}
             </tbody>
           </table>
+        )}
+        {result && result.playlists.some((p) => p.removed_tracks.length > 0) && (
+          <details style={{ marginTop: 10 }}>
+            <summary className="muted" style={{ cursor: "pointer" }}>
+              Removed tracks, by direction
+            </summary>
+            <table style={{ marginTop: 10 }}>
+              <thead>
+                <tr>
+                  <th>Playlist</th>
+                  <th>Track</th>
+                  <th>Artist</th>
+                  <th>Why</th>
+                </tr>
+              </thead>
+              <tbody>
+                {result.playlists.flatMap((p) =>
+                  p.removed_tracks.map((t, i) => (
+                    <tr key={`${p.name}-${i}`}>
+                      <td className="muted">{p.name}</td>
+                      <td>{t.title}</td>
+                      <td>{t.artist}</td>
+                      <td>
+                        <span className={`chip ${t.direction === "secular_minority" ? "bad" : "warn"}`}>{t.why}</span>
+                      </td>
+                    </tr>
+                  )),
+                )}
+              </tbody>
+            </table>
+          </details>
         )}
         <LogPanel lines={result?.log} />
       </div>

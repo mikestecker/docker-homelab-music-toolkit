@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 import { api, setUnauthorizedHandler } from "./api/client";
+import ChristianArtistsPage from "./pages/ChristianArtists";
 import ClusterCleanupPage from "./pages/ClusterCleanup";
 import CoverArtPage from "./pages/CoverArt";
 import DuplicateFinderPage from "./pages/DuplicateFinder";
@@ -17,6 +18,7 @@ const LINKS = [
   { to: "/", label: "Status" },
   { to: "/duplicates", label: "Duplicate finder" },
   { to: "/cluster-cleanup", label: "Cluster cleanup" },
+  { to: "/christian-artists", label: "Christian artists" },
   { to: "/tidarr-imports", label: "Tidarr imports" },
   { to: "/playlist-folders", label: "Playlist folders" },
   { to: "/m3u-fix", label: "Fix m3u paths" },
@@ -66,6 +68,7 @@ export default function App() {
           <Route path="/" element={<StatusPage />} />
           <Route path="/duplicates" element={<DuplicateFinderPage />} />
           <Route path="/cluster-cleanup" element={<ClusterCleanupPage />} />
+          <Route path="/christian-artists" element={<ChristianArtistsPage />} />
           <Route path="/tidarr-imports" element={<TidarrImportsPage />} />
           <Route path="/playlist-folders" element={<PlaylistFoldersPage />} />
           <Route path="/m3u-fix" element={<M3uFixPage />} />
