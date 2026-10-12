@@ -1,28 +1,24 @@
-"""Playlist Studio: an interactive workshop on top of AudioMuse's Instant
-Playlist, for building a playlist iteratively instead of one-shot "Run in
-AudioMuse" (that flow stays in prompts_library, unchanged).
+"""Playlist Studio: an interactive workshop on top of AudioMuse, for building
+a playlist iteratively instead of one-shot "Run in AudioMuse" (that flow
+stays in prompts_library, unchanged).
 
 Two ways in:
   - Instant: a free-text prompt, same as prompts_library's "Run in AudioMuse".
   - Alchemy: pick anchor tracks (Include) and optional Exclude tracks from
-    your own library, searched via Navidrome. AudioMuse has no confirmed
-    JSON API for its own Song Alchemy feature (its web UI only - see
-    docs/playbook/0-AudioMuse-Playbook.md, which never states an API path
-    for it, and app.core.audiomuse_client's own header comment flags this as
-    unconfirmed). Rather than guess an unverified endpoint, Alchemy mode here
-    composes a multi-seed Instant Playlist sentence from the chosen anchors'
-    artists ("Songs like X, Y, Z...") and calls the one confirmed, working
-    endpoint - chatPlaylist already blends multiple named seeds itself (the
-    playbook's own example: "like Tom Petty and The Killers but more
-    upbeat"), so this leans on real, confirmed behavior rather than
-    reimplementing a cruder merge ourselves. If a real /api/alchemy contract
-    is confirmed later, only generate_alchemy()'s body needs to change.
-
-Every song dict here comes straight from audiomuse_client.chat_playlist(),
-which already normalizes AudioMuse's real (envelope-wrapped) response into
-a flat {"id", "title", "artist", "album"} shape - no second normalization
-layer here, so there's exactly one place that knows AudioMuse's real
-response shape instead of two that could quietly drift apart.
+    your own library, blended via AudioMuse's real POST /api/alchemy -
+    confirmed live from the running instance's OpenAPI spec (claudedocs/
+    audiomuse-spec.json), after an earlier version of this module worked
+    around a genuinely undocumented endpoint by composing an Instant
+    Playlist sentence instead. The request schema is fully documented; the
+    *response* schema is not (the spec gives only a one-line description -
+    "each row contains the song and its centroid"), so audiomuse_client.alchemy()
+    parses it defensively and always keeps the raw response available, the
+    same safety net that let a real chatPlaylist response-shape bug get
+    fixed from one example instead of guessed at twice.
+  - Anchor search uses AudioMuse's own /api/search_tracks, not Navidrome's -
+    Alchemy's items need AudioMuse's own item_id space (confirmed distinct
+    from Navidrome's Subsonic ids), so anchors are sourced from the same
+    system Alchemy will actually query.
 
 Every generation (instant, alchemy, or a refine) is saved to a per-session
 history so refine() can diff against "whatever we showed the user last" and
@@ -36,9 +32,8 @@ import time
 import uuid
 
 from app.core import config as cfg
-from app.core import navidrome_client as nd
 from app.core import store
-from app.core.audiomuse_client import chat_playlist, create_playlist
+from app.core.audiomuse_client import alchemy, chat_playlist, create_playlist, search_tracks
 
 
 def _studio_dir(session_id):
@@ -50,46 +45,28 @@ def _manifest_path(session_id):
 
 
 def search_anchors(query):
-    """Candidate Include/Exclude tracks for Alchemy mode, from the real
-    library via Navidrome's own search - unlike AudioMuse's response shape,
-    Subsonic's id/title/artist fields are well-known, no guessing needed."""
+    """Candidate Include/Exclude tracks for Alchemy mode."""
     if not query or not query.strip():
         return []
-    songs = nd.search_songs(query.strip())
-    return [{"id": str(s["id"]), "title": s.get("title", ""), "artist": s.get("artist", "")}
-            for s in songs if s.get("id")]
+    return search_tracks(query.strip())
 
 
-def _unique_artists(tracks):
-    seen = []
-    for t in tracks:
-        artist = (t.get("artist") or "").strip()
-        if artist and artist not in seen:
-            seen.append(artist)
-    return seen
+# Alchemy's "temperature" is documented as a softmax sampling temperature
+# (higher = more varied/surprising, lower = tighter/more predictable) - this
+# maps the UI's 3-state control onto it. ALCHEMY_DEFAULT_TEMPERATURE (server
+# default) is what "balanced" leaves in effect by sending 1.0, a reasonable
+# middle value, not a guess at the server's own default.
+VARIETY_TEMPERATURE = {"tight": 0.3, "balanced": 1.0, "wide": 2.0}
 
 
-VARIETY_PHRASES = {
-    "tight": "close, predictable matches to these artists",
-    "balanced": None,
-    "wide": "more unexpected and varied picks, don't just pick the obvious hits",
-}
-
-
-def _alchemy_prompt(anchors, excludes, size, variety):
-    anchor_artists = _unique_artists(anchors)
-    if not anchor_artists:
-        raise ValueError("Alchemy needs at least one anchor track.")
-    parts = [f"Songs like {', '.join(anchor_artists)}"]
-    exclude_artists = _unique_artists(excludes)
-    if exclude_artists:
-        parts.append(f"nothing like {', '.join(exclude_artists)}")
-    phrase = VARIETY_PHRASES.get(variety)
-    if phrase:
-        parts.append(phrase)
-    if size:
-        parts.append(f"{size} songs")
-    return ", ".join(parts)
+def _tracks_prompt(tracks, limit=8):
+    names = []
+    for t in tracks[:limit]:
+        title, artist = (t.get("title") or "").strip(), (t.get("artist") or "").strip()
+        label = f"{title} by {artist}" if title and artist else title or artist
+        if label:
+            names.append(label)
+    return ", ".join(names)
 
 
 def _save_history(session_id, kind, tracks, detail):
@@ -124,28 +101,36 @@ def generate_instant(prompt, session_id=None):
 
 def generate_alchemy(anchors, excludes, size, variety="balanced", session_id=None):
     session_id = session_id or uuid.uuid4().hex
-    prompt = _alchemy_prompt(anchors, excludes, size, variety)
-    raw = chat_playlist(prompt)
+    if not anchors:
+        raise ValueError("Alchemy needs at least one anchor track.")
+    items = [{"id": a["id"], "op": "ADD", "type": "song"} for a in anchors]
+    items += [{"id": e["id"], "op": "SUBTRACT", "type": "song"} for e in excludes]
+    raw = alchemy(items, n=size, temperature=VARIETY_TEMPERATURE.get(variety, 1.0))
     tracks = raw["songs"]
     entry = _save_history(session_id, "alchemy", tracks,
-                           {"prompt": prompt, "anchors": anchors, "excludes": excludes})
+                           {"anchors": anchors, "excludes": excludes, "variety": variety})
     return session_id, entry
 
 
 def refine(session_id, instruction):
+    """Builds a fresh "like these songs, but: <instruction>" prompt from
+    whatever the session's current track list is, so it works the same way
+    regardless of whether that list came from Instant or Alchemy (those two
+    modes no longer share a common "prompt" field to reuse), and so repeated
+    refinements don't chain onto an ever-growing prompt string."""
     prev = _latest_entry(session_id)
-    base_prompt = prev.get("prompt")
-    if not base_prompt:
-        raise ValueError("This session's last entry has no prompt to refine.")
     instruction = instruction.strip()
     if not instruction:
         raise ValueError("Describe what to change.")
-    combined = f"{base_prompt}. Also: {instruction}"
+    tracks = prev.get("tracks") or []
+    if not tracks:
+        raise ValueError("This session's last entry has no tracks to refine from.")
+    seed = _tracks_prompt(tracks)
+    combined = f"Songs like {seed}. Also: {instruction}" if seed else instruction
     raw = chat_playlist(combined)
-    tracks = raw["songs"]
-    entry = _save_history(session_id, "refine", tracks,
-                           {"prompt": combined, "instruction": instruction})
-    return entry, diff_tracks(prev["tracks"], tracks)
+    new_tracks = raw["songs"]
+    entry = _save_history(session_id, "refine", new_tracks, {"prompt": combined, "instruction": instruction})
+    return entry, diff_tracks(tracks, new_tracks)
 
 
 def _lis_indices(seq):

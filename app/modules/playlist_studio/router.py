@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 from app.core.audiomuse_client import AudioMuseError
 from app.core.auth import require_auth
-from app.core.navidrome_client import NavidromeError
 from app.modules.playlist_studio import service as svc
 
 router = APIRouter(prefix="/api/playlist-studio", tags=["playlist-studio"],
@@ -44,7 +43,7 @@ class CreateReq(BaseModel):
 def search_anchors(q: str):
     try:
         return {"tracks": svc.search_anchors(q)}
-    except NavidromeError as e:
+    except AudioMuseError as e:
         raise HTTPException(502, str(e))
 
 

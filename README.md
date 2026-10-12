@@ -297,7 +297,7 @@ Search and filter the Apple Music playlist prompts and recipes. **Copy** puts th
 An iterative workshop for building a playlist, rather than one-shot "Run in AudioMuse": generate, describe a tweak in plain language, see what actually changed, decide whether to keep it, repeat.
 
 - **Instant** — the same free-text-to-AudioMuse flow as the prompts library, but with the refine loop below.
-- **Alchemy** — search your own library and pick a few tracks as **Include** anchors (optionally some **Exclude** ones too), set a size and a variety preference, and it blends them into one playlist. AudioMuse's own Song Alchemy feature (its web UI, not this app) does this with a true multi-song blend; its playbook never documents a public API for it, so this composes the closest working equivalent instead — a multi-artist Instant Playlist request ("Songs like X, Y, Z") — rather than guess at an unconfirmed endpoint. If AudioMuse's real Alchemy API ever gets confirmed, only the one function building that request needs to change.
+- **Alchemy** — search your own library (via AudioMuse's own track index, not Navidrome's) and pick a few tracks as **Include** anchors (optionally some **Exclude** ones too), set a size and a variety preference, and it blends them into one playlist via AudioMuse's real `POST /api/alchemy`. That request shape is fully documented in AudioMuse's own API spec; its *response* shape isn't (just "each row contains the song and its centroid," no schema), so the parser tries a couple of plausible shapes inferred from sibling endpoints that are documented, rather than one guessed blind — if it's ever wrong, the raw response is kept so it can be fixed from a real example.
 - **Refine** — type a change ("more upbeat", "less rap", "swap in some 90s") and it re-generates and shows a diff: new tracks, removed tracks, and which ones moved — before you commit to it.
 - Every attempt in a session is kept, so you can jump back to an earlier result without regenerating or spending another request.
 
@@ -388,13 +388,12 @@ Contributor notes and hard rules for the ported duplicate-finder logic specifica
 
 Not missing — intentionally deferred, so the app isn't painted into a corner:
 
-- Song Alchemy from the UI (AudioMuse accepts up to 16 anchors, including playlists).
 - A smart playlist (`.nsp`) editor that writes to `<music>/_playlists/`.
 - Rebuilding the prompts library data from a new Apple Music export (porting the `generators/` pipeline).
 - A log viewer for `update-navidrome-plugins.sh`.
 - A UI for uploading a custom cover-art background (the API endpoint exists; there's no drag-and-drop uploader on the Cover art page yet, so it's host-filesystem-only for now).
 - Sung-language filtering in Playlist Studio (needs a lyrics source and a language-ID library, neither of which exist in the toolkit yet) - a candidate addition if your library turns out to be meaningfully multilingual.
-- Swapping Playlist Studio's Alchemy mode over to AudioMuse's own Song Alchemy API, if a real public contract for it is ever confirmed (its playbook documents the feature but never a request/response shape for it).
+- Saved/reusable Alchemy anchors and scheduled "radios" (AudioMuse has real APIs for both, `/api/anchors` and `/api/radios` — Playlist Studio only does one-off Alchemy blends today).
 - A full drag-and-drop layer editor for cover art (manual text/image positioning, closer to a design tool) — the current layout/font/style pickers cover the common cases; worth revisiting if that feels limiting.
 - A library "health check" module that screens audio files for defects (clipping, truncation, loudness outliers) — unrelated to cover art, but a plausible future module alongside the duplicate finder.
 

@@ -65,12 +65,6 @@ def get_playlist_entries(playlist_id, **kw):
         "playlist", {}).get("entry", []) or []
 
 
-def search_songs(query, count=20, **kw):
-    """search3 - used by the playlist studio's anchor picker. Artist/album
-    counts are zeroed since only tracks are useful as Alchemy anchors."""
-    return subsonic("search3", [("query", query), ("songCount", count),
-                                 ("artistCount", 0), ("albumCount", 0)], **kw
-                     ).get("searchResult3", {}).get("song", []) or []
 
 
 def update_playlist(playlist_id, name=None, comment=None, song_index_to_remove=None, **kw):
