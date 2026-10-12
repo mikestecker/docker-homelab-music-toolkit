@@ -1,79 +1,28 @@
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { api } from "../api/client";
+import ClusterCard from "../components/duplicate-finder/ClusterCard";
+import TagCompareDrawer from "../components/duplicate-finder/TagCompareDrawer";
+import type { Cluster, FileEntry, QuarantineBatch, Row, ScanState } from "../components/duplicate-finder/types";
 import ErrorBanner from "../components/ErrorBanner";
+import Toast from "../components/Toast";
 import { useApiError } from "../hooks/useApiError";
+import { useToast } from "../hooks/useToast";
 
-interface Edition {
-  folder: string;
-  artist: string;
-  album: string;
-  year: string;
-  format: string;
-  detail: string;
-  tier: string;
-  tracks: number;
-  keep: boolean;
-}
+type Tab = "suggested" | "manual" | "other" | "kept";
 
-interface FileEntry {
-  rel: string;
-  name: string;
-  ed: number;
-  format: string;
-  detail: string;
-  tier: string;
-  secs: number;
-  size: number;
-  source: string;
-  quality: "best" | "lower";
-  stray: boolean;
-  fit: { tone: string; text: string };
-  keep_pref: boolean;
-  keep_why: string;
-  upgrade: { replace: string; to: string; replaces: string; folder: string; name: string } | null;
-  suggested: boolean;
-  moved: boolean;
-}
+const TAB_LABEL: Record<Tab, string> = {
+  suggested: "Suggested",
+  manual: "Review",
+  other: "Other albums",
+  kept: "Kept both",
+};
 
-interface Row {
-  title: string;
-  track: number | null;
-  disc: number;
-  evidence: { tone: string; text: string; why: string }[];
-  fingerprint: string;
-  files: FileEntry[];
-}
-
-interface Cluster {
-  key: string;
-  kind: "suggested" | "manual" | "other";
-  reason: string;
-  detail: string;
-  ignored: boolean;
-  editions: Edition[];
-  rows: Row[];
-  artist: string;
-  album: string;
-}
-
-interface ScanState {
-  status: "idle" | "scanning" | "done" | "error";
-  phase: string;
-  scanned: number;
-  total: number;
-  unreadable: number;
-  warnings: string[];
-  clusters: Cluster[];
-  error: string | null;
-}
-
-interface QuarantineBatch {
-  batch: string;
-  created: number;
-  files: { rel: string; size: number; quality: string }[];
-  moves: { from: string; to: string }[];
-  bytes: number;
-}
+const SECTION_HELP: Record<Tab, string> = {
+  suggested: "The app is confident. Redundant copies are already selected below — look it over, then quarantine.",
+  manual: "These need your ears. Nothing is pre-selected — compare tags, preview audio, then select what to remove or Keep both.",
+  other: "The same recording on a different release (an album, a single, a best-of). Both stay; nothing is selected.",
+  kept: "Albums you've told the app to leave alone. If a new copy shows up later, it comes back for review.",
+};
 
 function fmtBytes(n: number) {
   if (n < 1024) return `${n} B`;
@@ -81,13 +30,25 @@ function fmtBytes(n: number) {
   return `${(n / 1024 / 1024).toFixed(1)} MB`;
 }
 
+function fmtDate(epochSeconds: number) {
+  return new Date(epochSeconds * 1000).toLocaleString();
+}
+
 export default function DuplicateFinderPage() {
   const { error, run } = useApiError();
+  const toast = useToast();
   const [scan, setScan] = useState<ScanState | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [quarantine, setQuarantine] = useState<QuarantineBatch[]>([]);
   const [preview, setPreview] = useState<string | null>(null);
+  const [tab, setTab] = useState<Tab>("suggested");
+  const [query, setQuery] = useState("");
+  const [reasonFilter, setReasonFilter] = useState("");
+  const [closedCards, setClosedCards] = useState<Set<string>>(new Set());
+  const [compareRow, setCompareRow] = useState<Row | null>(null);
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
 
   const loadScanState = () =>
     run(() => api.get<ScanState>("/api/dupes/scan")).then((s) => {
@@ -111,6 +72,25 @@ export default function DuplicateFinderPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // / focuses search, Escape closes the player - suppressed while typing.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const tag = (document.activeElement?.tagName || "").toLowerCase();
+      const typing = tag === "input" || tag === "textarea" || tag === "select";
+      if (e.key === "/" && !typing) {
+        e.preventDefault();
+        searchRef.current?.focus();
+      } else if (e.key === "Escape" && preview) {
+        setPreview(null);
+      } else if ((e.key === "b" || e.key === "B") && !typing && preview) {
+        switchCopy();
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preview]);
+
   const startScan = () => {
     run(() => api.post("/api/dupes/scan")).then(() => {
       setSelected(new Set());
@@ -118,10 +98,23 @@ export default function DuplicateFinderPage() {
     });
   };
 
-  const toggle = (rel: string) => {
+  const skipFingerprints = () => run(() => api.post("/api/dupes/scan/skip-fingerprints")).then(() => loadScanState());
+
+  const toggleFile = (f: FileEntry, row: Row) => {
     setSelected((prev) => {
+      if (prev.has(f.rel)) {
+        const next = new Set(prev);
+        next.delete(f.rel);
+        return next;
+      }
+      const live = row.files.filter((x) => !x.moved);
+      const stillUnselected = live.filter((x) => x.rel !== f.rel && !prev.has(x.rel));
+      if (live.length > 0 && stillUnselected.length === 0) {
+        toast.show({ tone: "warn", message: "Leave at least one copy of every track." });
+        return prev;
+      }
       const next = new Set(prev);
-      next.has(rel) ? next.delete(rel) : next.add(rel);
+      next.add(f.rel);
       return next;
     });
   };
@@ -137,12 +130,25 @@ export default function DuplicateFinderPage() {
   const quarantineSelected = () => {
     const paths = Array.from(selected);
     if (paths.length === 0) return;
-    run(() => api.post<{ moved: number; errors: string[] }>("/api/dupes/quarantine", { paths })).then((r) => {
+    run(() =>
+      api.post<{ batch: string | null; moved: number; bytes: number; errors: string[] }>("/api/dupes/quarantine", {
+        paths,
+      }),
+    ).then((r) => {
       if (!r) return;
       setSelected(new Set());
       loadScanState();
       loadQuarantine();
-      if (r.errors.length) alert(r.errors.join("\n"));
+      if (r.moved > 0) {
+        toast.show({
+          tone: "good",
+          message: `Quarantined ${r.moved} file${r.moved === 1 ? "" : "s"}, ${fmtBytes(r.bytes)}.`,
+          detail: r.errors.length ? r.errors : undefined,
+          action: r.batch ? { label: "Undo", onClick: () => void restore(r.batch as string) } : undefined,
+        });
+      } else {
+        toast.show({ tone: "bad", message: "Nothing was quarantined.", detail: r.errors });
+      }
     });
   };
 
@@ -152,9 +158,10 @@ export default function DuplicateFinderPage() {
   const upgrade = (rel: string) => run(() => api.post("/api/dupes/upgrade", { rel })).then(() => loadScanState());
 
   const restore = (batch: string) =>
-    run(() => api.post("/api/dupes/restore", { batch })).then(() => {
+    run(() => api.post<{ restored: number; errors: string[] }>("/api/dupes/restore", { batch })).then((r) => {
       loadScanState();
       loadQuarantine();
+      if (r) toast.show({ tone: "good", message: `Restored ${r.restored} file${r.restored === 1 ? "" : "s"}.` });
     });
 
   const purge = (batch: string) => {
@@ -162,10 +169,56 @@ export default function DuplicateFinderPage() {
     run(() => api.post("/api/dupes/purge", { batch })).then(() => loadQuarantine());
   };
 
-  const visibleClusters = (scan?.clusters ?? []).filter((c) => !c.ignored);
+  const allClusters = scan?.clusters ?? [];
+  const counts = useMemo(
+    () => ({
+      suggested: allClusters.filter((c) => !c.ignored && c.kind === "suggested").length,
+      manual: allClusters.filter((c) => !c.ignored && c.kind === "manual").length,
+      other: allClusters.filter((c) => !c.ignored && c.kind === "other").length,
+      kept: allClusters.filter((c) => c.ignored).length,
+    }),
+    [allClusters],
+  );
+
+  const tabClusters = useMemo(() => {
+    if (tab === "kept") return allClusters.filter((c) => c.ignored);
+    const notIgnored = allClusters.filter((c) => !c.ignored);
+    return notIgnored.filter((c) => c.kind === tab);
+  }, [allClusters, tab]);
+
+  const reasons = useMemo(() => Array.from(new Set(tabClusters.map((c) => c.reason))).sort(), [tabClusters]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return tabClusters.filter((c) => {
+      if (reasonFilter && c.reason !== reasonFilter) return false;
+      if (!q) return true;
+      if (c.artist.toLowerCase().includes(q) || c.album.toLowerCase().includes(q)) return true;
+      if (c.editions.some((e) => e.folder.toLowerCase().includes(q))) return true;
+      return c.rows.some((r) => r.title.toLowerCase().includes(q));
+    });
+  }, [tabClusters, query, reasonFilter]);
+
+  const findRowForFile = (rel: string): Row | null => {
+    for (const c of allClusters) for (const r of c.rows) if (r.files.some((f) => f.rel === rel)) return r;
+    return null;
+  };
+
+  const switchCopy = () => {
+    if (!preview) return;
+    const row = findRowForFile(preview);
+    if (!row) return;
+    const other = row.files.find((f) => f.rel !== preview && !f.moved);
+    if (!other) return;
+    const t = audioRef.current?.currentTime ?? 0;
+    setPreview(other.rel);
+    requestAnimationFrame(() => {
+      if (audioRef.current) audioRef.current.currentTime = t;
+    });
+  };
 
   return (
-    <div>
+    <div style={{ paddingBottom: preview || toast.toast ? 90 : 0 }}>
       <h2>Duplicate finder</h2>
       <ErrorBanner message={error} />
 
@@ -179,102 +232,86 @@ export default function DuplicateFinderPage() {
               {scan.phase} ({scan.scanned}/{scan.total || "?"})
             </span>
           )}
+          {scan?.status === "scanning" && scan.phase === "Fingerprinting" && !scan.skip_fp && (
+            <button onClick={skipFingerprints}>Skip fingerprinting</button>
+          )}
           {scan?.status === "done" && (
             <span className="muted">
-              Scanned {scan.scanned} files, {visibleClusters.length} duplicate clusters, {scan.unreadable} unreadable
+              Scanned {scan.scanned} files, {allClusters.filter((c) => !c.ignored).length} duplicate clusters,{" "}
+              {scan.unreadable} unreadable
             </span>
           )}
           {scan?.status === "error" && <span className="chip bad">{scan.error}</span>}
         </div>
-        {selected.size > 0 && (
-          <div className="row">
-            <span>{selected.size} selected</span>
-            <button className="primary" onClick={quarantineSelected}>
-              Quarantine selected
-            </button>
-            <button onClick={() => setSelected(new Set())}>Clear selection</button>
-          </div>
-        )}
       </div>
 
-      {visibleClusters.map((c) => (
-        <div className="panel" key={c.key}>
-          <div className="row">
-            <strong>
-              {c.artist} — {c.album}
-            </strong>
-            <span className={`chip ${c.kind === "suggested" ? "good" : c.kind === "other" ? "warn" : "bad"}`}>
-              {c.reason}
-            </span>
-            <button style={{ marginLeft: "auto" }} onClick={() => selectRemovable(c)}>
-              Select all removable
-            </button>
-            <button onClick={() => keepBoth(c.key, true)}>Keep both / ignore</button>
-          </div>
-          <p className="muted">{c.detail}</p>
-          <table>
-            <thead>
-              <tr>
-                <th></th>
-                <th>Track</th>
-                <th>File</th>
-                <th>Edition</th>
-                <th>Quality</th>
-                <th>Source</th>
-                <th>Fit</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {c.rows.map((r, ri) => (
-                <Fragment key={`${r.disc}-${r.track}-${r.title}-${ri}`}>
-                  {r.files.map((f, fi) => (
-                    <tr key={f.rel}>
-                      <td>
-                        {!f.moved && (
-                          <input type="checkbox" checked={selected.has(f.rel)} onChange={() => toggle(f.rel)} />
-                        )}
-                        {f.moved && <span className="chip good">moved</span>}
-                      </td>
-                      {fi === 0 && <td rowSpan={r.files.length}>{r.title}</td>}
-                      {fi !== 0 && <td style={{ display: "none" }} />}
-                      <td>
-                        <button onClick={() => setPreview(f.rel)} style={{ fontSize: 12, padding: "2px 8px" }}>
-                          ▶
-                        </button>{" "}
-                        {f.name}
-                        {f.suggested && <span className="chip warn" style={{ marginLeft: 6 }}>suggested</span>}
-                      </td>
-                      <td>{c.editions[f.ed]?.folder.split("/").slice(1).join("/") || c.editions[f.ed]?.folder}</td>
-                      <td>
-                        {f.format} {f.detail} <span className="muted">({f.quality})</span>
-                      </td>
-                      <td className="muted">{f.source}</td>
-                      <td>
-                        {f.fit.text && <span className={`chip ${f.fit.tone || "warn"}`}>{f.fit.text}</span>}
-                        {f.keep_why && <div className="muted">kept: {f.keep_why}</div>}
-                      </td>
-                      <td>
-                        {f.upgrade && <button onClick={() => upgrade(f.rel)}>Upgrade {f.upgrade.replaces}</button>}
-                      </td>
-                    </tr>
-                  ))}
-                </Fragment>
+      {scan && scan.status !== "idle" && (
+        <>
+          <div className="panel sticky-toolbar">
+            <div className="row">
+              {(Object.keys(TAB_LABEL) as Tab[]).map((t) => (
+                <button key={t} className={tab === t ? "primary" : ""} onClick={() => setTab(t)}>
+                  {TAB_LABEL[t]} ({counts[t]})
+                </button>
               ))}
-            </tbody>
-          </table>
-          {r_evidence(c)}
-        </div>
-      ))}
-
-      {preview && (
-        <div className="panel">
-          <div className="row">
-            <strong>{preview}</strong>
-            <button onClick={() => setPreview(null)}>Close</button>
+              <input
+                ref={searchRef}
+                type="text"
+                placeholder="Filter by artist, album or track (press /)"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                style={{ marginLeft: "auto", minWidth: 220 }}
+              />
+              <select value={reasonFilter} onChange={(e) => setReasonFilter(e.target.value)}>
+                <option value="">Any reason</option>
+                {reasons.map((r) => (
+                  <option key={r} value={r}>
+                    {r}
+                  </option>
+                ))}
+              </select>
+              <button onClick={() => setClosedCards(new Set())}>Expand all</button>
+              <button onClick={() => setClosedCards(new Set(allClusters.map((c) => c.key)))}>Collapse all</button>
+            </div>
+            <p className="muted" style={{ marginBottom: 0 }}>
+              {SECTION_HELP[tab]}
+            </p>
+            {selected.size > 0 && (
+              <div className="row" style={{ marginTop: 10, marginBottom: 0 }}>
+                <span>{selected.size} selected</span>
+                <button className="primary" onClick={quarantineSelected}>
+                  Quarantine selected
+                </button>
+                <button onClick={() => setSelected(new Set())}>Clear selection</button>
+              </div>
+            )}
           </div>
-          <audio controls style={{ width: "100%" }} src={`/api/dupes/audio?rel=${encodeURIComponent(preview)}`} />
-        </div>
+
+          {filtered.length === 0 && <p className="muted">Nothing here.</p>}
+          {filtered.map((c) => (
+            <ClusterCard
+              key={c.key}
+              cluster={c}
+              open={!closedCards.has(c.key)}
+              onToggleOpen={() =>
+                setClosedCards((prev) => {
+                  const next = new Set(prev);
+                  next.has(c.key) ? next.delete(c.key) : next.add(c.key);
+                  return next;
+                })
+              }
+              selected={selected}
+              onToggleFile={toggleFile}
+              onSelectRemovable={selectRemovable}
+              onKeepBoth={keepBoth}
+              onUpgrade={upgrade}
+              onPreview={setPreview}
+              nowPlaying={preview}
+              onCompareTags={setCompareRow}
+              showIgnoreControls={tab === "kept"}
+            />
+          ))}
+        </>
       )}
 
       <div className="panel">
@@ -284,27 +321,39 @@ export default function DuplicateFinderPage() {
           <div key={b.batch} className="row">
             <span>{b.batch}</span>
             <span className="muted">
-              {b.files.length} files, {fmtBytes(b.bytes)}
+              {b.files.length} files, {fmtBytes(b.bytes)} — {fmtDate(b.created)}
             </span>
             <button onClick={() => restore(b.batch)}>Restore</button>
             <button onClick={() => purge(b.batch)}>Delete permanently</button>
           </div>
         ))}
       </div>
-    </div>
-  );
-}
 
-function r_evidence(c: Cluster) {
-  const chips = c.rows.flatMap((r) => r.evidence);
-  if (chips.length === 0) return null;
-  return (
-    <div className="row" style={{ marginTop: 8 }}>
-      {chips.map((e, i) => (
-        <span key={i} className={`chip ${e.tone === "good" ? "good" : e.tone === "warn" ? "warn" : "bad"}`} title={e.why}>
-          {e.text}
-        </span>
-      ))}
+      <TagCompareDrawer open={!!compareRow} onClose={() => setCompareRow(null)} row={compareRow} />
+
+      {(preview || toast.toast) && (
+        <div className="dock">
+          <Toast toast={toast.toast} onDismiss={toast.dismiss} />
+          {preview && (
+            <div className="player-bar">
+              <span className="muted" style={{ marginRight: 10 }}>
+                {preview}
+              </span>
+              <audio
+                ref={audioRef}
+                controls
+                autoPlay
+                style={{ flex: 1, minWidth: 0 }}
+                src={`/api/dupes/audio?rel=${encodeURIComponent(preview || "")}`}
+              />
+              <button onClick={switchCopy} title="Switch to the other copy at the same point (B)">
+                Switch copy <kbd>B</kbd>
+              </button>
+              <button onClick={() => setPreview(null)}>Close</button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

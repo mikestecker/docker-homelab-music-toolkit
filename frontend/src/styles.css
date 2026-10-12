@@ -255,3 +255,78 @@ label {
     transform: translateX(0);
   }
 }
+
+mark {
+  background: color-mix(in srgb, var(--warn) 35%, transparent);
+  color: inherit;
+  border-radius: 2px;
+  padding: 0 1px;
+}
+
+td.differs {
+  background: color-mix(in srgb, var(--warn) 12%, transparent);
+}
+
+kbd {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0 5px;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.sticky-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.dock {
+  position: fixed;
+  left: 220px;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 20px;
+}
+
+.player-bar {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.toast {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.toast-good {
+  border-color: var(--good);
+}
+
+.toast-warn {
+  border-color: var(--warn);
+}
+
+.toast-bad {
+  border-color: var(--bad);
+}
+
+@media (max-width: 760px) {
+  .dock {
+    left: 0;
+  }
+}
