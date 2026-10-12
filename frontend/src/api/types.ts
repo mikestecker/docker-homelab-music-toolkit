@@ -125,6 +125,9 @@ export interface StudioEntry {
   instruction?: string;
   anchors?: StudioTrack[];
   excludes?: StudioTrack[];
+  content_filter?: ContentFilter;
+  filtered_out?: StudioTrack[];
+  short?: boolean;
 }
 
 export interface StudioDiff {
@@ -132,4 +135,55 @@ export interface StudioDiff {
   removed: StudioTrack[];
   kept: StudioTrack[];
   moved: StudioTrack[];
+  filtered_out?: StudioTrack[];
+}
+
+export type ContentFilter = "any" | "christian" | "worship" | "no_christian";
+
+export interface ArtistRow {
+  artist: string;
+  genre: string;
+  worship: string; // "yes" | "no" | "unknown"
+  tier: string;
+  ambiguous: string; // "yes" | "no"
+  enabled: string; // "yes" | "no"
+  mbid: string;
+  notes: string;
+  [key: string]: string;
+}
+
+export interface ChristianSettings {
+  prune: boolean;
+}
+
+export interface ScanDecisionRow {
+  name: string;
+  albums: string[];
+  mbid_suggestion: string | null;
+  count: number;
+}
+
+export interface ScanSuggestionRow {
+  name: string;
+  genres: string[];
+  count: number;
+}
+
+export interface ScanResult {
+  needs_decision: ScanDecisionRow[];
+  suggestions: ScanSuggestionRow[];
+  not_in_library: string[];
+  library_counts: Record<string, number>;
+}
+
+export interface SeedDiff {
+  new_count: number;
+  sample: string[];
+}
+
+export interface MigrationLog {
+  changed: boolean;
+  migrated_at: number;
+  worship_enabled: string[];
+  disabled: string[];
 }

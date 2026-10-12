@@ -1,12 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { api } from "../api/client";
-import type { StudioDiff, StudioEntry, StudioTrack } from "../api/types";
+import type { ContentFilter, StudioDiff, StudioEntry, StudioTrack } from "../api/types";
 import ErrorBanner from "../components/ErrorBanner";
 import { useApiError } from "../hooks/useApiError";
 
 type Mode = "instant" | "alchemy";
 type Variety = "tight" | "balanced" | "wide";
+
+const CONTENT_FILTER_LABELS: Record<ContentFilter, string> = {
+  any: "Any",
+  christian: "Christian only",
+  worship: "Worship only",
+  no_christian: "No Christian",
+};
 
 function trackLabel(t: StudioTrack): string {
   return t.artist ? `${t.title} — ${t.artist}` : t.title;
@@ -25,6 +32,8 @@ export default function PlaylistStudioPage() {
   const [excludes, setExcludes] = useState<StudioTrack[]>([]);
   const [size, setSize] = useState(30);
   const [variety, setVariety] = useState<Variety>("balanced");
+  const [contentFilter, setContentFilter] = useState<ContentFilter>("any");
+  const [filterTouched, setFilterTouched] = useState(false);
 
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [current, setCurrent] = useState<StudioEntry | null>(null);
@@ -66,14 +75,35 @@ export default function PlaylistStudioPage() {
     if (!excludes.some((e) => e.id === t.id)) setExcludes([...excludes, t]);
   };
 
-  const generate = () => {
+  const suggestFilter = async (): Promise<ContentFilter> => {
+    // Only auto-suggest the first time, and only if the user hasn't picked
+    // a filter themselves yet - it's a default, not a lock.
+    if (filterTouched || contentFilter !== "any") return contentFilter;
+    if (mode === "instant") {
+      const r = await run(() =>
+        api.get<{ suggestion: ContentFilter | null }>(`/api/playlist-studio/suggest-filter?text=${encodeURIComponent(prompt)}`),
+      );
+      return r?.suggestion ?? "any";
+    }
+    const r = await run(() =>
+      api.post<{ suggestion: ContentFilter | null }>("/api/playlist-studio/suggest-filter-anchors", {
+        artists: anchors.map((a) => a.artist),
+      }),
+    );
+    return r?.suggestion ?? "any";
+  };
+
+  const generate = async () => {
     setBusy(true);
     setDiff(null);
+    const filter = await suggestFilter();
+    setContentFilter(filter);
     const req =
       mode === "instant"
         ? api.post<{ session_id: string; entry: StudioEntry }>("/api/playlist-studio/generate/instant", {
             prompt,
             session_id: sessionId,
+            content_filter: filter,
           })
         : api.post<{ session_id: string; entry: StudioEntry }>("/api/playlist-studio/generate/alchemy", {
             anchors,
@@ -81,6 +111,7 @@ export default function PlaylistStudioPage() {
             size,
             variety,
             session_id: sessionId,
+            content_filter: filter,
           });
     run(() => req)
       .then((r) => {
@@ -100,6 +131,7 @@ export default function PlaylistStudioPage() {
       api.post<{ entry: StudioEntry; diff: StudioDiff }>("/api/playlist-studio/refine", {
         session_id: sessionId,
         instruction,
+        content_filter: contentFilter,
       }),
     )
       .then((r) => {
@@ -222,6 +254,25 @@ export default function PlaylistStudioPage() {
         )}
 
         <div className="row" style={{ marginTop: 10 }}>
+          <label style={{ flex: 1 }}>
+            Content
+            <select
+              value={contentFilter}
+              onChange={(e) => {
+                setContentFilter(e.target.value as ContentFilter);
+                setFilterTouched(true);
+              }}
+            >
+              {(Object.keys(CONTENT_FILTER_LABELS) as ContentFilter[]).map((cf) => (
+                <option key={cf} value={cf}>
+                  {CONTENT_FILTER_LABELS[cf]}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <div className="row" style={{ marginTop: 10 }}>
           <button
             className="primary"
             disabled={busy || (mode === "instant" ? !prompt.trim() : anchors.length === 0)}
@@ -265,6 +316,28 @@ export default function PlaylistStudioPage() {
             </>
           )}
 
+          {(() => {
+            const filteredOut = diff?.filtered_out ?? current.filtered_out ?? [];
+            if (filteredOut.length === 0) return null;
+            return (
+              <details style={{ marginTop: 10 }}>
+                <summary className="muted" style={{ cursor: "pointer" }}>
+                  Filtered out: {filteredOut.length} track{filteredOut.length === 1 ? "" : "s"}
+                </summary>
+                {filteredOut.map((t) => (
+                  <p key={t.id} className="chip bad">
+                    {trackLabel(t)}
+                  </p>
+                ))}
+              </details>
+            );
+          })()}
+          {current.short && (
+            <p className="chip warn" style={{ marginTop: 10 }}>
+              Only {current.tracks.length} tracks matched the {CONTENT_FILTER_LABELS[contentFilter]} filter.
+            </p>
+          )}
+
           <div className="row" style={{ marginTop: 10 }}>
             <input
               type="text"
@@ -302,6 +375,10 @@ export default function PlaylistStudioPage() {
                   onClick={() => {
                     setCurrent(h);
                     setDiff(null);
+                    if (h.content_filter) {
+                      setContentFilter(h.content_filter);
+                      setFilterTouched(true);
+                    }
                   }}
                   style={{ cursor: "pointer", background: current?.id === h.id ? "var(--border)" : undefined }}
                 >

@@ -14,6 +14,8 @@ from app.core import scheduler
 from app.core.auth import router as auth_router
 from app.core.config import require_auth_configured
 from app.core.host_guard import request_guard
+from app.modules.christian_artists import service as christian_artists_service
+from app.modules.christian_artists.router import router as christian_artists_router
 from app.modules.cluster_cleanup import service as cluster_cleanup_service
 from app.modules.cluster_cleanup.router import router as cluster_cleanup_router
 from app.modules.duplicate_finder.router import router as duplicate_finder_router
@@ -45,7 +47,8 @@ app.include_router(auth_router)
 
 for _router in (duplicate_finder_router, cluster_cleanup_router, tidarr_tagging_router,
                 playlist_folders_router, m3u_fix_router, prompts_library_router,
-                playlist_covers_router, playlist_studio_router, jobs_router, status_router):
+                playlist_covers_router, playlist_studio_router, jobs_router, status_router,
+                christian_artists_router):
     app.include_router(_router)
 
 
@@ -60,6 +63,8 @@ scheduler.register("cluster_cleanup", "Cluster cleanup",
                     lambda: cluster_cleanup_service.run(dry_run=False))
 scheduler.register("tidarr_tagging", "Tidarr import filing",
                     lambda: tidarr_tagging_service.run(dry_run=False, undo=False))
+scheduler.register("christian_tagging", "Christian tagging",
+                    lambda: christian_artists_service.run(dry_run=False))
 scheduler.start()
 
 # The built React SPA, when present (the production Docker image builds it).

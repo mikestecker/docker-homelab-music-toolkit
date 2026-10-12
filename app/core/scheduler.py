@@ -20,6 +20,10 @@ SCHEDULE_FILE = os.path.join(CONFIG_DIR, "job-schedules.json")
 DEFAULT_SCHEDULES = {
     "cluster_cleanup": {"enabled": True, "hour": 3, "minute": 0},
     "tidarr_tagging": {"enabled": True, "hour": 6, "minute": 15},
+    # Off by default (new Lidarr/Tidarr imports arrive untagged, so turning
+    # this on is an explicit opt-in); 7:00 is after tidarr_tagging's 6:15 -
+    # there's no real job-ordering primitive here, just a later clock time.
+    "christian_tagging": {"enabled": False, "hour": 7, "minute": 0},
 }
 
 _jobs = {}

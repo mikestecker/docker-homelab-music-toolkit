@@ -1,12 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/client";
-import type { Recipe, SeedPrompt } from "../api/types";
+import type { ContentFilter, Recipe, SeedPrompt } from "../api/types";
 import Drawer from "../components/Drawer";
 import ErrorBanner from "../components/ErrorBanner";
 import { useApiError } from "../hooks/useApiError";
 
 type Tab = "prompts" | "recipes";
+
+const CONTENT_FILTER_LABELS: Record<ContentFilter, string> = {
+  any: "Any",
+  christian: "Christian only",
+  worship: "Worship only",
+  no_christian: "No Christian",
+};
 
 // AudioMuse's chatPlaylist response shape isn't fully confirmed against its
 // live /apidocs/ - this reads a few likely id/title/artist field names
@@ -24,13 +31,6 @@ function songLabel(s: Song): string {
   const artist = s.artist ?? s.Artist ?? "";
   return artist ? `${title} — ${artist}` : String(title);
 }
-// The wrapper key AudioMuse puts the song list under isn't confirmed either -
-// try the likely candidates before giving up, rather than assuming "songs".
-function extractSongs(raw: Record<string, unknown>): Song[] {
-  const candidates = raw.songs ?? raw.tracks ?? raw.items ?? raw.results ?? raw.playlist;
-  return Array.isArray(candidates) ? (candidates as Song[]) : [];
-}
-
 export default function PromptsLibraryPage() {
   const { error, run, setError } = useApiError();
   const navigate = useNavigate();
@@ -38,13 +38,16 @@ export default function PromptsLibraryPage() {
   const [prompts, setPrompts] = useState<SeedPrompt[]>([]);
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [query, setQuery] = useState("");
-  const [active, setActive] = useState<{ name: string; prompt: string } | null>(null);
+  const [active, setActive] = useState<{ name: string; prompt: string; faith?: boolean } | null>(null);
   const [songs, setSongs] = useState<Song[] | null>(null);
+  const [filteredOut, setFilteredOut] = useState<Song[]>([]);
+  const [short, setShort] = useState(false);
   const [rawResponse, setRawResponse] = useState<unknown>(null);
   const [playlistName, setPlaylistName] = useState("");
   const [running, setRunning] = useState(false);
   const [created, setCreated] = useState<string | null>(null);
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [contentFilter, setContentFilter] = useState<ContentFilter>("any");
 
   useEffect(() => {
     run(() => api.get<SeedPrompt[]>("/api/prompts/seedprompts")).then((r) => r && setPrompts(r));
@@ -85,18 +88,37 @@ export default function PromptsLibraryPage() {
     }
   };
 
-  const runPrompt = (item: { name: string; prompt: string }) => {
+  const suggestFilter = async (item: { prompt: string; faith?: boolean }): Promise<ContentFilter> => {
+    const r = await run(() =>
+      api.get<{ suggestion: ContentFilter | null }>(`/api/prompts/suggest-filter?text=${encodeURIComponent(item.prompt)}`),
+    );
+    if (r?.suggestion) return r.suggestion;
+    return item.faith ? "christian" : "any";
+  };
+
+  const runPrompt = async (item: { name: string; prompt: string; faith?: boolean }, filterOverride?: ContentFilter) => {
     setActive(item);
     setSongs(null);
+    setFilteredOut([]);
+    setShort(false);
     setRawResponse(null);
     setCreated(null);
     setPlaylistName(`Occasions/${item.name}`);
     setRunning(true);
-    run(() => api.post<Record<string, unknown>>("/api/prompts/run", { prompt: item.prompt }))
+    const filter = filterOverride ?? (await suggestFilter(item));
+    setContentFilter(filter);
+    run(() =>
+      api.post<{ songs: Song[]; filtered_out: Song[]; short: boolean; raw_response: unknown }>("/api/prompts/run", {
+        prompt: item.prompt,
+        content_filter: filter,
+      }),
+    )
       .then((r) => {
         if (!r) return;
-        setRawResponse(r);
-        setSongs(extractSongs(r));
+        setRawResponse(r.raw_response);
+        setSongs(r.songs ?? []);
+        setFilteredOut(r.filtered_out ?? []);
+        setShort(!!r.short);
       })
       .finally(() => setRunning(false));
   };
@@ -170,13 +192,43 @@ export default function PromptsLibraryPage() {
             </div>
             <p className="muted">{active.prompt}</p>
             <div className="row">
-              <button disabled={running} onClick={() => runPrompt(active)}>
+              <label style={{ flex: 1 }}>
+                Content
+                <select
+                  value={contentFilter}
+                  onChange={(e) => setContentFilter(e.target.value as ContentFilter)}
+                >
+                  {(Object.keys(CONTENT_FILTER_LABELS) as ContentFilter[]).map((cf) => (
+                    <option key={cf} value={cf}>
+                      {CONTENT_FILTER_LABELS[cf]}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <button disabled={running} onClick={() => runPrompt(active, contentFilter)}>
                 {running ? "Running…" : "Run again"}
               </button>
             </div>
             {songs && (
               <>
                 <p>{songs.length} songs returned.</p>
+                {filteredOut.length > 0 && (
+                  <details>
+                    <summary className="muted" style={{ cursor: "pointer" }}>
+                      Filtered out: {filteredOut.length} track{filteredOut.length === 1 ? "" : "s"}
+                    </summary>
+                    <ul>
+                      {filteredOut.slice(0, 50).map((s, i) => (
+                        <li key={songId(s) ?? i}>{songLabel(s)}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+                {short && (
+                  <p className="chip warn">
+                    Only {songs.length} tracks matched the {CONTENT_FILTER_LABELS[contentFilter]} filter.
+                  </p>
+                )}
                 {songs.length === 0 && (
                   <>
                     <p className="chip warn">

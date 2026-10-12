@@ -1,0 +1,16 @@
+# Worship overrides for the Christian artists list.
+#
+# Most artists are either worship or not, in full - this file is for the
+# exceptions: one album or track by an otherwise non-worship Christian
+# artist that counts as worship anyway (or vice versa).
+#
+# Artist | Album                whole album counts as worship
+# Artist | Album | Title        just one track
+# !Artist | Album               NOT worship, even if the artist is worship=yes
+#
+# Case, "The ", "&" vs "and" and punctuation don't matter - same rules as
+# the artist list. Track beats album beats the artist's own worship flag.
+# Lines starting with # are ignored.
+#
+# Example (commented out):
+# for KING & COUNTRY | Burn the Ships | Priceless
