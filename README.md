@@ -17,7 +17,7 @@ A self-hosted web app for a Navidrome + AudioMuse-AI homelab music setup. It rep
 
 Every write operation previews by default; applying is a separate, explicit action.
 
-> **This app holds your Navidrome admin password and can permanently delete files from your music library.** Basic Auth is **on by default** — see [Configuration](#configuration) below. Don't disable it unless something else in front of this app (a reverse proxy with its own auth) is doing that job instead.
+> **This app holds your Navidrome admin password and can permanently delete files from your music library.** A login is **required by default** — see [Configuration](#configuration) below. Don't disable it unless something else in front of this app (a reverse proxy with its own auth) is doing that job instead.
 
 ---
 
@@ -112,7 +112,7 @@ Everything is environment variables, set at the container level — never in fil
 
 | Variable | Default | What it does |
 |---|---|---|
-| `AUTH_USER` / `AUTH_PASS` | — | Basic Auth for the whole app. **Required unless `AUTH_DISABLED=1`** — the app refuses to start otherwise. |
+| `AUTH_USER` / `AUTH_PASS` | — | The login for the whole app (its own login page, not your Navidrome one). **Required unless `AUTH_DISABLED=1`** — the app refuses to start otherwise. |
 | `AUTH_DISABLED` | unset | Set to `1` only if something else (a reverse proxy with its own auth) is already gating access. |
 | `ALLOWED_HOSTS` | — | Extra hostnames the UI answers to, comma-separated, e.g. `toolkit.example.com`. IPs, single-word names and `.local`/`.lan`/`.home.arpa`/`.internal` names always work without this. `*` turns the check off. Protects against DNS-rebinding attacks from other websites. |
 | `ND_URL` | — | Navidrome base URL, e.g. `http://<your-navidrome-host>:4533` |
@@ -146,16 +146,19 @@ Everything is environment variables, set at the container level — never in fil
 | `cover-backgrounds/` | Your own uploaded backgrounds for template-mode cover art, alongside the 150 built-in ones. |
 | `covers/<playlist-id>/` | Generation history for that playlist's cover art — every template or AI generation, so you can reuse or re-apply one without regenerating (or spending another Replicate call). |
 | `job-schedules.json` / `run-history.json` | The scheduler's state. |
+| `session-secret.txt` | Generated on first login, signs the login session cookie. Deleting it logs everyone out (not destructive — just log back in with `AUTH_USER`/`AUTH_PASS`). |
+| `playlist-studio/<session-id>/` | Playlist Studio's per-session generation history (Instant/Alchemy/refine attempts and their track lists). |
 
 ---
 
 ## First-run setup
 
-1. **Get your AudioMuse API token.** Log into AudioMuse's web UI once, then its Setup Wizard gives you a token for machine-to-machine calls. Put it in `AUDIOMUSE_API_TOKEN`.
-2. **Confirm the Navidrome user.** `ND_USER` needs to be the exact user AudioMuse logs in as — only that user (or an admin) can edit the `_automatic` cluster playlists AudioMuse creates.
-3. **Check the seeded defaults.** On first boot, `worship-artists.txt` and `playlist-folders.txt` are copied from sensible starting points into `/config`. Edit them from the Cluster cleanup and Playlist folders pages (or by hand on the host — they're plain text).
-4. **Preview before you apply, everywhere.** Every module defaults to a dry run. Look at a preview's result before hitting Apply, especially the first time.
-5. **Leave schedules off until you trust the preview.** Cluster cleanup and Tidarr filing come enabled by default (matching the old cron jobs), at 03:00 and 06:15. Turn them off from the Scheduler page first if you want to watch a few manual runs before trusting the automation.
+1. **Log in.** Opening the app shows its own login page — enter the `AUTH_USER`/`AUTH_PASS` you set. The session lasts about three weeks and renews itself while you're using the app, so this isn't a daily thing; **Log out** is at the bottom of the sidebar. `curl -u user:pass` still works against the API directly, for scripting.
+2. **Get your AudioMuse API token.** Log into AudioMuse's web UI once, then its Setup Wizard gives you a token for machine-to-machine calls. Put it in `AUDIOMUSE_API_TOKEN`.
+3. **Confirm the Navidrome user.** `ND_USER` needs to be the exact user AudioMuse logs in as — only that user (or an admin) can edit the `_automatic` cluster playlists AudioMuse creates.
+4. **Check the seeded defaults.** On first boot, `worship-artists.txt` and `playlist-folders.txt` are copied from sensible starting points into `/config`. Edit them from the Cluster cleanup and Playlist folders pages (or by hand on the host — they're plain text).
+5. **Preview before you apply, everywhere.** Every module defaults to a dry run. Look at a preview's result before hitting Apply, especially the first time.
+6. **Leave schedules off until you trust the preview.** Cluster cleanup and Tidarr filing come enabled by default (matching the old cron jobs), at 03:00 and 06:15. Turn them off from the Scheduler page first if you want to watch a few manual runs before trusting the automation.
 
 ---
 
@@ -325,6 +328,10 @@ Enable/disable each job, set its daily time, trigger a run immediately, and dril
 **Cover art generation fails with a 502 mentioning Replicate.** Usually an expired or invalid token — Replicate's free "getting started" tokens are short-lived demo tokens, not permanent ones; generate a real token at [replicate.com/account/api-tokens](https://replicate.com/account/api-tokens) if you hit this.
 
 **Applying a cover art fails with "Navidrome refused the cover upload (403)".** That playlist has no backing file, so this app used Navidrome's upload API instead of writing a sidecar image — and Navidrome itself rejected it. `ND_USER` needs to be a Navidrome admin, or `EnableArtworkUpload` needs to be set in Navidrome's own config. This app can't grant either of those; it's a Navidrome-side setting.
+
+**Logged out unexpectedly.** Either the session genuinely expired (about three weeks of inactivity), or `/config/session-secret.txt` got reset (a fresh config volume, or the file was deleted) — either way, just log back in.
+
+**Can't log in at all.** Same check as before: `AUTH_USER`/`AUTH_PASS` are set correctly and match what you're typing. The login page itself doesn't trigger a browser popup — if you're seeing one, you're on an old build; rebuild and redeploy.
 
 **Check it's alive:** `curl http://localhost:8095/healthz` should return `{"ok":true}`. The image also has a Docker healthcheck, so `docker ps` shows `(healthy)`.
 

@@ -1,7 +1,8 @@
 """App factory: mounts every module's router under its own /api/<module>
 prefix, wires the app-wide host-allowlist middleware (app/core/host_guard.py)
-and basic-auth gate (app/core/auth.py, applied per-router), registers the
-jobs the scheduler can run unattended, and serves the built React frontend.
+and the session/basic-auth gate (app/core/auth.py, applied per-router),
+registers the jobs the scheduler can run unattended, and serves the built
+React frontend.
 """
 import os
 
@@ -10,6 +11,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.core import scheduler
+from app.core.auth import router as auth_router
 from app.core.config import require_auth_configured
 from app.core.host_guard import request_guard
 from app.modules.cluster_cleanup import service as cluster_cleanup_service
@@ -37,6 +39,9 @@ if require_auth_configured():
 
 app = FastAPI(title="homelab-music-toolkit")
 app.middleware("http")(request_guard)
+
+# Unauthenticated on purpose - login has to be reachable before a session exists.
+app.include_router(auth_router)
 
 for _router in (duplicate_finder_router, cluster_cleanup_router, tidarr_tagging_router,
                 playlist_folders_router, m3u_fix_router, prompts_library_router,

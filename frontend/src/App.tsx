@@ -1,7 +1,10 @@
+import { useEffect, useState } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
+import { api, setUnauthorizedHandler } from "./api/client";
 import ClusterCleanupPage from "./pages/ClusterCleanup";
 import CoverArtPage from "./pages/CoverArt";
 import DuplicateFinderPage from "./pages/DuplicateFinder";
+import LoginPage from "./pages/Login";
 import M3uFixPage from "./pages/M3uFix";
 import PlaylistFoldersPage from "./pages/PlaylistFolders";
 import PlaylistStudioPage from "./pages/PlaylistStudio";
@@ -23,7 +26,27 @@ const LINKS = [
   { to: "/scheduler", label: "Scheduler" },
 ];
 
+type AuthState = "loading" | "in" | "out";
+
 export default function App() {
+  const [auth, setAuth] = useState<AuthState>("loading");
+
+  useEffect(() => {
+    setUnauthorizedHandler(() => setAuth("out"));
+    api
+      .get<{ authenticated: boolean }>("/api/auth/whoami")
+      .then((r) => setAuth(r.authenticated ? "in" : "out"))
+      .catch(() => setAuth("out"));
+    return () => setUnauthorizedHandler(null);
+  }, []);
+
+  const logout = () => {
+    api.post("/api/auth/logout").finally(() => setAuth("out"));
+  };
+
+  if (auth === "loading") return null;
+  if (auth === "out") return <LoginPage onSuccess={() => setAuth("in")} />;
+
   return (
     <div className="app-shell">
       <nav className="sidebar">
@@ -33,6 +56,10 @@ export default function App() {
             {l.label}
           </NavLink>
         ))}
+        <div style={{ flex: 1 }} />
+        <button onClick={logout} style={{ margin: "8px 10px" }}>
+          Log out
+        </button>
       </nav>
       <main className="content">
         <Routes>

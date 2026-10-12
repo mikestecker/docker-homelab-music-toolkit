@@ -1,8 +1,8 @@
 // Thin fetch wrapper. Relative paths only, so sub-path reverse proxies work.
-// No Authorization header is set here on purpose: Basic Auth is handled by
-// the browser's own login prompt, triggered the first time any request gets
-// a 401 with WWW-Authenticate: Basic. Once entered, the browser attaches the
-// credentials to every same-origin request automatically.
+// Auth is a session cookie (set by POST /api/auth/login) sent automatically
+// by fetch's default same-origin credentials - no Authorization header is
+// set here. Basic Auth still works as a fallback for curl/scripts, but the
+// browser UI goes through the login page in App.tsx, not a native prompt.
 
 export class ApiError extends Error {
   status: number;
@@ -14,6 +14,14 @@ export class ApiError extends Error {
   }
 }
 
+// Registered once by App.tsx so a session expiring mid-use (any page, any
+// call) bounces back to the login screen instead of just leaving a raw error
+// banner on whatever page happened to be open.
+let onUnauthorized: (() => void) | null = null;
+export function setUnauthorizedHandler(fn: (() => void) | null) {
+  onUnauthorized = fn;
+}
+
 async function request<T>(method: string, path: string, body?: unknown): Promise<T> {
   const res = await fetch(path, {
     method,
@@ -23,6 +31,7 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
   const text = await res.text();
   const data = text ? JSON.parse(text) : null;
   if (!res.ok) {
+    if (res.status === 401 && onUnauthorized) onUnauthorized();
     const message =
       (data && typeof data === "object" && "detail" in data && String((data as { detail: unknown }).detail)) ||
       `${method} ${path} failed (${res.status})`;
