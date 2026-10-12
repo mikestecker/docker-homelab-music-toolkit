@@ -141,6 +141,11 @@ def migration_log():
     return svc.migration_log()
 
 
+@router.get("/scan")
+def get_last_scan():
+    return svc.last_scan()
+
+
 @router.post("/scan")
 def scan_library():
     return svc.scan_library()

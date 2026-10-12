@@ -631,16 +631,18 @@ def run(dry_run=True):
 # cache with an easy-tag-shaped column instead of re-reading every file.
 
 def scan_library():
-    """-> {needs_decision, suggestions, not_in_library} - see the Christian
-    artists page spec: disabled/ambiguous entries that do show up in the
-    library, library artists that look Christian by genre tag but aren't on
-    the list, and enabled entries with no matching tracks."""
+    """-> {needs_decision, suggestions, not_in_library, library_counts} - see
+    the Christian artists page spec: disabled/ambiguous entries that do show
+    up in the library, library artists that look Christian by genre tag but
+    aren't on the list, enabled entries with no matching tracks, and a
+    per-artist track count for the table's "tracks in library" column."""
     ensure_seeded()
     _, rows, matcher = _load()
     all_known = {norm(r.get("artist", "")) for r in rows}
     found_known = set()
     needs_decision = {}
     suggestions = {}
+    library_counts = {}
 
     music_root = Path(os.path.realpath(cfg.MUSIC_DIR))
     try:
@@ -660,7 +662,10 @@ def scan_library():
         keys = set()
         for n in info["names"]:
             keys |= credit_keys(n)
-        found_known |= (keys & all_known)
+        hit_keys = keys & all_known
+        found_known |= hit_keys
+        for key in hit_keys:
+            library_counts[key] = library_counts.get(key, 0) + 1
         for key in keys:
             a = matcher.disabled_by_name.get(key)
             if a is not None:
@@ -679,8 +684,10 @@ def scan_library():
         (r.get("artist") for r in rows
          if _yes(r.get("enabled", "yes")) and norm(r.get("artist", "")) not in found_known),
         key=str.casefold)
+    counts_by_display_name = {r.get("artist"): library_counts[norm(r.get("artist", ""))]
+                               for r in rows if norm(r.get("artist", "")) in library_counts}
 
-    return {
+    result = {
         "needs_decision": [
             {"name": v["name"], "albums": sorted(a for a in v["albums"] if a)[:5],
              "mbid_suggestion": next(iter(v["mbids"])) if len(v["mbids"]) == 1 else None,
@@ -691,5 +698,17 @@ def scan_library():
             {"name": v["name"], "genres": sorted(v["genres"]), "count": v["count"]}
             for v in sorted(suggestions.values(), key=lambda v: v["name"].casefold())
         ],
+        "library_counts": counts_by_display_name,
         "not_in_library": not_in_library,
     }
+    store.save_json(_scan_file(), result)
+    return result
+
+
+def _scan_file():
+    return os.path.join(cfg.CONFIG_DIR, "christian-artists-last-scan.json")
+
+
+def last_scan():
+    """The last scan_library() result, or None if it's never been run."""
+    return store.load_json(_scan_file(), None)

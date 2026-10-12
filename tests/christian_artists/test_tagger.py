@@ -142,3 +142,23 @@ def test_worship_override_applies_during_tagging(lib):
     svc.run(dry_run=False)
     assert _cat(track) == ["christian", "worship"]
     assert _cat(other) == ["christian"]
+
+
+def test_scan_reports_decision_suggestion_and_counts(lib):
+    svc.save_artists_text(
+        CSV_HEADER
+        + "Hillsong UNITED,worship,yes,core,no,yes,,\n"
+        + "Chris Brown,rnb,no,core,yes,no,,ambiguous\n"
+        + "Not In Library Band,worship,yes,core,no,yes,,\n"
+    )
+    mk(lib, "a.flac", FL, "Hillsong UNITED", album="Al", title="T")
+    mk(lib, "b.flac", FL, "Hillsong UNITED", album="Al", title="T2")
+    mk(lib, "c.flac", FL, "Chris Brown", album="Al", title="T3")
+    before = svc.last_scan()
+    assert before is None
+    result = svc.scan_library()
+    assert result["library_counts"]["Hillsong UNITED"] == 2
+    assert "Not In Library Band" in result["not_in_library"]
+    assert result["needs_decision"][0]["name"] == "Chris Brown"
+    assert result["needs_decision"][0]["count"] == 1
+    assert svc.last_scan() == result
