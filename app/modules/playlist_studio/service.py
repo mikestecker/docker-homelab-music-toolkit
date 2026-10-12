@@ -34,6 +34,7 @@ import uuid
 from app.core import config as cfg
 from app.core import store
 from app.core.audiomuse_client import alchemy, chat_playlist, create_playlist, search_tracks
+from app.modules.christian_artists import service as christian_artists
 
 
 def _studio_dir(session_id):
@@ -42,6 +43,31 @@ def _studio_dir(session_id):
 
 def _manifest_path(session_id):
     return os.path.join(_studio_dir(session_id), "manifest.json")
+
+
+def _settings_path(session_id):
+    return os.path.join(_studio_dir(session_id), "settings.json")
+
+
+def session_settings(session_id):
+    """Last-used settings for this session - currently just content_filter."""
+    return dict({"content_filter": "any"}, **store.load_json(_settings_path(session_id), {}))
+
+
+def _save_session_settings(session_id, **kw):
+    settings = session_settings(session_id)
+    settings.update({k: v for k, v in kw.items() if v is not None})
+    os.makedirs(_studio_dir(session_id), exist_ok=True)
+    store.save_json(_settings_path(session_id), settings)
+    return settings
+
+
+def suggest_content_filter(text):
+    return christian_artists.suggest_content_filter(text)
+
+
+def suggest_content_filter_from_anchors(anchor_artists):
+    return christian_artists.suggest_from_anchors(anchor_artists)
 
 
 def search_anchors(query):
@@ -91,28 +117,49 @@ def _latest_entry(session_id):
     return h[0]
 
 
-def generate_instant(prompt, session_id=None):
+def generate_instant(prompt, session_id=None, content_filter="any"):
     session_id = session_id or uuid.uuid4().hex
     raw = chat_playlist(prompt)
     tracks = raw["songs"]
-    entry = _save_history(session_id, "instant", tracks, {"prompt": prompt})
+
+    def fetch_more(n):
+        # chatPlaylist has no size parameter - AudioMuse's own docs say a
+        # count mentioned in the prompt text overrides its "Number of
+        # songs" setting, so top-up here is a best-effort text nudge, not a
+        # guaranteed bump (see apply_content_filter's "short" flag).
+        return chat_playlist(f"{prompt} (give me at least {n} songs)")["songs"]
+
+    result = christian_artists.apply_content_filter(tracks, content_filter, fetch_more=fetch_more)
+    entry = _save_history(session_id, "instant", result["kept"],
+                           {"prompt": prompt, "content_filter": content_filter,
+                            "filtered_out": result["filtered_out"], "short": result["short"]})
+    _save_session_settings(session_id, content_filter=content_filter)
     return session_id, entry
 
 
-def generate_alchemy(anchors, excludes, size, variety="balanced", session_id=None):
+def generate_alchemy(anchors, excludes, size, variety="balanced", session_id=None, content_filter="any"):
     session_id = session_id or uuid.uuid4().hex
     if not anchors:
         raise ValueError("Alchemy needs at least one anchor track.")
     items = [{"id": a["id"], "op": "ADD", "type": "song"} for a in anchors]
     items += [{"id": e["id"], "op": "SUBTRACT", "type": "song"} for e in excludes]
-    raw = alchemy(items, n=size, temperature=VARIETY_TEMPERATURE.get(variety, 1.0))
-    tracks = raw["songs"]
-    entry = _save_history(session_id, "alchemy", tracks,
-                           {"anchors": anchors, "excludes": excludes, "variety": variety})
+
+    def run_alchemy(n):
+        return alchemy(items, n=n, temperature=VARIETY_TEMPERATURE.get(variety, 1.0))["songs"]
+
+    tracks = run_alchemy(size)
+    result = christian_artists.apply_content_filter(tracks, content_filter, goal=size,
+                                                      fetch_more=run_alchemy)
+    kept = result["kept"][:size]
+    entry = _save_history(session_id, "alchemy", kept,
+                           {"anchors": anchors, "excludes": excludes, "variety": variety,
+                            "content_filter": content_filter, "filtered_out": result["filtered_out"],
+                            "short": len(kept) < size})
+    _save_session_settings(session_id, content_filter=content_filter)
     return session_id, entry
 
 
-def refine(session_id, instruction):
+def refine(session_id, instruction, content_filter=None):
     """Builds a fresh "like these songs, but: <instruction>" prompt from
     whatever the session's current track list is, so it works the same way
     regardless of whether that list came from Instant or Alchemy (those two
@@ -125,12 +172,24 @@ def refine(session_id, instruction):
     tracks = prev.get("tracks") or []
     if not tracks:
         raise ValueError("This session's last entry has no tracks to refine from.")
+    if content_filter is None:
+        content_filter = session_settings(session_id).get("content_filter", "any")
     seed = _tracks_prompt(tracks)
     combined = f"Songs like {seed}. Also: {instruction}" if seed else instruction
     raw = chat_playlist(combined)
     new_tracks = raw["songs"]
-    entry = _save_history(session_id, "refine", new_tracks, {"prompt": combined, "instruction": instruction})
-    return entry, diff_tracks(tracks, new_tracks)
+
+    def fetch_more(n):
+        return chat_playlist(f"{combined} (give me at least {n} songs)")["songs"]
+
+    result = christian_artists.apply_content_filter(new_tracks, content_filter, fetch_more=fetch_more)
+    entry = _save_history(session_id, "refine", result["kept"],
+                           {"prompt": combined, "instruction": instruction,
+                            "content_filter": content_filter, "short": result["short"]})
+    diff = diff_tracks(tracks, result["kept"])
+    diff["filtered_out"] = result["filtered_out"]
+    _save_session_settings(session_id, content_filter=content_filter)
+    return entry, diff
 
 
 def _lis_indices(seq):
