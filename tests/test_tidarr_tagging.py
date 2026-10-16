@@ -5,6 +5,7 @@ path is under /m3u/playlist/ (Tidarr imports) and two that aren't.
 import pytest
 
 from app.core import config as cfg
+from app.core import navidrome_client as nd
 from app.modules.tidarr_tagging import service
 
 
@@ -37,6 +38,19 @@ def test_undo_removes_the_prefix(tt):
     undone = tt.run(dry_run=False, undo=True)
     assert undone["changed_count"] == 2
     assert {i["new_name"] for i in undone["items"]} == {"My Mix 5", "\U0001f31aHoly Night Drive\U0001f31a"}
+
+
+def test_apply_skips_a_playlist_moved_out_of_the_prefix(tt):
+    # Once tagged, a playlist dragged into a different folder by the
+    # playlist-folders tree (a rename that only ever touches `name`, same as
+    # this call) must stay considered "filed" - otherwise the next run here
+    # would see a name that no longer starts with prefix and re-prepend it.
+    tt.run(dry_run=False)
+    pid = next(p["id"] for p in nd.native_playlists() if p["name"] == "Imports/Tidarr/My Mix 5")
+    nd.update_playlist(pid, name="My Custom Folder/My Mix 5", client="playlist-folders")
+
+    again = tt.run(dry_run=False)
+    assert again["changed_count"] == 0  # both already tagged, moved one left its comment alone
 
 
 def test_settings_roundtrip(tt):

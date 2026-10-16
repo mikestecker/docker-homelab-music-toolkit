@@ -57,7 +57,12 @@ class H(BaseHTTPRequestHandler):
         if u.path == "/api/playlist":
             assert self.headers["X-ND-Authorization"] == "Bearer tok"; return self.send(PL)
         if u.path.endswith("updatePlaylist"):
+            # Matches real Navidrome's partial-update semantics (core/playlists/
+            # playlists.go's Update only touches a field when its pointer arg
+            # isn't nil): an omitted param leaves the existing value alone,
+            # it doesn't reset it.
             p = next(x for x in PL if x["id"] == q["playlistId"][0])
-            p["name"] = q["name"][0]; p["comment"] = q.get("comment", [""])[0]
+            if "name" in q: p["name"] = q["name"][0]
+            if "comment" in q: p["comment"] = q["comment"][0]
         self.send({"subsonic-response": {"status": "ok"}})
 HTTPServer(("127.0.0.1", int(sys.argv[1])), H).serve_forever()
