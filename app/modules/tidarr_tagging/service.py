@@ -55,7 +55,13 @@ def run(dry_run=True, undo=False):
                 continue
             new_name, new_comment = name[len(prefix):], ""
         else:
-            if name.startswith(prefix) and (p.get("comment") or "") == tag:
+            # Comment alone, not the name prefix too: once tagged, a playlist
+            # stays considered "filed" even after it's dragged into a
+            # different folder by the playlist-folders tree (which renames
+            # it but never touches comment) - otherwise the next run here
+            # would see a name that no longer starts with prefix and
+            # re-prepend it onto wherever the user just moved it to.
+            if (p.get("comment") or "") == tag:
                 continue
             new_name = name if name.startswith(prefix) else prefix + name
             new_comment = tag

@@ -334,7 +334,9 @@ kbd {
 .tree {
   border: 1px solid var(--border);
   border-radius: 8px;
-  overflow: hidden;
+  /* No overflow:hidden here - rows have no background fill of their own, so
+     clipping buys nothing visually but cuts off the "..." menu on any row
+     near the bottom of the list. */
 }
 
 .tree-row {
