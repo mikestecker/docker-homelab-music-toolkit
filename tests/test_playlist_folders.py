@@ -59,3 +59,71 @@ def test_assign_upserts_the_map_without_duplicating(pf):
     text = pf.get_map_text()
     assert text.count("My Favorites =>") == 1
     assert "Other/My Favorites" in text and "Smart/My Favorites" not in text
+
+
+# --- Folder tree: persisted, nestable, drag-and-drop model ------------------
+
+def test_create_rename_move_delete_folder(pf):
+    root = pf.create_folder("Occasions")
+    child = pf.create_folder("Summer", parent_id=root["id"])
+    assert child["parent_id"] == root["id"]
+
+    pf.move_playlist("3", child["id"])  # "My Favorites"
+    moved = next(p for p in pf.get_tree()["playlists"] if p["id"] == "3")
+    assert moved["name"] == "Occasions/Summer/My Favorites"
+    assert moved["folder_id"] == child["id"]
+
+    pf.rename_folder(root["id"], "Events")
+    moved = next(p for p in pf.get_tree()["playlists"] if p["id"] == "3")
+    assert moved["name"] == "Events/Summer/My Favorites"
+
+    pf.move_folder(child["id"], None)  # unnest Summer to root
+    moved = next(p for p in pf.get_tree()["playlists"] if p["id"] == "3")
+    assert moved["name"] == "Summer/My Favorites"
+
+    pf.delete_folder(root["id"])
+    assert all(f["id"] != root["id"] for f in pf.get_tree()["folders"])
+
+
+def test_move_folder_rejects_cycle(pf):
+    parent = pf.create_folder("Parent")
+    child = pf.create_folder("Child", parent_id=parent["id"])
+    with pytest.raises(ValueError):
+        pf.move_folder(parent["id"], child["id"])
+
+
+def test_delete_folder_reparents_children(pf):
+    parent = pf.create_folder("Parent")
+    child_folder = pf.create_folder("Child", parent_id=parent["id"])
+    pf.move_playlist("5", parent["id"])  # "Forgotten Favorites"
+
+    pf.delete_folder(parent["id"])
+
+    tree = pf.get_tree()
+    cf = next(f for f in tree["folders"] if f["id"] == child_folder["id"])
+    assert cf["parent_id"] is None
+    moved = next(p for p in tree["playlists"] if p["id"] == "5")
+    assert moved["name"] == "Forgotten Favorites"
+    assert moved["folder_id"] is None
+
+
+def test_move_playlist_rejects_collision(pf):
+    # id 6 is "Smart/Favorites"; id 7 is "Favorites" - moving 6 to root collides.
+    result = pf.move_playlist("6", None)
+    assert result["ok"] is False
+    assert "already exists" in result["error"]
+
+
+def test_tree_is_seeded_from_existing_playlist_names(pf):
+    tree = pf.get_tree()
+    smart = next(f for f in tree["folders"] if f["name"] == "Smart")
+    fav = next(p for p in tree["playlists"] if p["id"] == "6")
+    assert fav["folder_id"] == smart["id"]
+    assert any(p["id"] == "7" and p["folder_id"] is None for p in tree["playlists"])
+
+
+def test_resync_rebuilds_tree_from_current_names(pf):
+    pf.create_folder("Scratch")
+    result = pf.resync_tree()
+    assert all(f["name"] != "Scratch" for f in result["folders"])
+    assert any(f["name"] == "Smart" for f in result["folders"])
