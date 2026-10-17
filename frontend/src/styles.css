@@ -356,6 +356,10 @@ kbd {
   cursor: grabbing;
 }
 
+.tree-row:hover {
+  background: var(--bg);
+}
+
 .tree-row.drag-over {
   background: color-mix(in srgb, var(--accent) 15%, transparent);
   outline: 2px dashed var(--accent);
@@ -365,6 +369,23 @@ kbd {
 .tree-row.tree-root {
   cursor: default;
   background: var(--bg);
+}
+
+.tree-row.tree-root:hover {
+  background: color-mix(in srgb, var(--bg) 60%, var(--border));
+}
+
+.tree-checkbox {
+  margin: 0 2px 0 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.bulk-bar {
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 8px 12px;
 }
 
 .tree-chevron {
