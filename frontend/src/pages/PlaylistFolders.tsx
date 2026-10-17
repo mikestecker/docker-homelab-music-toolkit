@@ -52,7 +52,8 @@ type Modal =
   | { kind: "create-folder"; parentId: string | null }
   | { kind: "rename-folder"; folder: FolderNode }
   | { kind: "move-folder"; folder: FolderNode }
-  | { kind: "move-playlist"; playlist: PlaylistLeaf };
+  | { kind: "move-playlist"; playlist: PlaylistLeaf }
+  | { kind: "bulk-move" };
 
 const API = "/api/playlist-folders";
 
@@ -71,6 +72,7 @@ export default function PlaylistFoldersPage() {
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState<string | null>(null);
   const [modal, setModal] = useState<Modal>({ kind: "none" });
+  const [selected, setSelected] = useState<Set<string>>(new Set());
 
   const loadTree = () => run(() => api.get<TreeResponse>(`${API}/tree`)).then((r) => r && setTree(r));
 
@@ -131,6 +133,34 @@ export default function PlaylistFoldersPage() {
     return out;
   };
 
+  const descendantPlaylistIds = (folderId: string | null): string[] => {
+    const ids = (childPlaylists.get(folderId) ?? []).map((p) => p.id);
+    for (const f of childFolders.get(folderId) ?? []) ids.push(...descendantPlaylistIds(f.id));
+    return ids;
+  };
+
+  const toggleSelected = (id: string) => {
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  };
+
+  const toggleFolderSelected = (folderId: string | null) => {
+    const ids = descendantPlaylistIds(folderId);
+    setSelected((prev) => {
+      const next = new Set(prev);
+      const allSelected = ids.length > 0 && ids.every((id) => next.has(id));
+      for (const id of ids) {
+        if (allSelected) next.delete(id);
+        else next.add(id);
+      }
+      return next;
+    });
+  };
+
   // --- Mutations --------------------------------------------------------
 
   const createFolder = async (name: string, parentId: string | null) => {
@@ -184,6 +214,30 @@ export default function PlaylistFoldersPage() {
       message: `Moved "${playlist.leaf_name}" to ${folderId ? foldersById.get(folderId)?.name ?? "folder" : "Root"}.`,
       action: { label: "Undo", onClick: () => void movePlaylistTo(playlist, prevFolderId) },
     });
+    setModal({ kind: "none" });
+    loadTree();
+  };
+
+  const bulkMoveTo = async (folderId: string | null) => {
+    const ids = Array.from(selected);
+    const results = await Promise.all(
+      ids.map(async (id) => {
+        try {
+          return await api.post<MoveResult>(`${API}/move-playlist`, { playlist_id: id, folder_id: folderId });
+        } catch (e) {
+          return { ok: false, new_name: null, error: e instanceof Error ? e.message : String(e) } as MoveResult;
+        }
+      })
+    );
+    const failed = results.filter((r) => !r.ok);
+    toast.show({
+      tone: failed.length ? "warn" : "good",
+      message: `Moved ${ids.length - failed.length} of ${ids.length} playlist${ids.length === 1 ? "" : "s"} to ${
+        folderId ? foldersById.get(folderId)?.name ?? "folder" : "Root"
+      }.`,
+      detail: failed.map((f) => f.error ?? "unknown error"),
+    });
+    setSelected(new Set());
     setModal({ kind: "none" });
     loadTree();
   };
@@ -260,6 +314,7 @@ export default function PlaylistFoldersPage() {
             <button className="tree-chevron" onClick={() => toggle(f.id)} aria-label={collapsed.has(f.id) ? "Expand" : "Collapse"}>
               {collapsed.has(f.id) ? "▸" : "▾"}
             </button>
+            <FolderSelectCheckbox ids={descendantPlaylistIds(f.id)} selected={selected} onToggle={() => toggleFolderSelected(f.id)} />
             <span className="tree-icon">📁</span>
             <span className="tree-name">{f.name}</span>
             <RowMenu
@@ -284,6 +339,13 @@ export default function PlaylistFoldersPage() {
           draggable
           onDragStart={(e) => startDrag(e, { type: "playlist", id: p.id })}
         >
+          <input
+            type="checkbox"
+            className="tree-checkbox"
+            checked={selected.has(p.id)}
+            onChange={() => toggleSelected(p.id)}
+            onClick={(e) => e.stopPropagation()}
+          />
           <span className="tree-icon">🎵</span>
           <span className="tree-name">{p.leaf_name}</span>
           <RowMenu
@@ -315,6 +377,16 @@ export default function PlaylistFoldersPage() {
           <button onClick={resync}>Resync from Navidrome</button>
         </div>
 
+        {selected.size > 0 && (
+          <div className="row bulk-bar">
+            <span>{selected.size} selected</span>
+            <button className="primary" onClick={() => setModal({ kind: "bulk-move" })}>
+              Move to folder…
+            </button>
+            <button onClick={() => setSelected(new Set())}>Clear selection</button>
+          </div>
+        )}
+
         {!tree && <p className="muted">Loading…</p>}
 
         {tree && (
@@ -325,6 +397,7 @@ export default function PlaylistFoldersPage() {
               onDragLeave={() => setDragOver((cur) => (cur === "__root__" ? null : cur))}
               onDrop={(e) => dropOnFolder(e, null)}
             >
+              <FolderSelectCheckbox ids={descendantPlaylistIds(null)} selected={selected} onToggle={() => toggleFolderSelected(null)} />
               <span className="tree-icon">🏠</span>
               <span className="tree-name muted">Root (drop here to un-file)</span>
             </div>
@@ -344,7 +417,7 @@ export default function PlaylistFoldersPage() {
         />
       )}
 
-      {(modal.kind === "move-folder" || modal.kind === "move-playlist") && (
+      {(modal.kind === "move-folder" || modal.kind === "move-playlist" || modal.kind === "bulk-move") && (
         <FolderPicker
           flatFolders={
             modal.kind === "move-folder"
@@ -355,7 +428,11 @@ export default function PlaylistFoldersPage() {
           }
           onCancel={() => setModal({ kind: "none" })}
           onPick={(folderId) =>
-            modal.kind === "move-folder" ? moveFolderTo(modal.folder, folderId) : movePlaylistTo(modal.playlist, folderId)
+            modal.kind === "move-folder"
+              ? moveFolderTo(modal.folder, folderId)
+              : modal.kind === "move-playlist"
+                ? movePlaylistTo(modal.playlist, folderId)
+                : bulkMoveTo(folderId)
           }
         />
       )}
@@ -364,6 +441,37 @@ export default function PlaylistFoldersPage() {
         <ToastView toast={toast.toast} onDismiss={toast.dismiss} />
       </div>
     </div>
+  );
+}
+
+function FolderSelectCheckbox({
+  ids,
+  selected,
+  onToggle,
+}: {
+  ids: string[];
+  selected: Set<string>;
+  onToggle: () => void;
+}) {
+  const ref = useRef<HTMLInputElement>(null);
+  const selectedCount = ids.filter((id) => selected.has(id)).length;
+  const allSelected = ids.length > 0 && selectedCount === ids.length;
+  const someSelected = selectedCount > 0 && !allSelected;
+
+  useEffect(() => {
+    if (ref.current) ref.current.indeterminate = someSelected;
+  }, [someSelected]);
+
+  return (
+    <input
+      ref={ref}
+      type="checkbox"
+      className="tree-checkbox"
+      checked={allSelected}
+      disabled={ids.length === 0}
+      onChange={onToggle}
+      onClick={(e) => e.stopPropagation()}
+    />
   );
 }
 
