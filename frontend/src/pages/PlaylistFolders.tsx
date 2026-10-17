@@ -72,7 +72,13 @@ export default function PlaylistFoldersPage() {
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const [dragOver, setDragOver] = useState<string | null>(null);
   const [modal, setModal] = useState<Modal>({ kind: "none" });
+  const [selectionMode, setSelectionMode] = useState(false);
   const [selected, setSelected] = useState<Set<string>>(new Set());
+
+  const exitSelectionMode = () => {
+    setSelectionMode(false);
+    setSelected(new Set());
+  };
 
   const loadTree = () => run(() => api.get<TreeResponse>(`${API}/tree`)).then((r) => r && setTree(r));
 
@@ -314,7 +320,9 @@ export default function PlaylistFoldersPage() {
             <button className="tree-chevron" onClick={() => toggle(f.id)} aria-label={collapsed.has(f.id) ? "Expand" : "Collapse"}>
               {collapsed.has(f.id) ? "▸" : "▾"}
             </button>
-            <FolderSelectCheckbox ids={descendantPlaylistIds(f.id)} selected={selected} onToggle={() => toggleFolderSelected(f.id)} />
+            {selectionMode && (
+              <FolderSelectCheckbox ids={descendantPlaylistIds(f.id)} selected={selected} onToggle={() => toggleFolderSelected(f.id)} />
+            )}
             <span className="tree-icon">📁</span>
             <span className="tree-name">{f.name}</span>
             <RowMenu
@@ -339,13 +347,15 @@ export default function PlaylistFoldersPage() {
           draggable
           onDragStart={(e) => startDrag(e, { type: "playlist", id: p.id })}
         >
-          <input
-            type="checkbox"
-            className="tree-checkbox"
-            checked={selected.has(p.id)}
-            onChange={() => toggleSelected(p.id)}
-            onClick={(e) => e.stopPropagation()}
-          />
+          {selectionMode && (
+            <input
+              type="checkbox"
+              className="tree-checkbox"
+              checked={selected.has(p.id)}
+              onChange={() => toggleSelected(p.id)}
+              onClick={(e) => e.stopPropagation()}
+            />
+          )}
           <span className="tree-icon">🎵</span>
           <span className="tree-name">{p.leaf_name}</span>
           <RowMenu
@@ -369,23 +379,34 @@ export default function PlaylistFoldersPage() {
       </p>
       <ErrorBanner message={error} />
 
+      {selectionMode && (
+        <div className="panel sticky-toolbar bulk-bar">
+          <div className="row" style={{ marginBottom: 0 }}>
+            <span>{selected.size} selected</span>
+            <button className="primary" disabled={selected.size === 0} onClick={() => setModal({ kind: "bulk-move" })}>
+              Move to folder…
+            </button>
+            <button disabled={selected.size === 0} onClick={() => setSelected(new Set())}>
+              Clear selection
+            </button>
+            <button onClick={exitSelectionMode}>Cancel</button>
+          </div>
+        </div>
+      )}
+
       <div className="panel">
         <div className="row">
           <button className="primary" onClick={() => setModal({ kind: "create-folder", parentId: null })}>
             + Create folder
           </button>
           <button onClick={resync}>Resync from Navidrome</button>
+          <button
+            className={selectionMode ? "primary" : ""}
+            onClick={() => (selectionMode ? exitSelectionMode() : setSelectionMode(true))}
+          >
+            {selectionMode ? "Exit selection" : "Select"}
+          </button>
         </div>
-
-        {selected.size > 0 && (
-          <div className="row bulk-bar">
-            <span>{selected.size} selected</span>
-            <button className="primary" onClick={() => setModal({ kind: "bulk-move" })}>
-              Move to folder…
-            </button>
-            <button onClick={() => setSelected(new Set())}>Clear selection</button>
-          </div>
-        )}
 
         {!tree && <p className="muted">Loading…</p>}
 
@@ -397,7 +418,9 @@ export default function PlaylistFoldersPage() {
               onDragLeave={() => setDragOver((cur) => (cur === "__root__" ? null : cur))}
               onDrop={(e) => dropOnFolder(e, null)}
             >
-              <FolderSelectCheckbox ids={descendantPlaylistIds(null)} selected={selected} onToggle={() => toggleFolderSelected(null)} />
+              {selectionMode && (
+                <FolderSelectCheckbox ids={descendantPlaylistIds(null)} selected={selected} onToggle={() => toggleFolderSelected(null)} />
+              )}
               <span className="tree-icon">🏠</span>
               <span className="tree-name muted">Root (drop here to un-file)</span>
             </div>
