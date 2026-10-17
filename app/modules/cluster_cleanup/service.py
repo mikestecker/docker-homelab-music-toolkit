@@ -128,16 +128,27 @@ def run(dry_run=True):
                  if min_seconds and 0 < int(s.get("duration") or 0) < min_seconds]
         drop = sorted(set(remove_scoped) | set(remove_secular) | set(short), reverse=True)
 
-        if rename_prefix and not name.startswith(rename_prefix):
-            new_name = rename_prefix + name
-            record(f"{'WOULD' if dry_run else 'NAME '} {name}  ->  {new_name}")
-            if not dry_run:
-                try:
-                    nd.update_playlist(pid, name=new_name, client="cluster-cleanup")
-                except NavidromeError as e:
-                    record(f"FAIL  renaming {name}: {e}")
-            entry["renamed_to"] = new_name
-            name = new_name
+        if rename_prefix:
+            # Comment, not the name prefix, is what "already filed" means -
+            # the name alone can't tell a cluster that's never been filed
+            # apart from one a user has since dragged into a different
+            # folder with the playlist-folders tree (a rename that only
+            # ever touches name, never comment). Checking name here would
+            # make this re-prepend rename_prefix onto wherever they moved
+            # it to on the very next run.
+            rename_tag = f"cluster-cleanup filed under: {rename_prefix}"
+            if (p.get("comment") or "") != rename_tag:
+                new_name = name if name.startswith(rename_prefix) else rename_prefix + name
+                if new_name != name:
+                    record(f"{'WOULD' if dry_run else 'NAME '} {name}  ->  {new_name}")
+                if not dry_run:
+                    try:
+                        nd.update_playlist(pid, name=new_name, comment=rename_tag, client="cluster-cleanup")
+                    except NavidromeError as e:
+                        record(f"FAIL  renaming {name}: {e}")
+                if new_name != name:
+                    entry["renamed_to"] = new_name
+                name = new_name
 
         if not drop:
             out_playlists.append(entry)
