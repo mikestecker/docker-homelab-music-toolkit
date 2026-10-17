@@ -6,6 +6,7 @@ and name updatePlaylist calls this module needs.
 import pytest
 
 from app.core import config as cfg
+from app.core import navidrome_client as nd
 from app.modules.christian_artists import service as christian_artists
 from app.modules.cluster_cleanup import service
 
@@ -109,3 +110,18 @@ def test_rename_prefix_is_applied_once(cc):
     # The suffix stays, so AudioMuse still finds these playlists next run.
     for new_name in renamed.values():
         assert new_name.endswith(service.SUFFIX)
+
+
+def test_rename_prefix_does_not_refile_a_manually_moved_playlist(cc):
+    cc.save_settings(rename_prefix="AudioMuse/Clusters/")
+    cc.run(dry_run=False)
+
+    # Simulate a drag-and-drop move via the playlist-folders tree: a
+    # name-only rename, same as that tool's own update_playlist call.
+    pid = next(p["id"] for p in nd.get_playlists(client="cluster-cleanup")
+               if p["name"] == "AudioMuse/Clusters/Skate Session_automatic")
+    nd.update_playlist(pid, name="My Clusters/Skate Session_automatic", client="cluster-cleanup")
+
+    again = cc.run(dry_run=False)
+    renamed = {p["name"]: p["renamed_to"] for p in again["playlists"]}
+    assert renamed["My Clusters/Skate Session_automatic"] is None
